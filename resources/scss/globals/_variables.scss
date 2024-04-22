@@ -1,0 +1,13 @@
+$grey:rgba(210, 210, 210, 0.622);
+$colorOrange: orange;
+$hoverColor: rgb(241, 157, 0);
+
+$fonts: 'Light', 'Medium', 'Regular', 'Semibold', 'Bold';
+
+@each $font in $fonts {
+    @font-face {
+        font-family: 'Inter #{$font}';
+ 
+        src: url('/assets/fonts/Inter/Inter-#{$font}.ttf');
+    } 
+}   

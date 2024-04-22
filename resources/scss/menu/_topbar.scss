@@ -1,0 +1,284 @@
+.topbar-wrapper {
+    width: 100%;
+    height: 80px;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    background-color: rgb(59, 60, 86);
+    color: white;
+    z-index: 999;
+    animation: slideBottom 0.5s forwards;
+
+    .topbar-flex-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        justify-content: space-between;
+
+        .topbar-left {
+            margin: 0 auto;
+
+            .topbar-logo {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+
+                .bigtext-wrapper {
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    display: flex;
+
+                    .bigtext-easy {
+                        color: orange;
+                    }
+
+                    .bigtext-tech {
+                        background-color: white;
+                        padding: 0 5px;
+                        color: black;
+                    }
+                }
+
+                .smalltext-wrapper {
+                    letter-spacing: 4px;
+                    font-size: 0.7rem;
+                }
+            }
+        }
+        
+        .topbar-right {
+            display:none;
+            border: 1px solid white;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            .topbar-right-flex {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                .close-menu {
+                    display: none;
+                }
+            }
+        }
+        
+        .topbar-right:hover {
+            color: black;
+            background-color: white;
+        }
+        .topbar-right.active {
+            color: black;
+            background-color: white;
+        }
+        .tb-mn-ln {
+            display: none;
+            position: absolute;
+            top: 80px;
+            width: 25%;
+            right: 0;
+            background-color: rgb(59, 60, 86);
+            color: white;
+            border-left: 1px solid rgb(36, 36, 36);
+            animation: slideBottom 0.5s forwards;
+
+            
+
+                .tb-mn-ln-item-a {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px;
+                    color: white;
+                    font-size: 1.25rem;
+                
+
+                    &:hover:not(.active) {
+                        background-color: white;
+                        color: black;
+                        cursor: pointer;
+                    }
+
+                    &.active {
+                        font-family: 'Inter Semibold';
+                        border-left: 3px solid orange;
+                        background-color: #fff;
+                        color:black;
+                    }
+                }
+
+                .out-wrapper {
+                    border-top: 1px solid rgb(210, 210, 210);
+                    display: flex;
+       
+                    align-items: center;
+   
+                    color:white;
+                    form{
+                        width:100%;
+                        .out-flex-wrapper {
+                            padding: 10px;
+                            display: flex;
+                            align-items: center;
+                            font-size: 1.1rem;
+                            gap: 15px;
+                            height: 65%;
+                        
+                            flex-grow: 1;
+                
+                            &:hover {
+                                background-color: #ebebf6;
+                                color: black;
+                                cursor: pointer;
+                            }
+                
+                            i {
+                                font-size: 1.3rem;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                    
+            
+                }
+            }
+        }
+    }
+
+
+@keyframes slideBottom {
+    from {
+        transform: translateY(-1%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideTop {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+/* Smartphone */
+
+@media (max-width: 767px) {
+    .topbar-wrapper {
+        .topbar-flex-wrapper {
+            padding: 0 10px;
+
+            .topbar-left {
+                margin: 0;
+                .topbar-logo{
+                    .bigtext-wrapper {
+                        font-size: 1.25rem;
+                    }
+                    .smalltext-wrapper {
+                        font-size: 0.75rem;
+                    }
+                
+                }
+            }
+            .topbar-right {
+                
+                .topbar-right-flex {
+                    .t-menu {
+                        display: none;
+                    }
+                }
+            }
+            .topbar-right:hover {
+                background-color: rgb(36, 36, 36);
+                color:white;
+                
+            }
+            .tb-mn-ln {
+                left: 0;
+                width: 100%;
+            }
+        }
+    }
+}
+/* Tablet */
+
+
+@media (max-width:900px){
+    .topbar-wrapper
+    {
+        .topbar-flex-wrapper
+        {
+            .topbar-right
+            {
+                display:block;
+                transition:all 0.5s ease-in-out;
+            }
+        }
+    }
+}
+@media (min-width:901px){
+    .topbar-wrapper {
+        .topbar-flex-wrapper {
+          
+
+            .topbar-left {
+                
+                .topbar-logo{
+                    .bigtext-wrapper {
+                        
+                    }
+                    .smalltext-wrapper {
+                        
+                    }
+                
+                }
+            }
+            .topbar-right {
+                display:none;
+                .topbar-right-flex {
+                    .t-menu {
+                      
+                    }
+                }
+            }
+            .topbar-right:hover {
+                
+            }
+            
+        }
+    }
+}
+/* Desktop */
+@media (min-width: 1024px) {
+    .topbar-wrapper {
+        animation: none;
+    }
+}
+@media (min-width: 2000px) {
+    .topbar-wrapper
+    {
+        .topbar-flex-wrapper
+        {
+            .topbar-right
+            {
+                display:block;
+                transition:all 0.5s ease-in-out;
+            }
+            .tb-mn-ln {
+                display:block;
+                width: 15%;
+                
+                
+            }
+        }
+    }
+}

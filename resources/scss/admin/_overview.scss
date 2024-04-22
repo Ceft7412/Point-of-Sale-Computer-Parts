@@ -1,0 +1,272 @@
+// =============================== DASHBOARD ===============================
+.parent-wrapper {
+    
+    .c-wrapper {
+        
+
+
+        //  CONTENT HEADING
+        .c-heading-wrapper {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+
+            .dashboard {
+                font-size: 1.5rem;
+                
+            }
+            .h-date-now{
+         
+                font-size: 0.89rem;
+                color:#696969;
+            }
+        }
+
+        .c-flex-wrapper {
+            display: flex;
+            padding: 10px 30px;
+            gap:10px;
+            width: 100%;
+
+
+            //LEFT CONTENT
+
+            .c-left-content {
+                display: flex;
+                flex-direction: column;
+                width: 75%;
+
+
+                .cards-wrapper {
+                    display: flex;
+
+                    
+
+                    .t-card {
+                        display: flex;
+                        flex: 1;
+                        .card.orange{
+                            border-top:3px solid orange;
+                        }
+                            .card {
+                            padding: 10px;
+                            flex: 1;
+                            height: 120px;
+                            border-radius: 5px;
+                            background-color: #F8F8FF;
+                            
+                            white-space: nowrap;
+                            margin: 10px 5px;
+
+                            border: 1px solid #eee;
+                            -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+                            -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+                            -o-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+                            box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+                            .card-heading{
+                                .text-heading{
+                                    
+                                    font-size: 0.875rem;
+                                }
+                            }
+                        }
+                    }
+                }
+                .r-orders{
+                    border-radius: 5px;
+                    height: 300px;
+                    padding: 10px;
+                  
+                    
+                    white-space: nowrap;
+                    margin: 10px 5px;
+                    padding: 10px;
+                    .r-orders-flex{
+                        display:flex;
+                        flex-direction: column;
+                        .r-heading{
+                            display:flex;
+                            justify-content:space-between;
+                            border-bottom:1px solid rgb(202, 202, 202);
+                            padding:10px 0;
+                            .r-title{
+                                
+                                font-size:1.3rem;
+                            }
+                        }
+                        
+                        .r-body{
+                            display:flex;
+                            flex-direction: column;
+                            margin-top:10px;
+                            .r-body-h{
+                                display:flex;
+                                justify-content:space-between;
+                                span{
+                 
+                                    font-size:1rem;
+                                }
+                            
+                            }
+                        }
+                    }
+                
+                }
+            }
+
+            // RIGHT CONTENT
+
+            .c-right-content {
+                width: 25%;
+                display: flex;
+                flex-direction: column;
+                
+                .card-product {
+                 
+                    height: 300px;
+                    padding: 10px;
+                    white-space: nowrap;
+                    margin: 10px 5px;
+                    padding: 10px;
+                    border-bottom:1px solid rgb(202, 202, 202);
+                    .card-heading{
+                        .text-heading{
+                         
+                            font-size:1.3rem;
+                        }
+                        .r-n-heading{
+                            display:flex;
+                            gap:15px;
+                            margin-top:8px;
+                            span{
+                                
+                                font-size:0.9rem;
+                            
+                            }
+                        }
+                    
+                    }
+                }
+                .card-no-stock{
+                    border-radius: 5px;
+                    height: 170px;
+                    padding: 10px;
+                    white-space: nowrap;
+                    margin: 10px 5px;
+                    padding: 10px;
+                    .card-heading{
+                        .text-heading{
+                       
+                            font-size:1.3rem;
+                        }
+                    
+                    }
+                }
+            }
+
+        }
+
+    }
+}
+
+// SMARTPHONE
+@media (max-width: 500px) {
+    .parent-wrapper {
+        .c-wrapper {
+            .c-flex-wrapper {
+                flex-direction: column;
+                padding: 0 10px;
+
+                .c-left-content {
+                    width: 100%;
+
+                    .cards-wrapper {
+                        flex-direction: column;
+
+                        .t-card {
+                            
+                            .card {
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 767px) {
+    .parent-wrapper {
+        .c-wrapper {
+            .c-flex-wrapper {
+                flex-direction: column;
+                padding: 0 10px;
+
+                .c-left-content {
+                    width: 100%;
+
+                    .cards-wrapper {
+                        
+
+                        .t-card {
+                            flex-wrap: wrap;
+                            .card {
+                                flex-basis: 50%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width:900px){
+    .parent-wrapper {
+        .c-wrapper {
+            margin-left:0;
+            transition: all 0.5s ease-in-out;
+    }
+}
+}
+
+
+//TABLET
+@media (max-width: 1024px) {
+    .parent-wrapper {
+        .c-wrapper {
+            .c-flex-wrapper {
+                flex-direction: column;
+
+                .c-left-content {
+                    width: 100%;
+
+                    .cards-wrapper {
+                        width: 100%;
+
+                        .card {}
+                    }
+                }
+                .c-right-content {
+                    width: 100%;
+                    .card-product{
+                        height: 250px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 2000px) {
+    .parent-wrapper {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        width:100%;
+        .c-wrapper {
+            
+            max-width: 1700px;
+            width:70%;
+        }
+    }
+}

@@ -1,0 +1,149 @@
+.modal-wrapper {
+    .modal-card-wrapper {
+        .modal-flex {
+            display: flex;
+            flex-direction: column;
+
+            .modal-header {
+                margin-top: 0px;
+              
+                border-bottom: 1px solid #888;
+
+                .item-1 {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-bottom: 15px;
+
+                    .new-title {
+                        margin-top: 0;
+
+                        font-size: 1.375rem;
+                        font-family: "Inter Semibold";
+                    }
+
+                    span:nth-child(2):hover {
+                        cursor: pointer;
+                        border-radius: 50%;
+
+                        background-color: rgb(220, 220, 220);
+                    }
+                }
+            }
+            .form-wrapper {
+                .modal-body {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    margin-top:25px;
+    
+                    .input-wrapper {
+                        font-size: 0.8rem;
+                        display: flex;
+                        gap: 15px;
+                        width: 100%;
+    
+                        .flex-column {
+                            margin: 0 0 10px 0;
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
+                            gap: 5px;
+    
+                            label {
+                                font-size: 0.9rem;
+    
+                                font-family: "Inter Semibold";
+                            }
+    
+                            .error {
+                                color: red;
+                                font-size: 0.8rem;
+    
+                            }
+    
+                            .input {
+                                padding: 8px 8px;
+                                border-radius: 5px;
+                                border: 1px solid rgb(199, 199, 199);
+                                outline: none;
+                                width: 100%;
+                                font-size: .9rem;
+                            }
+                        }
+                    }
+                    .flex-row{
+                        display:flex;
+                        justify-content: space-between;
+                        gap:10px;
+                        margin-bottom:15px;
+                        align-items: center;
+                    }
+    
+                    .input-user-type {
+    
+                        select {
+                            padding: 8px 8px;
+                            border-radius: 5px;
+                            border: 1px solid grey;
+                            outline: none;
+                            width: 100%;
+                            color:grey;
+                            font-size: 16px;
+                        }
+    
+                        .flex-column {
+                            display: flex;
+                            flex-direction: column;
+    
+                            margin: 15px 0;
+    
+                        }
+                    }
+                }
+            }
+            
+
+            .modal-footer {
+                width: 100%;
+                margin-top: 15px;
+
+                .modal-flex-footer {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 20px;
+
+                    button {
+                        flex-grow: 1;
+                        padding: 10px;
+
+                    }
+
+                    .cancel {
+                        background-color: #f1f1f1;
+                        border: 1px solid #c1c1c1;
+                        border-radius: 5px;
+
+                        &:hover {
+                            cursor: pointer;
+                            background-color: #dadada;
+                        }
+                    }
+
+                    .save {
+                        background-color: orange;
+                        border: 1px solid orange;
+                        border-radius: 5px;
+                        color: white;
+
+                        &:hover {
+                            cursor: pointer;
+                            background-color: rgb(230, 149, 1);
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}

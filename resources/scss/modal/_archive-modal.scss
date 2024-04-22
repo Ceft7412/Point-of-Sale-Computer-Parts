@@ -1,0 +1,60 @@
+.archive-modal-wrapper{
+    .modal-card-wrapper{
+
+        .heading{
+            display:flex;
+            justify-content: space-between;
+            gap:10px;
+            padding:18px 20px;    
+            .text-left{
+                font-size:1.3rem;
+               
+            }
+            .bi{
+                font-size:1.3rem;
+                cursor:pointer; 
+                &:hover{
+                    color:grey;
+                }
+            }
+        }
+
+        .body{
+            background-color: rgb(238, 238, 238);
+            padding:20px;  
+            border-top:1px solid rgba(171, 170, 170, 0.788); 
+            border-bottom:1px solid rgba(171, 170, 170, 0.788);
+        }
+        .footer{
+            padding:20px; 
+            display:flex;
+            gap:10px;
+            justify-content:flex-end;
+            button{
+                width:170px;
+                height:40px;
+                border-radius:5px;
+                border:1px solid;
+                
+            }
+            .cancel-archive{
+                background-color: #f1f1f1;
+                border-color:#c1c1c1;
+                &:hover{
+                    background-color: #dadada;
+                    cursor:pointer; 
+                }
+            }
+            .confirm-archive{
+                background-color: #393fae;
+                color:white;
+                border-color:#393fae;
+                &:hover{
+                    background-color: #2e338e;
+                    cursor:pointer; 
+                    border-color:#2e338e;
+                }
+            }
+        }
+    }
+}

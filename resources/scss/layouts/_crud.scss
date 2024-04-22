@@ -1,0 +1,142 @@
+.parent-wrapper {
+
+    .c-wrapper {
+        margin-left: 200px;
+        margin-top: 80px;
+        background-color: #F3F4F6;
+
+        //  CONTENT HEADING
+        .c-heading-wrapper.category {
+            background-color: white;
+
+        }
+
+        .c-heading-wrapper {
+            align-items: center;
+            gap: 20px;
+
+            .ct-title {
+                display: flex;
+                flex-direction: column;
+                white-space: nowrap;
+                gap: 5px;
+
+                .title {
+                    font-size: 1.5rem;
+                    font-family: 'Inter Semibold';
+                }
+
+                .description {
+                    font-size: 0.9rem;
+                }
+            }
+
+            .ct-add {
+                .ct-add-flex {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    background-color: #04b204;
+                    padding: 7px;
+                    width: 140px;
+                    justify-content: center;
+                    border-radius: 5px;
+                    color: white;
+                }
+
+                .ct-add-flex:hover {
+                    background-color: #039803;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .ct-body {
+            padding: 30px 30px 20px 30px;
+
+            .ct-body-flex {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .ct-body-heading {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 20px;
+
+                    .ct-heading-l {
+                        font-size: 1.1rem;
+                        font-family: 'Inter Semibold';
+                    }
+
+                    .ct-heading-r {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        .ct-heading-search {
+                            position: relative;
+                            .ct-heading-search-input{
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                background-color: white;
+                                padding: 10px 60px 10px 10px;
+                                font-size:1.05rem;
+                                border-radius: 5px;
+                                border: 1px solid #D3D3D3;
+                                width: 250px;
+                                outline:none;
+                               
+                            }
+                            .search-id {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                height: 100%;
+                                width: 50px;
+                                transition: all 0.2s ease-in-out;
+                                font-size: 1rem;
+                                color: rgb(124, 124, 124);
+                                cursor: pointer;
+                                border: 1px solid #D3D3D3;
+                                border-radius: 5px;
+                                &:hover {
+                                    color: black;
+                                    background-color: #D3D3D3;
+                                }
+                            }
+                        }
+
+                        .ct-heading-refresh {
+                            display: flex;
+                            align-items: center;
+                            background-color: white;
+                            padding: 5px;
+                            gap: 5px;
+                            color: rgb(57, 57, 57);
+                            border: 1px solid #D3D3D3;
+                            border-radius: 5px;
+                            width: 100px;
+                            justify-content: center;
+
+                            .text {
+                                font-size: 0.875rem;
+                            }
+                        }
+
+                        .ct-heading-refresh:hover {
+                            background-color: rgb(234, 234, 234);
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

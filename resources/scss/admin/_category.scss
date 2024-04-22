@@ -1,0 +1,303 @@
+// =============================== CATEGORY ===============================
+.parent-wrapper {
+    .c-wrapper {
+        .ct-body {
+            .ct-body-flex {
+
+                .ct-body-content {
+                    
+                    padding-top:20px;
+
+                    .table-wrapper {
+
+                        overflow-x: auto;
+
+                        .table {
+                            display: flex;
+                            flex-direction: column;
+
+
+                            .category-header {
+                                background-color: rgb(59, 60, 86);
+                                min-width: fit-content;
+
+                                padding: 10px 10px;
+
+                                .table-row {
+                                    color: white;
+
+                                    display: flex;
+                                    align-items: center;
+
+
+                                    .table-cell {
+                                        font-family: 'Inter Semibold';
+                                    }
+
+                                    .table-cell:nth-child(1) {
+                                        width: 5%;
+                                        min-width: 50px;
+                                    }
+
+                                    .table-cell:nth-child(2) {
+                                        width: 20%;
+                                        min-width: 170px;
+
+
+                                    }
+
+                                    .table-cell:nth-child(3) {
+                                        width: 20%;
+                                        min-width: 170px;
+                                    }
+
+                                    .table-cell:nth-child(4) {
+                                        width: 10%;
+                                        min-width: 170px;
+                                    }
+
+                                    .table-cell:nth-child(5) {
+                                        width: 15%;
+                                        min-width: 170px;
+
+                                    }
+
+                                    .table-cell:nth-child(6) {
+                                        width: 15%;
+                                        min-width: 170px;
+                                    }
+
+                                    .table-cell:nth-child(7) {
+                                        width: 15%;
+                                        min-width: 170px;
+                                    }
+                                }
+                            }
+
+                            .category-body {
+
+                                min-width: fit-content;
+
+                                .table-group {
+                                    .table-row.row-category{
+                        
+                                    }
+                                    .table-subcategory-group{
+                                        display:none;
+
+                                        .table-row.row-subcategory{
+                                            background-color: rgb(232, 232, 232);
+                                        }
+                                        
+                                    }
+                                   
+                   
+   
+                                      
+                                   
+                                        
+
+                                    }
+
+                                    .table-row {
+                                        background-color: white;
+                                        width: 100%;
+                                        display: flex;
+                                        align-items: center;
+                                        padding: 10px 10px;
+                                        
+
+
+                                        .subcategory-cell {
+                                            padding-left: 40px;
+                                        }
+
+                                        .table-cell:nth-child(1) {
+                                            width: 5%;
+                                            min-width: 50px;
+
+
+                                        }
+
+                                        .table-cell:nth-child(2) {
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 10px;
+                                            width: 20%;
+                                            min-width: 170px;
+
+                                            .chevron-down-category {
+                                                display: none;
+                                                &:hover {
+                                                    cursor: pointer;
+                                 
+                                                    color:grey;
+                                                    
+                                                }
+                                            }
+
+                                            .chevron-up-category {
+                                                display: none;
+                                                &:hover {
+                                                    cursor: pointer;
+                                 
+                                                    color:grey;
+                                                }
+                                            }
+
+                                            img {
+                                                width: 50px;
+                                                height: 50px;
+
+                                            }
+
+                                        }
+
+                                        .table-cell:nth-child(3) {
+                                            width: 20%;
+                                            min-width: 170px;
+                                        }
+
+                                        .table-cell:nth-child(4) {
+                                            width: 10%;
+                                            min-width: 170px;
+                                        }
+
+                                        .table-cell:nth-child(5) {
+                                            width: 15%;
+                                            min-width: 170px;
+                                            display: flex;
+                                            flex-direction: column;
+
+                                            span:nth-child(2) {
+                                                color: grey;
+                                            }
+                                        }
+
+                                        .table-cell:nth-child(6) {
+                                            width: 15%;
+                                            min-width: 170px;
+                                            display: flex;
+                                            flex-direction: column;
+
+                                            span:nth-child(2) {
+                                                color: grey;
+                                            }
+                                        }
+
+                                        .table-cell:nth-child(7) {
+                                            width: 15%;
+                                            min-width: 170px;
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 15px;
+
+                                            .action-p {
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 5px;
+                                                padding: 5px 10px;
+                                                background-color: #393fae;
+                                                width: fit-content;
+                                                border-radius: 5px;
+                                                color: white;
+
+                                                span {
+                                                    font-size: 0.9rem;
+                                                }
+
+                                            }
+
+                                            .action-p.edit-w {
+                                                background-color: #f5a623;
+                                            }
+
+                                            .action-p.edit-w:hover {
+                                                background-color: #e59515;
+                                                cursor: pointer;
+                                            }
+
+                                            .action-p.archive-w {
+                                                background-color: #393fae;
+                                            }
+
+                                            .action-p.archive-w:hover {
+                                                background-color: #2229ae;
+                                                cursor: pointer;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+
+
+@media (max-width: 767px) {
+    .parent-wrapper {
+        .c-wrapper {
+            .c-heading-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 10px;
+                gap: 5px;
+
+                .ct-title {
+                    margin-bottom: 20px;
+
+                }
+
+                .ct-add {
+                    .ct-add-flex {
+                        width: 100px;
+                        gap: 0;
+                    }
+                }
+            }
+
+            .ct-body {
+                padding: 30px 10px 20px 10px;
+
+                .ct-body-flex {
+                    .ct-body-heading {
+                        flex-direction: column;
+
+                        .ct-heading-l {
+                            font-size: 1.3rem;
+                        }
+
+                        .ct-heading-r {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            margin-bottom: 20px;
+                            gap: 20px;
+
+                            .ct-heading-search {
+                                .ct-heading-search-b {
+                                    .icon {
+                                        display: block;
+                                    }
+
+                                    .text-search {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .ct-body-content {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -36,7 +37,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
 
-
+    Route::post('category.store', [AdminController::class, 'storeCategory'])->name('category-store');
+    Route::post('subcategory.store', [AdminController::class, 'storeSubcategory'])->name('subcategory-store');
 
     // *THIS SECTION ARCHIVES THE USER AND GROUP
     Route::post('archive/{id}', [RegisteredUserController::class, 'archive'])->name('archive');

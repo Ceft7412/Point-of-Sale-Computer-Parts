@@ -204,6 +204,118 @@
 
 
 </div>
+{{-- ADD CATEGORY MODAL --}}
+<div class="modal-wrapper" id="modal">
+    <div class="modal-card-wrapper" id="modal-card">
+        <!-- CATEGORY -->
+        <div class="modal-flex category-show">
+            <div class="modal-header category-header">
+                <div class="item-1">
+                    <span class="new-title">New Category</span>
+                    <span class="material-symbols-outlined" id="close-modal">
+                        close
+                    </span>
+                </div>
+                <div class="item-2">
+                    <span class="category-menu active">Category</span>
+                    <span class="subcategory-menu">Subcategory</span>
+                </div>
+            </div>
+            <form novalidate method="POST" action="{{ route('category-store') }}"
+                enctype="multipart/form-data" class="form-wrapper">
+                @csrf
+                <div class="modal-body">
+
+                    <div class="input-wrapper flex-row">
+
+                        <div class="flex-column">
+                            <label for="">Picture (Optional):</label>
+                            <input type="file" name='category_image' accept=".jpg, .jpeg, .png" class="">
+                        </div>
+                        <span clas="picture-wrapper"></span>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Category Name:</label>
+                            <input type="text" name='category_name' class="input">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Description (Optional):</label>
+                            <input type="text" name='category_description' class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-flex-footer">
+                        <button type="button" class="cancel" id="cancel-modal">Cancel</button>
+                        <button type="submit" class="save">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- SUBCATEGORY -->
+        <div class="modal-flex subcategory-show">
+            <div class="modal-header">
+                <div class="item-1">
+                    <span class="new-title">New Subcategory</span>
+                    <span class="material-symbols-outlined" id="close-modal">
+                        close
+                    </span>
+                </div>
+                <div class="item-2">
+                    <span class="category-menu">Category</span>
+                    <span class="subcategory-menu active">Subcategory</span>
+                </div>
+            </div>
+            <form novalidate action="{{ route('subcategory-store') }}" method="POST"
+                enctype="multipart/form-data" class="form-wrapper">
+                @csrf
+                <div class="modal-body">
+                    <div class="input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Category:</label>
+                            <select name="category_id" id="" class="input">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->category_id }}">
+                                        {{ $category->category_name }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-wrapper flex-row">
+                        <div class="flex-column">
+                            <label for="">Picture (Optional):</label>
+                            <input type="file" class="" accept=".jpg, .jpeg, .png" name="subcategory_image">
+                        </div>
+                        <span clas="picture-wrapper"></span>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Subcategory Name:</label>
+                            <input type="text" class="input" name="subcategory_name">
+                        </div>
+                    </div>
+                    <div class="input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Description (Optional):</label>
+                            <input type="text" class="input" name="subcategory_description">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-flex-footer">
+                        <button type="button" class="cancel" id="cancel-modal">Cancel</button>
+                        <button type="submit" class="save">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <div class="c-wrapper">
@@ -227,21 +339,11 @@
             <div class="ct-body-heading">
                 <span class="ct-heading-l">Active Categories</span>
                 <div class="ct-heading-r">
-                    <div class="ct-heading-search">
-                        <div class="ct-heading-search-b">
-                            <span class="icon material-symbols-outlined">
-                                search
-                            </span>
-                            <span class="text-search">Search</span>
-                        </div>
-                        <input type="text" class="ct-heading-search-i">
-                    </div>
-                    <div class="ct-heading-refresh">
-                        <span class="material-symbols-outlined">
-                            refresh
-                        </span>
-                        <span class="text">Refresh</span>
-                    </div>
+                    <form class="ct-heading-search">
+
+                        <input type="text" class="ct-heading-search-input" placeholder="Category ID">
+                        <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                    </form>
                 </div>
             </div>
             <div class="ct-body-content">
@@ -251,6 +353,9 @@
                             <div class="table-row">
                                 <div class="table-cell">
                                     <input type="checkbox">
+                                </div>
+                                <div class="table-cell">
+                                    ID
                                 </div>
                                 <div class="table-cell">
                                     Name
@@ -263,19 +368,76 @@
                             </div>
                         </div>
                         <div class="category-body">
-                            <div class="table-group" id="">
-                                <div class="table-row row-category" ">
 
-                                                                                <div class=" table-cell">
-                                    <input type="checkbox">
+                            <div class="table-group" id="">
+                                @foreach($categories as $category)
+                                    <div class="table-row row-category">
+
+                                        <div class="table-cell">
+                                            <input type="checkbox">
+                                        </div>
+                                        <div class="table-cell">
+                                            C{{ $category->category_id }}
+                                        </div>
+                                        <div class="table-cell category-cell">
+
+                                            <img src="{{ $category->category_image }}"
+                                                alt="{{ $category->cateogry_name }}" class="picture">
+                                            <span>{{ $category->category_name }}</span>
+                                        </div>
+                                        <div class="table-cell">
+                                            {{ $category->category_description }}
+                                        </div>
+                                        <div class="table-cell">{{ $category->products }}</div>
+                                        <div class="table-cell date">
+                                            <span>{{ $category->created_at->toDateString() }}</span>
+                                            <span>{{ $category->created_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell date" style="display: flex;">
+                                            <span>{{ $category->updated_at->toDateString() }}</span>
+                                            <span>{{ $category->updated_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell action">
+                                            <div class="flex-col">
+                                                <div class="action-p edit-w">
+                                                    <span class="material-symbols-outlined">
+                                                    edit_square
+                                                    </span>
+                                                    <span class="">Update</span>
+                                                </div>
+                                                <div class="action-p archive-w">
+                                                    <span class="material-symbols-outlined">
+                                                    archive
+                                                    </span>
+                                                    <span class="">Archive</span>
+                                                </div>
+                                            </div>
+                                            <div class="contain-chev-action">
+                                                <i class="bi bi-chevron-up chevron-up-category"
+                                                id="chevron-up-category"></i>
+                                                <i class="bi bi-chevron-down chevron-down-category"
+                                                id="chevron-down-category"></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                            @endforeach
+                        </div>
+
+
+                        <div class="table-subcategory-group">
+
+
+                            <div class="table-row row-subcategory" id="">
+
+                                <div class="table-cell">
+                                    &nbsp;
                                 </div>
-                                <div class="table-cell category-cell">
-                                    <i class="bi bi-chevron-up chevron-up-category" id="chevron-up-category"></i>
-                                    <i class="bi bi-chevron-down chevron-down-category" id="chevron-down-category"></i>
-                                    <img src="" alt="CPU" class="picture">
+                                <div class="table-cell subcategory-cell">
+                                    <img src="../admin/uploads/subcategory/?>" alt="" class="picture">
                                     <span></span>
                                 </div>
-                                <div class="table-cell">
+                                <div class="table-cell">?>
                                 </div>
                                 <div class="table-cell">11 products</div>
                                 <div class="table-cell date">
@@ -300,58 +462,19 @@
                                         <span class="">Archive</span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="table-subcategory-group">
-
-
-                                <div class="table-row row-subcategory" id="">
-
-                                    <div class="table-cell">
-                                        &nbsp;
-                                    </div>
-                                    <div class="table-cell subcategory-cell">
-                                        <img src="../admin/uploads/subcategory/?>" alt="" class="picture">
-                                        <span></span>
-                                    </div>
-                                    <div class="table-cell">?>
-                                    </div>
-                                    <div class="table-cell">11 products</div>
-                                    <div class="table-cell date">
-                                        <span>2022-03-01</span>
-                                        <span>10:30:00</span>
-                                    </div>
-                                    <div class="table-cell date" style="display: flex;">
-                                        <span>2022-03-05</span>
-                                        <span>15:45:00</span>
-                                    </div>
-                                    <div class="table-cell action">
-                                        <div class="action-p edit-w">
-                                            <span class="material-symbols-outlined">
-                                                edit_square
-                                            </span>
-                                            <span class="">Update</span>
-                                        </div>
-                                        <div class="action-p archive-w">
-                                            <span class="material-symbols-outlined">
-                                                archive
-                                            </span>
-                                            <span class="">Archive</span>
-                                        </div>
-                                    </div>
-
-
-                                </div>
 
 
                             </div>
+
 
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

@@ -1,20 +1,21 @@
 .modal-wrapper {
     .modal-card-wrapper {
+        .modal-flex.subcategory-show{
+            display:none;
+        }
         .modal-flex {
             display: flex;
             flex-direction: column;
-
-            .modal-header {
+            .modal-header:not(.category-header) {
+                border-bottom:1px solid  rgb(199, 199, 199);
+            }
+            .modal-header  {
                 margin-top: 0px;
-              
-                border-bottom: 1px solid #888;
-
                 .item-1 {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding-bottom: 15px;
-
+                    margin:20px;
                     .new-title {
                         margin-top: 0;
 
@@ -29,9 +30,40 @@
                         background-color: rgb(220, 220, 220);
                     }
                 }
+                .item-2{
+                    background-color: rgb(238, 238, 238);
+                   
+                    display:flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    border: 1px solid rgb(199, 199, 199);
+                    span{
+                        width:100%;
+                        padding:8px;
+                        &:hover:not(.active){
+                            cursor:pointer;
+                            background-color:rgb(220, 220, 220);
+                        }
+                    }
+                    .category-menu.active{
+                        border-bottom:3px solid orange;
+                        background-color:white;
+                        border-right:1px solid rgb(199, 199, 199);
+                    
+                    }
+                    .subcategory-menu.active{
+                        border-bottom:3px solid orange;
+                        background-color:white;
+                        border-left:1px solid rgb(199, 199, 199);
+                    
+                    }
+                }
             }
             .form-wrapper {
+               
                 .modal-body {
+                    padding: 0 20px 20px 20px;
                     display: flex;
                     flex-direction: column;
                     width: 100%;
@@ -106,9 +138,9 @@
 
             .modal-footer {
                 width: 100%;
-                margin-top: 15px;
-
+                border-top:1px solid  rgb(199, 199, 199);
                 .modal-flex-footer {
+                    padding: 20px 20px 20px 20px;
                     display: flex;
                     justify-content: space-between;
                     gap: 20px;

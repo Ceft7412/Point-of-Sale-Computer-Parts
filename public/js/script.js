@@ -13,7 +13,6 @@ $("#add-button-modal").click(function (event) {
 });
 
 
-
 $("#close-update-modal, #cancel-update-modal").click(function (event) {
     $(".update-modal-wrapper").hide();
     event.preventDefault();
@@ -22,13 +21,13 @@ $("#close-modal, #cancel-modal").click(function (event) {
     $("#modal").hide();
     event.preventDefault();
 });
-$(".category").click(function (event) {
-    $('.modal-flex-category-wrapper').css("display", "flex");
-    $('.modal-flex-subcategory-wrapper').css("display", "none");
+$(".category-menu").click(function (event) {
+    $('.category-show').css("display", "flex");
+    $('.subcategory-show').css("display", "none");
 });
-$(".sub-category").click(function (event) {
-    $('.modal-flex-subcategory-wrapper').css("display", "flex");
-    $('.modal-flex-category-wrapper').css("display", "none");
+$(".subcategory-menu").click(function (event) {
+    $('.subcategory-show').css("display", "flex");
+    $('.category-show').css("display", "none");
 
 });
 $("#expand-more-category, #expand-less-category").click(function (event) {

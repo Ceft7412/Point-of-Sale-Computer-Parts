@@ -5,8 +5,8 @@
             .ct-body-flex {
 
                 .ct-body-content {
-                    
-                    padding-top:20px;
+
+                    padding-top: 20px;
 
                     .table-wrapper {
 
@@ -52,13 +52,14 @@
                                     }
 
                                     .table-cell:nth-child(4) {
-                                        width: 10%;
-                                        min-width: 170px;
+                                        width: 15%;
+                                        min-width: 190px;
+                                        margin-right: 20px;
                                     }
 
                                     .table-cell:nth-child(5) {
-                                        width: 15%;
-                                        min-width: 170px;
+                                        width: 10%;
+                                        min-width: 140px;
 
                                     }
 
@@ -71,6 +72,11 @@
                                         width: 15%;
                                         min-width: 170px;
                                     }
+
+                                    .table-cell:nth-child(8) {
+                                        width: 15%;
+                                        min-width: 170px;
+                                    }
                                 }
                             }
 
@@ -79,115 +85,124 @@
                                 min-width: fit-content;
 
                                 .table-group {
-                                    .table-row.row-category{
-                        
-                                    }
-                                    .table-subcategory-group{
-                                        display:none;
-
-                                        .table-row.row-subcategory{
-                                            background-color: rgb(232, 232, 232);
-                                        }
-                                        
-                                    }
-                                   
-                   
-   
-                                      
-                                   
-                                        
-
-                                    }
-
-                                    .table-row {
-                                        background-color: white;
-                                        width: 100%;
+                                    .row-category {
                                         display: flex;
                                         align-items: center;
-                                        padding: 10px 10px;
+                                    }
+
+                                    .table-subcategory-group {
+                                        display: none;
+
+                                        .table-row.row-subcategory {
+                                            background-color: rgb(232, 232, 232);
+                                        }
+
+                                    }
+
+
+
+
+
+
+
+                                }
+
+                                .table-row {
+                                    background-color: white;
+
+                                    display: flex;
+
+                                    align-items: center;
+                                    padding: 10px 10px;
+
+
+
+                                    .subcategory-cell {
+                                        padding-left: 40px;
+                                    }
+
+                                    .table-cell:nth-child(1) {
+                                        width: 5%;
+                                        min-width: 50px;
+
+
+                                    }
+
+                                    .table-cell:nth-child(2) {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                        width: 20%;
+                                        min-width: 170px;
+
                                         
 
-
-                                        .subcategory-cell {
-                                            padding-left: 40px;
-                                        }
-
-                                        .table-cell:nth-child(1) {
-                                            width: 5%;
-                                            min-width: 50px;
-
+                                        img {
+                                            width: 50px;
+                                            height: 50px;
 
                                         }
 
-                                        .table-cell:nth-child(2) {
-                                            display: flex;
-                                            align-items: center;
-                                            gap: 10px;
-                                            width: 20%;
-                                            min-width: 170px;
+                                    }
 
-                                            .chevron-down-category {
-                                                display: none;
-                                                &:hover {
-                                                    cursor: pointer;
-                                 
-                                                    color:grey;
-                                                    
-                                                }
-                                            }
+                                    .table-cell:nth-child(3) {
+                                        width: 20%;
+                                        min-width: 170px;
+                                    }
 
-                                            .chevron-up-category {
-                                                display: none;
-                                                &:hover {
-                                                    cursor: pointer;
-                                 
-                                                    color:grey;
-                                                }
-                                            }
+                                    .table-cell:nth-child(4) {
+                                        width: 15%;
+                                        min-width: 190px;
+                                        margin-right: 20px;
+                                    }
 
-                                            img {
-                                                width: 50px;
-                                                height: 50px;
+                                    .table-cell:nth-child(5) {
+                                        width: 10%;
+                                        min-width: 140px;
+                                        display: flex;
+                                        flex-direction: column;
 
-                                            }
 
+                                    }
+
+                                    .table-cell:nth-child(6) {
+                                        width: 15%;
+                                        min-width: 170px;
+
+                                        display: flex;
+                                        flex-direction: column;
+
+                                        span:nth-child(2) {
+                                            color: grey;
                                         }
 
-                                        .table-cell:nth-child(3) {
-                                            width: 20%;
-                                            min-width: 170px;
+                                    }
+
+                                    .table-cell:nth-child(7) {
+                                        width: 15%;
+                                        min-width: 170px;
+                                        display: flex;
+                                        flex-direction: column;
+
+                                        span:nth-child(2) {
+                                            color: grey;
                                         }
 
-                                        .table-cell:nth-child(4) {
-                                            width: 10%;
-                                            min-width: 170px;
-                                        }
+                                    }
 
-                                        .table-cell:nth-child(5) {
-                                            width: 15%;
-                                            min-width: 170px;
-                                            display: flex;
-                                            flex-direction: column;
+                                    .table-cell:nth-child(7) {
+                                        width: 15%;
+                                        min-width: 170px;
+                                    }
 
-                                            span:nth-child(2) {
-                                                color: grey;
-                                            }
-                                        }
-
-                                        .table-cell:nth-child(6) {
-                                            width: 15%;
-                                            min-width: 170px;
-                                            display: flex;
-                                            flex-direction: column;
-
-                                            span:nth-child(2) {
-                                                color: grey;
-                                            }
-                                        }
-
-                                        .table-cell:nth-child(7) {
-                                            width: 15%;
-                                            min-width: 170px;
+                                    .table-cell:nth-child(8) {
+                                        width: 15%;
+                                        min-width: 170px;
+                                        display:flex;
+                                        align-items: center;
+                                        padding-right:20px;  
+                                        justify-content: space-between;
+                                        .flex-col {
                                             display: flex;
                                             flex-direction: column;
                                             gap: 15px;
@@ -226,17 +241,41 @@
                                                 cursor: pointer;
                                             }
                                         }
+                                        .contain-chev-action{
+                                            .chevron-down-category {
+                                         
+    
+                                                &:hover {
+                                                    cursor: pointer;
+    
+                                                    color: grey;
+    
+                                                }
+                                            }
+    
+                                            .chevron-up-category {
+                                                display: none;
+    
+                                                &:hover {
+                                                    cursor: pointer;
+    
+                                                    color: grey;
+                                                }
+                                            }
+                                        }
+
                                     }
                                 }
-
                             }
+
                         }
                     }
-
                 }
+
             }
         }
     }
+}
 
 
 

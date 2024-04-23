@@ -521,7 +521,6 @@ a, a:visited, a:hover {
 .modal-wrapper .modal-card-wrapper {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
   animation: slideDown 0.3s ease-out;
   width: 35%;
   border-radius: 8px;
@@ -615,19 +614,24 @@ a, a:visited, a:hover {
     width: 450pxs;
   }
 }
+.modal-wrapper .modal-card-wrapper .modal-flex.subcategory-show {
+  display: none;
+}
 .modal-wrapper .modal-card-wrapper .modal-flex {
   display: flex;
   flex-direction: column;
 }
+.modal-wrapper .modal-card-wrapper .modal-flex .modal-header:not(.category-header) {
+  border-bottom: 1px solid rgb(199, 199, 199);
+}
 .modal-wrapper .modal-card-wrapper .modal-flex .modal-header {
   margin-top: 0px;
-  border-bottom: 1px solid #888;
 }
 .modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 15px;
+  margin: 20px;
 }
 .modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-1 .new-title {
   margin-top: 0;
@@ -639,7 +643,34 @@ a, a:visited, a:hover {
   border-radius: 50%;
   background-color: rgb(220, 220, 220);
 }
+.modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-2 {
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgb(199, 199, 199);
+}
+.modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-2 span {
+  width: 100%;
+  padding: 8px;
+}
+.modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-2 span:hover:not(.active) {
+  cursor: pointer;
+  background-color: rgb(220, 220, 220);
+}
+.modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-2 .category-menu.active {
+  border-bottom: 3px solid orange;
+  background-color: white;
+  border-right: 1px solid rgb(199, 199, 199);
+}
+.modal-wrapper .modal-card-wrapper .modal-flex .modal-header .item-2 .subcategory-menu.active {
+  border-bottom: 3px solid orange;
+  background-color: white;
+  border-left: 1px solid rgb(199, 199, 199);
+}
 .modal-wrapper .modal-card-wrapper .modal-flex .form-wrapper .modal-body {
+  padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -697,9 +728,10 @@ a, a:visited, a:hover {
 }
 .modal-wrapper .modal-card-wrapper .modal-flex .modal-footer {
   width: 100%;
-  margin-top: 15px;
+  border-top: 1px solid rgb(199, 199, 199);
 }
 .modal-wrapper .modal-card-wrapper .modal-flex .modal-footer .modal-flex-footer {
+  padding: 20px 20px 20px 20px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -1102,12 +1134,13 @@ a, a:visited, a:hover {
   min-width: 170px;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-header .table-row .table-cell:nth-child(4) {
-  width: 10%;
-  min-width: 170px;
+  width: 15%;
+  min-width: 190px;
+  margin-right: 20px;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-header .table-row .table-cell:nth-child(5) {
-  width: 15%;
-  min-width: 170px;
+  width: 10%;
+  min-width: 140px;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-header .table-row .table-cell:nth-child(6) {
   width: 15%;
@@ -1117,9 +1150,17 @@ a, a:visited, a:hover {
   width: 15%;
   min-width: 170px;
 }
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-header .table-row .table-cell:nth-child(8) {
+  width: 15%;
+  min-width: 170px;
+}
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body {
   min-width: -moz-fit-content;
   min-width: fit-content;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-group .row-category {
+  display: flex;
+  align-items: center;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-group .table-subcategory-group {
   display: none;
@@ -1129,7 +1170,6 @@ a, a:visited, a:hover {
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row {
   background-color: white;
-  width: 100%;
   display: flex;
   align-items: center;
   padding: 10px 10px;
@@ -1148,20 +1188,6 @@ a, a:visited, a:hover {
   width: 20%;
   min-width: 170px;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(2) .chevron-down-category {
-  display: none;
-}
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(2) .chevron-down-category:hover {
-  cursor: pointer;
-  color: grey;
-}
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(2) .chevron-up-category {
-  display: none;
-}
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(2) .chevron-up-category:hover {
-  cursor: pointer;
-  color: grey;
-}
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(2) img {
   width: 50px;
   height: 50px;
@@ -1171,17 +1197,15 @@ a, a:visited, a:hover {
   min-width: 170px;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(4) {
-  width: 10%;
-  min-width: 170px;
+  width: 15%;
+  min-width: 190px;
+  margin-right: 20px;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(5) {
-  width: 15%;
-  min-width: 170px;
+  width: 10%;
+  min-width: 140px;
   display: flex;
   flex-direction: column;
-}
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(5) span:nth-child(2) {
-  color: grey;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(6) {
   width: 15%;
@@ -1197,9 +1221,28 @@ a, a:visited, a:hover {
   min-width: 170px;
   display: flex;
   flex-direction: column;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) span:nth-child(2) {
+  color: grey;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) {
+  width: 15%;
+  min-width: 170px;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) {
+  width: 15%;
+  min-width: 170px;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  justify-content: space-between;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col {
+  display: flex;
+  flex-direction: column;
   gap: 15px;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) .action-p {
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col .action-p {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1210,22 +1253,33 @@ a, a:visited, a:hover {
   border-radius: 5px;
   color: white;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) .action-p span {
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col .action-p span {
   font-size: 0.9rem;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) .action-p.edit-w {
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col .action-p.edit-w {
   background-color: #f5a623;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) .action-p.edit-w:hover {
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col .action-p.edit-w:hover {
   background-color: #e59515;
   cursor: pointer;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) .action-p.archive-w {
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col .action-p.archive-w {
   background-color: #393fae;
 }
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(7) .action-p.archive-w:hover {
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .flex-col .action-p.archive-w:hover {
   background-color: #2229ae;
   cursor: pointer;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .contain-chev-action .chevron-down-category:hover {
+  cursor: pointer;
+  color: grey;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .contain-chev-action .chevron-up-category {
+  display: none;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content .table-wrapper .table .category-body .table-row .table-cell:nth-child(8) .contain-chev-action .chevron-up-category:hover {
+  cursor: pointer;
+  color: grey;
 }
 
 @media (max-width: 767px) {

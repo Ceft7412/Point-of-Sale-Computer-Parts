@@ -427,14 +427,14 @@
 
                         <div class="table-subcategory-group">
 
-
+                            @foreach($subcategories as $subcategory)
                             <div class="table-row row-subcategory" id="">
 
                                 <div class="table-cell">
-                                    &nbsp;
+                                    {{$subcategory->subcategory_id}}
                                 </div>
                                 <div class="table-cell subcategory-cell">
-                                    <img src="../admin/uploads/subcategory/?>" alt="" class="picture">
+                                    <img src="{{$subcategory->subcategory_image}}" alt="{{$subcategory->subcategory_name}}" class="picture">
                                     <span></span>
                                 </div>
                                 <div class="table-cell">?>
@@ -465,6 +465,7 @@
 
 
                             </div>
+                            @endforeach
 
 
                         </div>

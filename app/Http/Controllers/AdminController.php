@@ -90,7 +90,7 @@ class AdminController extends Controller
             'subcategory_name' => 'required',
         ]);
         $subcategory = new Subcategory();
-        $subcategory->category_id = $request->category_id;
+        $subcategory->category_id = $request->category_id;  
         $subcategory->subcategory_name = $request->subcategory_name;
         $subcategory->subcategory_description = $request->subcategory_description;
         if ($request->hasFile('subcategory_image')) {

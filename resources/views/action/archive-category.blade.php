@@ -12,7 +12,7 @@
 
         <div class="body">
             <div class="text">
-                Archiving this row will remove the user from the active list and will remain unactive. Are you sure you
+                Archiving this row will remove the category from the active list and will remain unactive. Are you sure you
                 want to
                 proceed?
             </div>

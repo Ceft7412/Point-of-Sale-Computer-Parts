@@ -109,10 +109,10 @@
                         <i class="less bi bi-chevron-up" id="expand-less-category"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-category">
+                <a href="{{route('archive-category')}}" class="archive-show" id="archive-expand-category">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
 
             <div class="menu-item">
@@ -129,10 +129,10 @@
                         <i class="less bi bi-chevron-up" id="expand-less-product"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-product">
+                <a href="{{route('archive-product')}}"  class="archive-show" id="archive-expand-product">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
 
             <div class="menu-item">
@@ -364,7 +364,7 @@
                                             <div class="table-cell action">
                                                 <div class="action-p edit-w">
                                                     <button type="button" class="updateButton"
-                                                        data-user-id="{{ $user->id }}">
+                                                        data-id="{{ $user->id }}">
                                                         <i class="bi bi-pencil-square"></i>
                                                         <span class="">Update</span>
                                                     </button>
@@ -373,7 +373,7 @@
                                                 <div class="action-p archive-w">
 
                                                     <button type="button" class="archiveButton"
-                                                        data-user-id="{{ $user->id }}">
+                                                        data-id="{{ $user->id }}">
                                                         <i class="bi bi-archive"></i>
                                                         <span class="">Inactive</span>
                                                     </button>

@@ -21,6 +21,9 @@ $("#close-modal, #cancel-modal").click(function (event) {
     $("#modal").hide();
     event.preventDefault();
 });
+$(".cancel-image-modal").click(function (event) {
+    $(".image-modal-wrapper").hide();
+});
 $(".category-menu").click(function (event) {
     $('.category-show').css("display", "flex");
     $('.subcategory-show').css("display", "none");
@@ -30,40 +33,28 @@ $(".subcategory-menu").click(function (event) {
     $('.category-show').css("display", "none");
 
 });
-$("#expand-more-category, #expand-less-category").click(function (event) {
-    $('#archive-expand-category').toggle();
-    $('#expand-more-category').toggle();
-    $('#expand-less-category').toggle();
-});
-$("#expand-more-product, #expand-less-product").click(function (event) {
-    $('#archive-expand-product').toggle();
-    $('#expand-more-product').toggle();
-    $('#expand-less-product').toggle();
-});
-$("#expand-more-employee, #expand-less-employee").click(function (event) {
-    $('#archive-expand-employee').toggle();
-    $('#expand-more-employee').toggle();
-    $('#expand-less-employee').toggle();
-});
-if ($('#archive-expand-employee').hasClass('active')) {
-    $('#archive-expand-employee').show(); 
-    $('#expand-more-employee').toggle();
-    $('#expand-less-employee').toggle();
-} else {
-    $('#archive-expand-employee').hide();
+
+
+function toggleElements(archiveId, moreId, lessId) {
+    if ($(archiveId).hasClass('active')) {
+        $(archiveId).show(); 
+        $(moreId).toggle();
+        $(lessId).toggle();
+    } else {
+        $(archiveId).hide();
+    }
+
+    $(moreId + ", " + lessId).click(function (event) {
+        $(archiveId).toggle();
+        $(moreId).toggle();
+        $(lessId).toggle();
+    });
 }
-if ($('#archive-expand-admin').hasClass('active')) {
-    $('#archive-expand-admin').show(); 
-    $('#expand-more-admin').toggle();
-    $('#expand-less-admin').toggle();
-} else {
-    $('#archive-expand-employee').hide();
-}
-$("#expand-more-admin, #expand-less-admin").click(function (event) {
-    $('#archive-expand-admin').toggle();
-    $('#expand-more-admin').toggle();
-    $('#expand-less-admin').toggle();
-});
+toggleElements('#archive-expand-product', '#expand-more-product', '#expand-less-product');
+toggleElements('#archive-expand-category', '#expand-more-category', '#expand-less-category');
+toggleElements('#archive-expand-employee', '#expand-more-employee', '#expand-less-employee');
+toggleElements('#archive-expand-admin', '#expand-more-admin', '#expand-less-admin');
+
 
 
 $(".table-group").each(function () {
@@ -72,15 +63,17 @@ $(".table-group").each(function () {
     }
 });
 $(".chevron-down-category").click(function (event) {
-    $(this).toggle();
-    $(this).siblings(".chevron-up-category").toggle();
-    $(this).closest('.table-group').find('.table-subcategory-group').slideDown(50);
+    const categoryId = $(this).data("category-id");
+    $(this).hide();
+    $(`#category-group-${categoryId} .chevron-up-category`).show();
+    $(`#subcategory-group-${categoryId}`).slideDown(50);
 });
 
 $(".chevron-up-category").click(function (event) {
-    $(this).toggle();
-    $(this).siblings(".chevron-down-category").toggle();
-    $(this).closest('.table-group').find('.table-subcategory-group').slideUp(50);
+    const categoryId = $(this).data("category-id");
+    $(this).hide();
+    $(`#category-group-${categoryId} .chevron-down-category`).show();
+    $(`#subcategory-group-${categoryId}`).slideUp(50);
 });
 
 
@@ -116,6 +109,10 @@ $('.archive-w').on('click', function (e) {
 });
 $('.edit-w').on('click', function (e) {
     $('.update-modal-wrapper').show();
+});
+$('.cancel-modal').on('click', function (e) {
+    $('.update-modal-wrapper').hide();
+
 });
 
 
@@ -157,31 +154,17 @@ class FormHandler {
     setAction(userId, action) {
         this.form.attr('action', `/${action}/` + userId);
     }
+
+    setCategory(categoryId, action) {
+        this.form.attr('action', `/category/${action}/` + categoryId); // e.g. category/update/1
+    }
 }
-
-
-var archiveFormHandler = new FormHandler('#archiveForm');
-
-$('.archiveButton').click(function () {
-    var userId = $(this).data('user-id');
-    archiveFormHandler.setAction(userId, 'archive');
-   
-}); 
-
-var unarchiveFormHandler = new FormHandler('#unarchiveForm');
-
-$('.unarchiveButton').click(function () {
-    var userId = $(this).data('user-id');
-    unarchiveFormHandler.setAction(userId, 'unarchive');
-   
-}); 
-
 
 var updateFormHandler = new FormHandler('#updateForm');
 
 
 $('.updateButton').click(function() {
-    var userId = $(this).data('user-id');
+    var userId = $(this).data('id');
     var action = 'update';
     updateFormHandler.setAction(userId, action);
     
@@ -193,3 +176,92 @@ $('.updateButton').click(function() {
         $('input[name="update-contact"]').val(user.contact);
     });
 });
+$('.updateCategoryButton').click(function() {
+    var categoryId = $(this).data('id');
+    var action = 'update';
+    updateFormHandler.setCategory(categoryId, action);
+    
+    $.get('/admin/category/' + categoryId, function(category) {
+        $('#update_category_image').attr('src', '/assets/images/category_uploads/' + category.category_image);
+        $('#update_category_image').attr('alt', category.category_name);
+        $('input[name="category_name"]').val(category.category_name);
+        $('input[name="category_description"]').val(category.category_description);
+        // Add more fields as needed
+    });
+});
+var archiveFormHandler = new FormHandler('#archiveForm');
+
+$('.archiveButton').click(function () {
+    var userId = $(this).data('id');
+    archiveFormHandler.setAction(userId, 'archive');
+   
+}); 
+
+var unarchiveFormHandler = new FormHandler('#unarchiveForm');   
+
+$('.unarchiveButton').click(function () {
+    var userId = $(this).data('id');
+    unarchiveFormHandler.setAction(userId, 'unarchive');
+
+
+    
+   
+}); 
+$('.img-con').click(function () {
+    var imgId = $(this).data('id');
+
+});
+
+
+$('.t-ps').click(function () {
+    $('.image-modal-wrapper').show();
+});
+
+$('input[name="category_image"]').on('change', function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#update_category_image').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+
+
+$('.img-con img').on('click', function() {
+    // Set the source of the image in the .picture-wrapper div to the source of the clicked image
+    $('#update_category_image').attr('src', $(this).attr('src'));
+
+    // Set the value of the hidden input field to the source of the clicked image
+    $('#selected_image').val($(this).attr('src'));
+
+    // Close the modal
+    // This depends on how your modal is implemented
+    // Here's an example if you're using Bootstrap's modal
+    $('.image-modal-wrapper').hide();
+});
+
+
+$('input[name="category_image"]').on('change', function() {
+    // Clear the value of the hidden input
+    $('#selected_image').val('');
+});
+$('.img-con img').on('click', function() {
+    // Clear the value of the file input
+    $('input[name="category_image"]').val('');
+
+    // Set the source of the image in the .picture-wrapper div to the source of the clicked image
+    $('#update_category_image').attr('src', $(this).attr('src'));
+
+    // Set the value of the hidden input field to the source of the clicked image
+    $('#selected_image').val($(this).attr('src'));
+
+    // Close the modal
+    // This depends on how your modal is implemented
+    // Here's an example if you're using Bootstrap's modal
+    $('#myModal').modal('hide');
+});
+
+    

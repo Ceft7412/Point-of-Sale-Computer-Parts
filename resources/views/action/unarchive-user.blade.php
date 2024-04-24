@@ -3,7 +3,7 @@
         <div class="heading">
 
             <span class="text-left">
-                Archive Row
+                Set to Active
             </span>
             <span class="cancel-archive">
                 <i class="bi bi-x-lg"></i>
@@ -21,8 +21,8 @@
         <div class="footer">
             <form method="POST" action="" id="unarchiveForm">
                 @csrf
-                <button type="button" class="cancel-archive">No, keep this row</button>
-                <button type="submit" class="confirm-archive">Yes, archive this row</button>
+                <button type="button" class="cancel-archive">No, keep this inactive</button>
+                <button type="submit" class="confirm-archive">Yes, make this active</button>
             </form>
         </div>
 

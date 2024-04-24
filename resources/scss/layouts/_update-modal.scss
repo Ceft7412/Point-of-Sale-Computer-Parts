@@ -23,25 +23,51 @@
 
 }
 @media(max-width: 1200px) {
-    .modal-wrapper {
+    .update-modal-wrapper {
         .modal-card-wrapper {
             width: 50%;
         }
     }
 
 }
+@media(max-width: 900px) {
+    .update-modal-wrapper {
+        .modal-card-wrapper {
+            width: 60%;
+        }
+    }
+
+}
 @media(max-width: 768px) {
-    .modal-wrapper {
+    .update-modal-wrapper {
+        .modal-card-wrapper {
+            width: 70%;
+        }
+    }
+
+}
+@media(max-width: 610px) {
+    .update-modal-wrapper {
         .modal-card-wrapper {
             width: 80%;
         }
     }
 
 }
-@media(min-width:2000px) {
-    .modal-wrapper {
+@media(max-width: 300px) {
+    .update-modal-wrapper {
         .modal-card-wrapper {
-            width: 450pxs;
+            margin:auto;
+            min-width:150px;
+        }
+    }
+
+}
+
+@media(min-width:2000px) {
+    .update-modal-wrapper {
+        .modal-card-wrapper {
+            width: 600px;
         }
     }
 

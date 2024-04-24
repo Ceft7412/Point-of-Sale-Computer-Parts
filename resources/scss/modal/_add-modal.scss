@@ -163,14 +163,16 @@
                     }
 
                     .save {
-                        background-color: orange;
-                        border: 1px solid orange;
+                        background-color: #393fae;
+                        border: 1px solid;
+                        border-color:#393fae;
                         border-radius: 5px;
                         color: white;
 
                         &:hover {
-                            cursor: pointer;
-                            background-color: rgb(230, 149, 1);
+                            background-color: #2e338e;
+                            cursor:pointer; 
+                            border-color:#2e338e;
                         }
                     }
 

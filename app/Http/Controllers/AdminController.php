@@ -26,13 +26,7 @@ class AdminController extends Controller
     
         return view('admin.product');
     }
-    public function redirectCategory()
-    {
-        $categories = Category::all();
-        $subcategories = Subcategory::all();
-        return view('admin.category')->with('categories', $categories)
-                                     ->with('subcategories', $subcategories);
-    }
+    
     public function redirectArchiveEmployee()
     {
         $users = User::where('type', 2)->where('is_active', 0)->get();
@@ -43,11 +37,7 @@ class AdminController extends Controller
         $users = User::where('type', 1)->where('is_active', 0)->get();
         return view('admin.archive.archive-admin')->with('users', $users);
     }
-    public function redirectArchiveCategory(){
-
-
-        return view('admin.archive.archive-category');   
-    }
+   
     public function redirectArchiveProduct(){
 
 
@@ -55,31 +45,7 @@ class AdminController extends Controller
     }
 
     // *Storing category into database
-    public function storeCategory(Request $request)
-    {
-        $request->validate([
-            'category_name' => 'required',
-           
-        ]);
-
-        $category = new Category();
-        $category->category_name = $request->category_name;
-        $category->category_description = $request->category_description;
-        if ($request->hasFile('category_image')) {
-            $image = $request->file('category_image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/assets/images/category_uploads');
-            $image->move($destinationPath, $imageName); 
-            $category->category_image = $imageName;
-        }
-        do {
-            $category_id = rand(100000, 999999);
-        } while (Category::where('category_id', $category_id)->exists() || Subcategory::where('subcategory_id', $category_id)->exists());
-        $category->category_id = $category_id;
-        $category->save();
-
-        return redirect()->back()->with('success', 'Category added successfully');
-    }
+    
 
 
     // *Storing subcategory into database
@@ -107,4 +73,8 @@ class AdminController extends Controller
         $subcategory->save();
         return redirect()->back()->with('success','Subcategory added successfully');
     }
+
+
+
+    
 }

@@ -364,7 +364,7 @@
                                                 <div class="action-p archive-w">
 
                                                     <button type="button" class="unarchiveButton"
-                                                        data-user-id="{{ $user->id }}">
+                                                        data-id="{{ $user->id }}">
                                                         <i class="bi bi-box-arrow-up"></i>
                                                         <span class="">Active</span>
                                                     </button>

@@ -305,7 +305,7 @@
                     </div>
                 </div>
 
-                <form method="POST" action="{{ url('archive') }}">
+                <form method="POST" action="{{ url('unarchive') }}">
                     @csrf
                     <button type="submit" id="archiveButton" style="display: none;">Set to active</button>
                     <div class="ct-body-content">
@@ -363,8 +363,8 @@
                                             <div class="table-cell action">
                                                 <div class="action-p archive-w">
 
-                                                    <button type="button" class="archiveButton"
-                                                        data-user-id="{{ $user->id }}">
+                                                    <button type="button" class="unarchiveButton"
+                                                        data-id="{{ $user->id }}">
                                                         <i class="bi bi-box-arrow-up"></i>
                                                         <span class="">Active</span>
                                                     </button>
@@ -383,7 +383,7 @@
                     </div>
                 </form>
                 @include('action.update-user')
-                @include('action.archive-user')
+                @include('action.unarchive-user')
 
             </div>
 

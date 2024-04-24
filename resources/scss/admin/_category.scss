@@ -5,9 +5,7 @@
             .ct-body-flex {
 
                 .ct-body-content {
-
-                    padding-top: 20px;
-
+                    padding-top:15px;
                     .table-wrapper {
 
                         overflow-x: auto;
@@ -40,15 +38,15 @@
                                     }
 
                                     .table-cell:nth-child(2) {
-                                        width: 20%;
-                                        min-width: 170px;
+                                        width: 10%;
+                                        min-width: 100px;
 
 
                                     }
 
                                     .table-cell:nth-child(3) {
                                         width: 20%;
-                                        min-width: 170px;
+                                        min-width: 190px;
                                     }
 
                                     .table-cell:nth-child(4) {
@@ -74,8 +72,8 @@
                                     }
 
                                     .table-cell:nth-child(8) {
-                                        width: 15%;
-                                        min-width: 170px;
+                                        width: 10%;
+                                        min-width: 140px;
                                     }
                                 }
                             }
@@ -89,22 +87,12 @@
                                         display: flex;
                                         align-items: center;
                                     }
-
-                                    .table-subcategory-group {
-                                        display: none;
-
-                                        .table-row.row-subcategory {
-                                            background-color: rgb(232, 232, 232);
-                                        }
-
+                                }
+                                .table-subcategory-group{
+                                    display:none;
+                                    .table-row.row-subcategory{
+                                        background-color: rgb(227, 227, 227);
                                     }
-
-
-
-
-
-
-
                                 }
 
                                 .table-row {
@@ -118,36 +106,40 @@
 
 
                                     .subcategory-cell {
-                                        padding-left: 40px;
+                                        padding-left: 20px;
                                     }
 
                                     .table-cell:nth-child(1) {
                                         width: 5%;
                                         min-width: 50px;
+                                        
 
 
                                     }
 
                                     .table-cell:nth-child(2) {
+                                       
+                                        width: 10%;
+                                        min-width: 100px;
+
+                                        
+
+                                        
+
+                                    }
+
+                                    .table-cell:nth-child(3) {
                                         display: flex;
                                         align-items: center;
                                         gap: 10px;
                                         width: 20%;
-                                        min-width: 170px;
-
-                                        
-
+                                        padding-right:10px;
+                                        min-width: 190px;
                                         img {
                                             width: 50px;
                                             height: 50px;
 
                                         }
-
-                                    }
-
-                                    .table-cell:nth-child(3) {
-                                        width: 20%;
-                                        min-width: 170px;
                                     }
 
                                     .table-cell:nth-child(4) {
@@ -194,77 +186,100 @@
                                         width: 15%;
                                         min-width: 170px;
                                     }
-
                                     .table-cell:nth-child(8) {
-                                        width: 15%;
-                                        min-width: 170px;
+                                        width: 10%;
+                                        min-width: 140px;
                                         display:flex;
                                         align-items: center;
-                                        padding-right:20px;  
                                         justify-content: space-between;
-                                        .flex-col {
+                                        .action-p {
                                             display: flex;
-                                            flex-direction: column;
-                                            gap: 15px;
-
-                                            .action-p {
-                                                display: flex;
+                                            align-items: center;
+                                            width: fit-content;
+                                            
+                                           
+                                            width:90px;
+                                            button{
+                                                display:flex;
                                                 align-items: center;
-                                                gap: 5px;
-                                                padding: 5px 10px;
-                                                background-color: #393fae;
-                                                width: fit-content;
+                                                width:90px;
+                                                justify-content: center;
+                                                gap:5px;
+                                                height:35px;
                                                 border-radius: 5px;
-                                                color: white;
-
+                                                border:1px solid;
+                                                background-color: #f1f1f1;
+                                                border-color:#c1c1c1;
                                                 span {
                                                     font-size: 0.9rem;
                                                 }
-
+                                                &:hover{
+                                                    background-color: #dadada;
+                                                    cursor:pointer; 
+                                                }
+        
                                             }
-
-                                            .action-p.edit-w {
-                                                background-color: #f5a623;
-                                            }
-
-                                            .action-p.edit-w:hover {
-                                                background-color: #e59515;
-                                                cursor: pointer;
-                                            }
-
-                                            .action-p.archive-w {
-                                                background-color: #393fae;
-                                            }
-
-                                            .action-p.archive-w:hover {
-                                                background-color: #2229ae;
-                                                cursor: pointer;
+                                            
+                                        }
+                                        .flex-col{
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 5px;
+                                            .action-p {
+                                                display: flex;
+                                                align-items: center;
+                                                width: fit-content;
+                                                
+                                               
+                                                width:90px;
+                                                button{
+                                                    display:flex;
+                                                    align-items: center;
+                                                    width:90px;
+                                                    justify-content: center;
+                                                    gap:5px;
+                                                    height:35px;
+                                                    border-radius: 5px;
+                                                    border:1px solid;
+                                                    background-color: #f1f1f1;
+                                                    border-color:#c1c1c1;
+                                                    span {
+                                                        font-size: 0.9rem;
+                                                    }
+                                                    &:hover{
+                                                        background-color: #dadada;
+                                                        cursor:pointer; 
+                                                    }
+            
+                                                }
+                                                
                                             }
                                         }
                                         .contain-chev-action{
                                             .chevron-down-category {
                                          
-    
+                                                padding:10px;
                                                 &:hover {
                                                     cursor: pointer;
-    
-                                                    color: grey;
+                                                    background-color: rgb(234, 234, 234);
+                                                    color: black;
     
                                                 }
                                             }
     
                                             .chevron-up-category {
                                                 display: none;
-    
+                                                padding:10px;
                                                 &:hover {
                                                     cursor: pointer;
     
-                                                    color: grey;
+                                                    color: rgb(185, 185, 185);
                                                 }
                                             }
                                         }
-
+                                        
                                     }
+                                    
                                 }
                             }
 

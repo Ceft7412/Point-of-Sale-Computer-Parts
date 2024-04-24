@@ -36,7 +36,39 @@
                     flex-direction: column;
                     width: 100%;
                     margin-top:25px;
-    
+                    .margin-bottom{
+                        margin-bottom:15px;
+                    }
+                    .flex-row{
+                        display:flex;
+                        .col-pic{
+                            display:flex;
+                            flex-direction: column;
+                            .divider{
+                                margin-bottom:5px;
+                            }
+
+                            .pictures-group{
+                                display:flex;
+                              
+                                align-items: center;
+                               
+                                .t-ps{
+                                    background-color: #f1f1f1;
+                                    padding:2px 7px;
+                                    border:1px solid;
+                                    width:auto;
+                                    &:hover{
+                                        cursor:default;
+                                        background-color: #e1e1e1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .space-between{
+                        justify-content: space-between;
+                    }
                     .input-wrapper {
                         font-size: 0.8rem;
                       
@@ -71,7 +103,22 @@
                                 font-size: .9rem;
                             }
                         }
+                        .picture-wrapper{
+                            display:flex;
+                            margin-right:20px;
+                            .image-place{
+                                width: 100px;
+                                height: 100px;
+                                object-fit:fill;
+                                overflow: hidden;
+                                border-radius:5px;
+                                box-shadow: 0 2px 5px 2px rgba(0,0,0,0.1);
+                            
+                            }
+                        }
                     }
+
+                    
     
                     .input-user-type {
     
@@ -109,13 +156,15 @@
                     button {
                         flex-grow: 1;
                         padding: 10px;
+                        border-radius: 5px;
+                        border:1px solid;
 
                     }
 
-                    .cancel {
+                    .cancel-modal {
+                    
                         background-color: #f1f1f1;
-                        border: 1px solid #c1c1c1;
-                        border-radius: 5px;
+                        border-color:#c1c1c1;
 
                         &:hover {
                             cursor: pointer;
@@ -124,14 +173,13 @@
                     }
 
                     .save {
-                        background-color: orange;
-                        border: 1px solid orange;
-                        border-radius: 5px;
-                        color: white;
-
+                        background-color: #393fae;
+                        color:white;
+                        border-color:#393fae;
                         &:hover {
-                            cursor: pointer;
-                            background-color: rgb(230, 149, 1);
+                            background-color: #2e338e;
+                    cursor:pointer; 
+                    border-color:#2e338e;
                         }
                     }
 
@@ -139,4 +187,11 @@
             }
         }
     }
+}
+
+@media(max-width: 530px) {
+    .col-530{
+        flex-direction: column;
+    }
+
 }

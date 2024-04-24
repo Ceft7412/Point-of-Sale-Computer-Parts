@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -37,21 +39,28 @@ Route::middleware('auth')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
 
-    Route::post('category.store', [AdminController::class, 'storeCategory'])->name('category-store');
+    Route::post('category.store', [CategoryController::class, 'storeCategory'])->name('category-store');
     Route::post('subcategory.store', [AdminController::class, 'storeSubcategory'])->name('subcategory-store');
 
-    // *THIS SECTION ARCHIVES THE USER AND GROUP
+    // *ARCHIVE SELECT ID WHETHER IT IS USER OR CATEGORY
     Route::post('archive/{id}', [RegisteredUserController::class, 'archive'])->name('archive');
     Route::post('unarchive/{id}', [RegisteredUserController::class, 'unarchive'])->name('unarchive');
 
-    // *THIS SECTION UNARCHIVES THE USER AND GROUP
+
+    //
+
+    // *USER ARCHIVE
     Route::post('archive', [RegisteredUserController::class, 'archiveGroup'])->name('archiveGroup');
     Route::post('unarchive', [RegisteredUserController::class, 'unarchiveGroup'])->name('unarchiveGroup');
-    
+
+
+    // *CATEGORY ARCHIVE
+    Route::post('archiveCategoryGroup',[CategoryController::class, 'archiveCategoryGroup'])->name('archiveCategoryGroup');
+    Route::post('unarchiveCategoryGroup', [CategoryController::class, 'unarchiveCategoryGroup'])->name('unarchiveCategoryGroup');
 
 
     Route::put('update/{id}', [RegisteredUserController::class, 'update'])->name('update-store');
-
+    Route::put('category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category-update');
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -73,3 +82,4 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
+

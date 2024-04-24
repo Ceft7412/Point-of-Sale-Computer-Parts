@@ -191,17 +191,17 @@
         </div>
         <div class="out-wrapper">
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <div class="out-flex-wrapper" onclick="event.preventDefault(); this.closest('form').submit();">
-                    <i class="bi bi-box-arrow-left"></i>
-                    <span class="text-logout">Logout</span>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <div class="out-flex-wrapper" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <span class="text-logout">Logout</span>
 
 
-                </div>
+                    </div>
 
 
-            </form>
+                </form>
 
         </div>
 
@@ -368,7 +368,7 @@
                                             <div class="table-cell action">
                                                 <div class="action-p edit-w">
                                                     <button type="button" class="updateButton"
-                                                        data-user-id="{{ $user->id }}">
+                                                        data-id="{{ $user->id }}">
                                                         <i class="bi bi-pencil-square"></i>
                                                         <span class="">Update</span>
                                                     </button>
@@ -377,7 +377,7 @@
                                                 <div class="action-p archive-w">
 
                                                     <button type="button" class="archiveButton"
-                                                        data-user-id="{{ $user->id }}">
+                                                        data-id="{{ $user->id }}">
                                                         <i class="bi bi-archive"></i>
                                                         <span class="">Inactive</span>
                                                     </button>

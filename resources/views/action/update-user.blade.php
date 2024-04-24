@@ -47,7 +47,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="modal-flex-footer">
-                        <button type="button" class="cancel">Cancel</button>
+                        <button type="button" class="cancel-modal">Cancel</button>
                         <button type="submit" class="save">Submit</button>
                     </div>
                 </div>

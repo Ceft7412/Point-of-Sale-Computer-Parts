@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class RegisteredUserController extends Controller
     public function getUser($id)
     {
         $user = User::findOrFail($id);
-      
+
         return response()->json($user);
     }
 
@@ -95,8 +96,6 @@ class RegisteredUserController extends Controller
 
         return redirect()->back()->with('success', 'User updated successfully');
     }
-
-
     public function archive($id)
     {
         $user = User::findOrFail($id);
@@ -104,9 +103,8 @@ class RegisteredUserController extends Controller
         $user->save();
 
         return redirect()->back();
-
+        
     }
-
     public function unarchive($id)
     {
         $user = User::findOrFail($id);
@@ -124,7 +122,7 @@ class RegisteredUserController extends Controller
                 $user->is_active = false;
                 $user->save();
             }
-            return redirect()->back()->with('success', 'Users archived successfully');
+            return redirect()->back()->with('success', 'Users set inactive to successfully');
         } else {
             return redirect()->back()->with('error', 'No users selected');
         }
@@ -140,9 +138,11 @@ class RegisteredUserController extends Controller
                 $user->is_active = true;
                 $user->save();
             }
-            return redirect()->back()->with('success', 'Users unarchived successfully');
+            return redirect()->back()->with('success', 'Users set to active successfully');
         } else {
             return redirect()->back()->with('error', 'No users selected');
         }
     }
+
+    
 }

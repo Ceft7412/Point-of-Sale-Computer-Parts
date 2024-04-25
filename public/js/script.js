@@ -191,13 +191,25 @@ $('.updateCategoryButton').click(function() {
 });
 var archiveFormHandler = new FormHandler('#archiveForm');
 
+var unarchiveFormHandler = new FormHandler('#unarchiveForm');   
 $('.archiveButton').click(function () {
     var userId = $(this).data('id');
     archiveFormHandler.setAction(userId, 'archive');
    
 }); 
 
-var unarchiveFormHandler = new FormHandler('#unarchiveForm');   
+$('.archiveCategoryButton').click(function(){
+    var categoryId = $(this).data('id');
+    archiveFormHandler.setCategory(categoryId, 'archive');
+
+})
+$('.unarchiveCategoryButton').click(function(){
+    var categoryId = $(this).data('id');
+    unarchiveFormHandler.setCategory(categoryId, 'unarchive');
+
+
+});
+
 
 $('.unarchiveButton').click(function () {
     var userId = $(this).data('id');

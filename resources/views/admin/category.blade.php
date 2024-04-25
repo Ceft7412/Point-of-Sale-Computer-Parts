@@ -409,16 +409,13 @@
                                                                 <span class="">Update</span>
                                                             </button>
                                                         </div>
-
                                                         <div class="action-p archive-w">
 
-                                                            <button type="button" class="archiveButton"
-                                                                data-id="{{ $category->id }}">
+                                                            <button type="button" class="archiveCategoryButton"
+                                                                data-id="{{ $category->category_id }}">
                                                                 <i class="bi bi-archive"></i>
                                                                 <span class="">Inactive</span>
-                                                        </button>
-
-
+                                                            </button>
                                                         </div>
                                                     </div>
                                                     <div class="contain-chev-action">
@@ -472,16 +469,16 @@
                                                                         <span class="">Update</span>
                                                                     </button>
                                                                 </div>
-        
+
                                                                 <div class="action-p archive-w">
-        
+
                                                                     <button type="button" class="archiveButton"
                                                                         data-id="{{ $subcategory->id }}">
                                                                         <i class="bi bi-archive"></i>
                                                                         <span class="">Inactive</span>
                                                                     </button>
-        
-        
+
+
                                                                 </div>
                                                             </div>
                                                         </div>

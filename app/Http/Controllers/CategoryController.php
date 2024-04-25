@@ -21,6 +21,7 @@ class CategoryController extends Controller
             ->with('imageFiles', $imageFiles);
     }
 
+
     public function storeCategory(Request $request)
     {
         $request->validate([
@@ -59,7 +60,7 @@ class CategoryController extends Controller
         if ($request->filled('selected_image')) {
             // Extract the image name from the full path
             $imageName = basename($request->selected_image);
-    
+
             // Assign the image name to $category->category_image
             $category->category_image = $imageName;
         } elseif ($request->hasFile('category_image')) {
@@ -70,7 +71,7 @@ class CategoryController extends Controller
             $category->category_image = $imageName;
         }
         $category->save();
-       
+
         return redirect()->back();
 
 
@@ -81,13 +82,32 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         return response()->json($category);
     }
+    public function archiveCategory($id)
+    {
+        $category = Category::where('category_id', $id)->firstOrFail();
+        $category->is_active = false;
+        $category->save();
+        $childCategories = Subcategory::where('category_id', $id)->get();
+        foreach ($childCategories as $childCategory) {
+            $childCategory->is_active = false;
+            $childCategory->save();
+        }
+        return redirect()->back();
+    }
 
+    public function unarchiveCategory($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->is_active = true;
+        $category->save();
+        return redirect()->back();
+    }
     public function archivedCategories()
     {
 
         $archivedCategories = Category::where('is_active', 0)->get();
-        $archivedSubcategories = Subcategory::all();
-        return view('admin.archive.archive-category')->with('categories', $archivedCategories)->with('subcategories', $archivedSubcategories);
+        $archivedSubcategories = Subcategory::where('is_active', 0)->get();
+        return view('admin.archive.archive-category')->with('archivedCategories', $archivedCategories)->with('archivedSubcategories', $archivedSubcategories);
     }
 
     public function archiveCategoryGroup(Request $request)
@@ -128,7 +148,7 @@ class CategoryController extends Controller
 
         return $imageFiles;
     }
-    
-    
+
+
 
 }

@@ -57,7 +57,8 @@ Route::middleware('auth')->group(function () {
     // *CATEGORY ARCHIVE
     Route::post('archiveCategoryGroup',[CategoryController::class, 'archiveCategoryGroup'])->name('archiveCategoryGroup');
     Route::post('unarchiveCategoryGroup', [CategoryController::class, 'unarchiveCategoryGroup'])->name('unarchiveCategoryGroup');
-
+    Route::post('category/archive/{id}', [CategoryController::class, 'archiveCategory'])->name('archiveCategory');
+    Route::post('category/unarchive/{id}', [CategoryController::class, 'unarchiveCategory'])->name('unarchiveCategory');
 
     Route::put('update/{id}', [RegisteredUserController::class, 'update'])->name('update-store');
     Route::put('category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category-update');

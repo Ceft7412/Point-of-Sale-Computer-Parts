@@ -9,7 +9,7 @@
     {{-- ! AN ERROR?! --}}
     {{-- TODO: MAKE A SANDWICH! --}}
     {{-- ? HUH????? --}}
-    
+
 
 
     <div class="topbar-wrapper">
@@ -111,7 +111,7 @@
                         <i class="less bi bi-chevron-up" id="expand-less-category"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-category')}}" class="archive-show" id="archive-expand-category">
+                <a href="{{ route('archive-category') }}" class="archive-show" id="archive-expand-category">
                     <span class="">Archive</span>
 
                 </a>
@@ -119,7 +119,7 @@
 
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ route('product')}}"" class="sidebar-menu-item">
+                    <a href="{{ route('product') }}"" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-clipboard-check"></i>
                             <span class="">Product</span>
@@ -131,7 +131,7 @@
                         <i class="less bi bi-chevron-up" id="expand-less-product"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-product')}}" class="archive-show" id="archive-expand-product">
+                <a href="{{ route('archive-product') }}" class="archive-show" id="archive-expand-product">
                     <span class="">Archive</span>
 
                 </a>
@@ -183,7 +183,7 @@
                         <i class="less bi bi-chevron-up" id="expand-less-admin"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-admin')}}" class="archive-show" id="archive-expand-admin">
+                <a href="{{ route('archive-admin') }}" class="archive-show" id="archive-expand-admin">
                     <span class="">Archive</span>
 
                 </a>
@@ -280,26 +280,67 @@
             </div>
         </div>
     </div>
+
+
+    {{-- *ERROR --}}
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="error-wrapper">
+                <div class="error-modal">
+                    <div class="body">
+                        <span class="text">
+
+                            <span>{{ $error }}</span>
+
+                        </span>
+                        <i class="bi bi-x-lg cancel"></i>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endif
+    {{-- *SUCCESS --}}
+    @if (session('success'))
+        <div class="success-modal">
+            <div class="success-modal">
+                <div class="body">
+
+                    <i class="bi bi-check-circle-fill"></i>
+                    <i class="bi bi-check"></i>
+
+
+                    <div class="text">
+                        <span class="big">Success</span>
+                        <span class="small">{{session('success')}}</span>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button type="button" class="ok">OK</button>
+                </div>
+            </div>
+        </div>
+    @endif
     <!-- CONTENT -->
 
     <div class="c-wrapper">
         <div class="c-heading-wrapper category">
             <div class="ct-title">
                 <span class="title">Archived Cashiers</span>
-            
+
             </div>
         </div>
         <div class="ct-body">
             <div class="ct-body-flex">
                 <div class="ct-body-heading">
-                    <a href="{{route('employee')}}" class="go-back">
+                    <a href="{{ route('employee') }}" class="go-back">
                         <i class="bi bi-arrow-bar-left"></i>
                         <span class="back">GO BACK</span>
                     </a>
                     <div class="ct-heading-r">
-                        <form class="ct-heading-search">
-                            
-                            <input type="text" class="ct-heading-search-input" placeholder="Employee ID">
+                        <form method="GET" action="{{ route('archive-employee') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Employee ID" value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
@@ -315,7 +356,9 @@
                                 <div class="employee-header">
                                     <div class="table-row">
                                         <div class="table-cell">
-                                            <input type="checkbox" id="selectAllCheckbox">
+                                            @if ($users->count() > 0)
+                                                <input type="checkbox" id="selectAllCheckbox">
+                                            @endif
                                         </div>
                                         <div class="table-cell category-cell">
                                             <span>Employee ID</span>
@@ -330,7 +373,7 @@
                                     </div>
                                 </div>
                                 <div class="employee-body">
-                                    @foreach ($users as $user)
+                                    @forelse ($users as $user)
                                         <div class="table-row">
 
                                             <div class="table-cell">
@@ -376,7 +419,19 @@
 
 
                                         </div>
-                                    @endforeach
+
+                                    @empty
+                                        @if (request()->query('search'))
+                                            <div class="no-data">
+                                                <span>No result found for query
+                                                    <strong>{{ request()->query('search') }}</strong></span>
+                                            </div>
+                                        @else
+                                            <div class="no-data">
+                                                <span>No data available</span>
+                                            </div>
+                                        @endif
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -391,6 +446,6 @@
     </div>
 @endsection
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/../js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/../js/script.js"></script>
 @endsection

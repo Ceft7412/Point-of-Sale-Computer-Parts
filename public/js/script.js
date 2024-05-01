@@ -13,10 +13,12 @@ $("#add-button-modal").click(function (event) {
 });
 
 
-$("#close-update-modal, #cancel-update-modal").click(function (event) {
+$("#close-update-modal, #cancel-update-modal, .cancel-modal").click(function (event) {
     $(".update-modal-wrapper").hide();
+    $(".subcategoryUpdate-modal-wrapper").hide();
     event.preventDefault();
 });
+
 $("#close-modal, #cancel-modal").click(function (event) {
     $("#modal").hide();
     event.preventDefault();
@@ -37,7 +39,7 @@ $(".subcategory-menu").click(function (event) {
 
 function toggleElements(archiveId, moreId, lessId) {
     if ($(archiveId).hasClass('active')) {
-        $(archiveId).show(); 
+        $(archiveId).show();
         $(moreId).toggle();
         $(lessId).toggle();
     } else {
@@ -54,7 +56,10 @@ toggleElements('#archive-expand-product', '#expand-more-product', '#expand-less-
 toggleElements('#archive-expand-category', '#expand-more-category', '#expand-less-category');
 toggleElements('#archive-expand-employee', '#expand-more-employee', '#expand-less-employee');
 toggleElements('#archive-expand-admin', '#expand-more-admin', '#expand-less-admin');
-
+if ($('#subcategory-expand-category').hasClass('active')) {
+    $('.table-subcategory-group').show();
+    $('.category-body').hide();
+}
 
 
 $(".table-group").each(function () {
@@ -87,12 +92,6 @@ $('.cc').click(function () {
 });
 
 
-$('#register-employee').on('submit', function (e) {
-    if ($('#password').val() != $('#confirm-password').val()) {
-        e.preventDefault();
-        alert('Passwords do not match');
-    }
-});
 
 $('#toggle-password').click(function () {
     $(this).find('i').toggleClass('bi-eye-slash-fill bi-eye-fill');
@@ -107,8 +106,23 @@ $('.archive-w').on('click', function (e) {
     $('.archive-modal-wrapper').show();
 
 });
+$('.archiveSubcategoryButton').on('click', function (e) {
+    $('.archiveSubcategory-modal-wrapper').show();
+
+});
+
+
+$('.archive-sub').on('click', function (e) {
+    $('.unarchive-modal-wrapper').show();
+
+});
 $('.edit-w').on('click', function (e) {
     $('.update-modal-wrapper').show();
+});
+
+$('.updateSubcategoryButton').on('click', function (e) {
+    $('.subcategoryUpdate-modal-wrapper').show();
+
 });
 $('.cancel-modal').on('click', function (e) {
     $('.update-modal-wrapper').hide();
@@ -119,28 +133,29 @@ $('.cancel-modal').on('click', function (e) {
 
 $('.cancel-archive').on('click', function (e) {
     $('.archive-modal-wrapper').hide();
+    $('.archiveSubcategory-modal-wrapper').hide();
+    $('.unarchive-modal-wrapper').hide();
 });
 
 $('#selectAllCheckbox').change(function () {
-    // When the "select all" checkbox is checked or unchecked,
-    // check or uncheck all other checkboxes
+
     $('.userCheckbox').prop('checked', $(this).prop('checked'));
 
     if ($(this).is(':checked')) {
-        // If the "select all" checkbox is checked, show the archive button
+
         $('#archiveButton').show();
     } else {
-        // If the "select all" checkbox is unchecked, hide the archive button
+
         $('#archiveButton').hide();
     }
 });
 
 $('.userCheckbox').change(function () {
-    // If at least one checkbox is checked, show the archive button
+
     if ($('.userCheckbox:checked').length > 0) {
         $('#archiveButton').show();
     } else {
-        // If no checkboxes are checked, hide the archive button
+
         $('#archiveButton').hide();
     }
 });
@@ -154,21 +169,29 @@ class FormHandler {
     setAction(userId, action) {
         this.form.attr('action', `/${action}/` + userId);
     }
-
+    setProduct(productId, action) {
+        this.form.attr('action', `/product/${action}/` + productId); // e.g. product/update/1
+    }
     setCategory(categoryId, action) {
         this.form.attr('action', `/category/${action}/` + categoryId); // e.g. category/update/1
     }
+
+    setSubcategory(subcategoryId, action) {
+        this.form.attr('action', `/category/subcategory/${action}/` + subcategoryId); // e.g. category/subcategory/update/1
+
+    }
+
 }
 
 var updateFormHandler = new FormHandler('#updateForm');
 
 
-$('.updateButton').click(function() {
+$('.updateButton').click(function () {
     var userId = $(this).data('id');
     var action = 'update';
     updateFormHandler.setAction(userId, action);
-    
-    $.get('/admin/employee/' + userId, function(user) {
+
+    $.get('/admin/employee/' + userId, function (user) {
         $('input[name="type"]').val(user.type);
         $('input[name="update-name"]').val(user.name);
         $('input[name="update-username"]').val(user.username);
@@ -176,39 +199,115 @@ $('.updateButton').click(function() {
         $('input[name="update-contact"]').val(user.contact);
     });
 });
-$('.updateCategoryButton').click(function() {
+$('.updateCategoryButton').click(function () {
+    var imageUrl = $(this).data('image-url');  
     var categoryId = $(this).data('id');
     var action = 'update';
     updateFormHandler.setCategory(categoryId, action);
-    
-    $.get('/admin/category/' + categoryId, function(category) {
-        $('#update_category_image').attr('src', '/assets/images/category_uploads/' + category.category_image);
+
+    $.get('/admin/category/' + categoryId, function (category) {
+        $('#update_category_image').attr('src', imageUrl);
         $('#update_category_image').attr('alt', category.category_name);
         $('input[name="category_name"]').val(category.category_name);
         $('input[name="category_description"]').val(category.category_description);
-        // Add more fields as needed
+
     });
 });
+
+var updateFormSubcategory = new FormHandler('#updateFormSubcategory');
+$('.updateSubcategoryButton').click(function () {
+    var imageUrl = $(this).data('image-url');
+    var subcategoryId = $(this).data('id');
+    console.log(subcategoryId);
+    var action = 'update';
+    updateFormSubcategory.setSubcategory(subcategoryId, action);
+
+    $.get('/admin/category/subcategory/' + subcategoryId, function (subcategory) {
+        $('#update_subcategory_image').attr('src', imageUrl);
+        $('#update_subcategory_image').attr('alt', subcategory.subcategory_image);
+        $('input[name="subcategory_name"]').val(subcategory.subcategory_name);
+        $('input[name="subcategory_description"]').val(subcategory.subcategory_description);
+
+    });
+
+});
+
+var updateProductForm = new FormHandler('#updateProductForm');
+$('.updateProductButton').click(function () {
+    var imageUrl = $(this).data('image-url');   
+    var productId = $(this).data('id');
+    var action = 'update';
+    updateProductForm.setProduct(productId, action);
+    $.get('/admin/product/' + productId, function (product) {
+        $('#product_image').attr('src', imageUrl);
+        $('#product_image').attr('alt', product.product_name);
+        $('input[name="product_name"]').val(product.product_name);
+        $('input[name="product_price"]').val(product.product_price);
+        $('input[name="product_quantity"]').val(product.product_quantity);
+        $('input[name="product_description"]').val(product.product_description);
+        $('input[name="product_category"]').val(product.category_id);
+        $('input[name="product_subcategory"]').val(product.subcategory_id);
+    });
+});
+
 var archiveFormHandler = new FormHandler('#archiveForm');
 
-var unarchiveFormHandler = new FormHandler('#unarchiveForm');   
+var unarchiveFormHandler = new FormHandler('#unarchiveForm');
+
+
 $('.archiveButton').click(function () {
     var userId = $(this).data('id');
     archiveFormHandler.setAction(userId, 'archive');
-   
-}); 
 
-$('.archiveCategoryButton').click(function(){
+});
+
+
+
+
+
+var archiveCategoryForm = new FormHandler('#archiveCategoryForm');
+$('.archiveCategoryButton').click(function () {
     var categoryId = $(this).data('id');
-    archiveFormHandler.setCategory(categoryId, 'archive');
+    archiveCategoryForm.setCategory(categoryId, 'archive');
 
 })
-$('.unarchiveCategoryButton').click(function(){
+
+
+var archiveSubcategoryForm = new FormHandler('#archiveSubcategoryForm');
+$('.archiveSubcategoryButton').click(function () {
+    var categoryId = $(this).data('id');
+    archiveSubcategoryForm.setSubcategory(categoryId, 'archive');
+});
+
+var archiveProductForm = new FormHandler('#archiveProductForm');
+$('.archiveProductButton').click(function () {
+    var productId = $(this).data('id');
+    archiveProductForm.setProduct(productId, 'archive');
+});
+
+$('.unarchiveCategoryButton').click(function () {
     var categoryId = $(this).data('id');
     unarchiveFormHandler.setCategory(categoryId, 'unarchive');
 
 
 });
+
+var unarchiveSubcategory = new FormHandler('#unarchiveFormSubcategory');
+$('.unarchiveSubcategoryButton').click(function () {
+    var categoryId = $(this).data('id');
+    unarchiveSubcategory.setSubcategory(categoryId, 'unarchive');
+
+
+});
+
+var unarchiveProductForm = new FormHandler('#unarchiveProductForm');
+$('.unarchiveProductButton').click(function () {
+    var productId = $(this).data('id');
+    unarchiveProductForm.setProduct(productId, 'unarchive');
+
+});
+
+
 
 
 $('.unarchiveButton').click(function () {
@@ -216,9 +315,9 @@ $('.unarchiveButton').click(function () {
     unarchiveFormHandler.setAction(userId, 'unarchive');
 
 
-    
-   
-}); 
+
+
+});
 $('.img-con').click(function () {
     var imgId = $(this).data('id');
 
@@ -229,51 +328,157 @@ $('.t-ps').click(function () {
     $('.image-modal-wrapper').show();
 });
 
-$('input[name="category_image"]').on('change', function() {
-    if (this.files && this.files[0]) {
-        var reader = new FileReader();
+function handleImageChange(inputName, updateImageId, selectedImageId) {
+    $('input[name="' + inputName + '"]').on('change', function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
 
-        reader.onload = function(e) {
-            $('#update_category_image').attr('src', e.target.result);
+            reader.onload = function (e) {
+                $('#' + updateImageId).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(this.files[0]);
         }
 
-        reader.readAsDataURL(this.files[0]);
+        $('#' + selectedImageId).val('');
+    });
+}
+
+function handleImageClick(imageContainerClass, updateImageId, selectedImageId) {
+    $('.' + imageContainerClass + ' img').on('click', function () {
+        var src = $(this).attr('src');
+        $('#' + updateImageId).attr('src', src);
+        $('#' + selectedImageId).val(src);
+        $('input[name="' + updateImageId + '"]').val('');
+        $('.image-modal-wrapper').hide();
+        $('#myModal').modal('hide');
+    });
+}
+
+handleImageChange('category_image', 'update_category_image', 'selected_image');
+handleImageClick('img-con', 'update_category_image', 'selected_image');
+
+handleImageChange('subcategory_image', 'update_subcategory_image', 'selected_subcategory_image');
+handleImageClick('img-sub-con', 'update_subcategory_image', 'selected_subcategory_image');
+
+handleImageChange('product_image', 'product_image', 'selected_product_image');
+handleImageClick('img-pro-con', 'product_image', 'selected_product_image');
+
+
+
+
+
+if ($('#select-ctgry').hasClass('active')) {
+    $('.table-subcategory-group').hide();
+}
+
+
+$('#select-sbctgry').click(function () {
+    $('#select-ctgry').removeClass('active');
+    $('#select-sbctgry').addClass('active');
+    if ($('#select-sbctgry').hasClass('active')) {
+        $('#selectAllCheckbox').hide();
     }
+
+    $('.table-subcategory-group').show();
+    $('.category-body').hide();
+});
+
+$('#select-ctgry').click(function () {
+    $('#select-sbctgry').removeClass('active');
+    $('#selectAllCheckbox').show();
+    $('#select-ctgry').addClass('active');
+    $('.table-subcategory-group').hide();
+    $('.category-body').show();
+});
+
+$('.unarchiveSubcategoryButton').click(function () {
+    var subcategoryId = $(this).data('id');
+    $('#categorySelect option').each(function () {
+        if ($(this).val() == subcategoryId) {
+            $(this).prop('selected', true);
+        } else {
+            $(this).prop('selected', false);
+        }
+    });
 });
 
 
-$('.img-con img').on('click', function() {
-    // Set the source of the image in the .picture-wrapper div to the source of the clicked image
-    $('#update_category_image').attr('src', $(this).attr('src'));
+// *===============SUCCESS MODAL OPEN WHEN FORM IS SUCCESSSFULLY SUBMITTED====================
 
-    // Set the value of the hidden input field to the source of the clicked image
-    $('#selected_image').val($(this).attr('src'));
+$('#category_insert').on('submit', function (e) {
+    e.preventDefault();
+   $('.confirm-wrapper').show();
 
-    // Close the modal
-    // This depends on how your modal is implemented
-    // Here's an example if you're using Bootstrap's modal
-    $('.image-modal-wrapper').hide();
+    $('.confirm-submit').off('click').on('click', function () {
+        $('.confirm-wrapper').hide();
+        e.target.submit();
+    });
+
+    $('.cancel').click(function () {
+        $('.confirm-wrapper').hide();
+        
+    });
 });
 
+$('#subcategory_insert').on('submit', function (e) {
+    e.preventDefault();
+   $('.confirm-wrapper').show();
 
-$('input[name="category_image"]').on('change', function() {
-    // Clear the value of the hidden input
-    $('#selected_image').val('');
-});
-$('.img-con img').on('click', function() {
-    // Clear the value of the file input
-    $('input[name="category_image"]').val('');
+    $('.confirm-submit').off('click').on('click', function () {
+        $('.confirm-wrapper').hide();
+        e.target.submit();
+    });
 
-    // Set the source of the image in the .picture-wrapper div to the source of the clicked image
-    $('#update_category_image').attr('src', $(this).attr('src'));
-
-    // Set the value of the hidden input field to the source of the clicked image
-    $('#selected_image').val($(this).attr('src'));
-
-    // Close the modal
-    // This depends on how your modal is implemented
-    // Here's an example if you're using Bootstrap's modal
-    $('#myModal').modal('hide');
+    $('.cancel').click(function () {
+        $('.confirm-wrapper').hide();
+        
+    });
 });
 
+$('#product_insert').on('submit', function (e) {
+    e.preventDefault();
+   $('.confirm-wrapper').show();
+
+    $('.confirm-submit').off('click').on('click', function () {
+        $('.confirm-wrapper').hide();
+        e.target.submit();
+    });
+
+    $('.cancel').click(function () {
+        $('.confirm-wrapper').hide();
+        
+    });
+});
+
+$('#register-employee').on('submit', function (e) {
+    e.preventDefault();
+    if ($('#password').val() != $('#confirm-password').val()) {
+        e.preventDefault();
+        alert('Passwords do not match');
+    }
+    else{
+        $('.confirm-wrapper').show();
+
+        $('.confirm-submit').off('click').on('click', function () {
+            $('.confirm-wrapper').hide();
+            e.target.submit();
+        });
     
+    }
+  
+    $('.cancel').click(function () {
+        $('.confirm-wrapper').hide();
+        
+    });
+
+});
+
+$('.ok').click(function () {
+    $('.success-modal').hide();
+});
+$('.cancel').click(function () {
+    $('.error-wrapper').hide();
+    
+});
+

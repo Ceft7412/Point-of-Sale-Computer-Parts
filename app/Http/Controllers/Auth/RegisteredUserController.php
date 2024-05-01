@@ -20,8 +20,30 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $users = User::where('type', 2)->where('is_active', 1)->get();
-        return view('admin.employee')->with('users', $users);
+        $search = request()->query('search');
+        if ($search) {
+            $users = User::where('type', 2)->where('is_active', 1)->where('user_id', 'like', '%' . $search . '%')->get();
+            return view('admin.employee')->with('users', $users);
+        } else {
+            $users = User::where('type', 2)->where('is_active', 1)->get();
+            return view('admin.employee')->with('users', $users);
+        }
+
+    }
+
+
+    public function redirectArchiveEmployee()
+    {
+        $search = request()->query('search');
+        if ($search) {
+            $users = User::where('type', 2)->where('is_active', 0)->where('user_id', 'like', '%' . $search . '%')->get();
+            return view('admin.archive.archive-employee')->with('users', $users);
+        }
+        else{
+            $users = User::where('type', 2)->where('is_active', 0)->get();
+            return view('admin.archive.archive-employee')->with('users', $users);
+        }
+      ;
     }
 
 
@@ -56,18 +78,18 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make('$request->password'),
+            'password' => Hash::make($request->password),
             'contact' => $request->contact ?? '',
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
         if ($request->type == 1) {
-            return redirect(route('admin', absolute: false));
+            return redirect()->back()->with('success', 'Admin created successfully');
         } else {
-            return redirect(route('employee', absolute: false));
+            return redirect()->back()->with('success', 'Employee created successfully');
         }
     }
     public function update(Request $request, $id)
@@ -89,12 +111,13 @@ class RegisteredUserController extends Controller
 
         // Save the updated  user
         $user->save();
-        if ($user === null) {
-            return redirect()->back()->withErrors(['user' => 'User not found']);
+
+        if($request->type == 1){
+            return redirect()->back()->with('success', 'Admin updated successfully');
         }
-
-
-        return redirect()->back()->with('success', 'User updated successfully');
+        else{
+            return redirect()->back()->with('success', 'Employee updated successfully');
+        }
     }
     public function archive($id)
     {
@@ -102,7 +125,12 @@ class RegisteredUserController extends Controller
         $user->is_active = false;
         $user->save();
 
-        return redirect()->back();
+        if($user->type == 1){
+            return redirect()->back()->with('success', 'Admin archived successfully');
+        }
+        else{
+            return redirect()->back()->with('success', 'Employee archived successfully');
+        }
         
     }
     public function unarchive($id)
@@ -110,7 +138,12 @@ class RegisteredUserController extends Controller
         $user = User::findOrFail($id);
         $user->is_active = true;
         $user->save();
-        return redirect()->back();
+        if($user->type == 1){
+            return redirect()->back()->with('success', 'Admin unarchived successfully');
+        }
+        else{
+            return redirect()->back()->with('success', 'Employee unarchived successfully');
+        }
     }
     public function archiveGroup(Request $request)
     {
@@ -122,7 +155,12 @@ class RegisteredUserController extends Controller
                 $user->is_active = false;
                 $user->save();
             }
-            return redirect()->back()->with('success', 'Users set inactive to successfully');
+            if($user->type == 1){
+                return redirect()->back()->with('success', 'Admin archived successfully');
+            }
+            else{
+                return redirect()->back()->with('success', 'Employee archived successfully');
+            }
         } else {
             return redirect()->back()->with('error', 'No users selected');
         }
@@ -138,7 +176,12 @@ class RegisteredUserController extends Controller
                 $user->is_active = true;
                 $user->save();
             }
-            return redirect()->back()->with('success', 'Users set to active successfully');
+            if($user->type == 1){
+                return redirect()->back()->with('success', 'Admin unarchived successfully');
+            }
+            else{
+                return redirect()->back()->with('success', 'Employee unarchived successfully');
+            }
         } else {
             return redirect()->back()->with('error', 'No users selected');
         }

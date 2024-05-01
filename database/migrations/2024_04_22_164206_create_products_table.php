@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->integer('product_id');
+            $table->string('product_name')->required()->unique();
+            $table->string('product_price')->required();
+            $table->string('product_image')->required();
+            $table->string('product_quantity')->default(0);
+            $table->foreignId('subcategory_id');
+            $table->foreignId('category_id');
+            $table->boolean('is_active')->default(true);
+            $table->foreign('category_id')->references('category_id')->on('subcategories');
+            $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->timestamps();
         });
     }

@@ -102,10 +102,10 @@
                         <i class="less bi bi-chevron-up" id="expand-less-category"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-category">
+                <a href="{{route('archive-category')}}" class="archive-show" id="archive-expand-category">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
 
             <div class="menu-item">
@@ -207,7 +207,7 @@
     <div class="c-wrapper">
         <div class="c-heading-wrapper">
             <span class="dashboard">Overview</span>
-            <span class="h-date-now">Wednesday, Feb 15, 2024</span>
+            <span class="h-date-now">{{$currentDate}}</span>
         </div>
         <div class="c-flex-wrapper">
             <!-- ITEM 1 - LEFT -->

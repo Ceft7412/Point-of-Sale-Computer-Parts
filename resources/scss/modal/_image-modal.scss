@@ -71,6 +71,41 @@
                 }
             }
            }
+
+           .img-sub-con{
+           
+            display:flex;
+            justify-content: center;
+            
+            img{
+                height:120px;
+                width:120px;
+                border-radius:5px;
+                box-shadow: 0 2px 5px 2px rgba(0,0,0,0.1);
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    cursor: pointer;
+                    transform:scale(1.1);
+                }
+            }
+           }
+           .img-pro-con{
+           
+            display:flex;
+            justify-content: center;
+            
+            img{
+                height:120px;
+                width:120px;
+                border-radius:5px;
+                box-shadow: 0 2px 5px 2px rgba(0,0,0,0.1);
+                transition: all 0.3s ease-in-out;
+                &:hover{
+                    cursor: pointer;
+                    transform:scale(1.1);
+                }
+            }
+           }
         }
         .footer{
             margin-top:10px;

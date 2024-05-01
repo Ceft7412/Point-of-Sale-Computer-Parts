@@ -14,13 +14,10 @@
     .modal-card-wrapper {
         background-color: #fefefe;
         margin: auto;
-
         animation: slideDown 0.3s ease-out;
         width:35%;
         border-radius: 8px;
-
     }
-
 }
 @media(max-width: 1200px) {
     .archive-modal-wrapper {
@@ -43,8 +40,8 @@
 @media(min-width:2000px) {
     .archive-modal-wrapper {
         .modal-card-wrapper {
-            width: 450pxs;
-        }
+            width: 450px;
+        }       
     }
 
 }

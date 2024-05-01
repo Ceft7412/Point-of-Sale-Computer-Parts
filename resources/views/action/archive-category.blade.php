@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="footer">
-            <form method="POST" action="" id="archiveForm">
+            <form method="POST" action="" id="archiveCategoryForm">
                 @csrf
                 <button type="button" class="cancel-archive">No, keep this active</button>
                 <button type="submit" class="confirm-archive">Yes, set this to inactive</button>

@@ -60,6 +60,50 @@
                 flex-direction: column;
                 gap: 20px;
 
+
+
+                .cs-select{
+                    margin-top:20px;
+
+                    .wrap-select{
+                        display:flex;
+                        gap:30px;
+                        .select{
+                            
+                            align-items: center;
+                            font-size:.9375rem;
+                            font-family:'Inter Semibold';
+                            padding-bottom:10px;
+                            &:hover:not(.active){
+                                cursor:pointer;
+                            }
+                        }
+
+                        .select.active{
+                            color:#393fae;
+                            border-bottom:2px solid #393fae;
+                        
+                        }
+                    }
+                    
+                    .category-select{
+
+                    }
+                }
+                #archiveButton{
+                    width:140px;
+                height:40px;
+                border-radius:5px;
+                border:1px solid;
+                    background-color: #393fae;
+                    color:white;
+                    border-color:#393fae;
+                    &:hover{
+                        background-color: #2e338e;
+                        cursor:pointer; 
+                        border-color:#2e338e;
+                    }
+                }
                 .ct-body-heading {
                     display: flex;
                     align-items: center;
@@ -113,27 +157,7 @@
                             }
                         }
 
-                        .ct-heading-refresh {
-                            display: flex;
-                            align-items: center;
-                            background-color: white;
-                            padding: 5px;
-                            gap: 5px;
-                            color: rgb(57, 57, 57);
-                            border: 1px solid #D3D3D3;
-                            border-radius: 5px;
-                            width: 100px;
-                            justify-content: center;
-
-                            .text {
-                                font-size: 0.875rem;
-                            }
-                        }
-
-                        .ct-heading-refresh:hover {
-                            background-color: rgb(234, 234, 234);
-                            cursor: pointer;
-                        }
+                       
                     }
                 }
                 .ct-flex-select{

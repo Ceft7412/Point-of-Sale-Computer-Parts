@@ -170,7 +170,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a class="sidebar-menu-item">
+                    <a href="{{ route('admin') }}"class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-person-gear"></i>
                             <span class="">Admin
@@ -276,7 +276,66 @@
         </div>
     </div>
     <!-- CONTENT -->
+    {{-- *ERROR --}}
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="error-wrapper">
+                <div class="error-modal">
+                    <div class="body">
+                        <span class="text">
 
+                            <span>{{ $error }}</span>
+
+                        </span>
+                        <i class="bi bi-x-lg cancel"></i>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endif
+    {{-- *SUCCESS --}}
+    @if (session('success'))
+        <div class="success-modal">
+            <div class="success-modal">
+                <div class="body">
+
+                    <i class="bi bi-check-circle-fill"></i>
+                    <i class="bi bi-check"></i>
+
+
+                    <div class="text">
+                        <span class="big">Success</span>
+                        <span class="small">{{ session('success') }}</span>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button type="button" class="ok">OK</button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+    {{-- *CONFIRMATION --}}
+
+    <div class="confirm-wrapper">
+        <div class="confirm-modal">
+
+            <div class="header">
+                <span class="confirm">
+                    Confirmation
+                </span>
+                <i class="bi bi-x-lg cancel"></i>
+            </div>
+            <div class="body">
+                <span class="small">Are you sure you want to proceed? You cannot delete the data after submitting.</span>
+            </div>
+            <div class="footer">
+                <button type="button" class="cancel">No, I changed my mind.</button>
+                <button type="button" class="confirm-submit">Yes, add this data to the list.</button>
+            </div>
+        </div>
+    </div>
     <div class="c-wrapper">
         <div class="c-heading-wrapper category">
             <div class="ct-title">
@@ -294,21 +353,35 @@
                     <div class="ct-heading-r">
                         <form class="ct-heading-search">
 
-                            <input type="text" class="ct-heading-search-input" placeholder="Category ID">
+                            <input type="text" class="ct-heading-search-input" placeholder="ID">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('unarchiveCategoryGroup') }}">
                     @csrf
+
                     <button type="submit" id="archiveButton" style="display: none;">Set to active</button>
+
+                    <div class="cs-select">
+                        <div class="wrap-select">
+                            <span class="select category-select active" id="select-ctgry">
+                                Category
+                            </span>
+                            <span class="select subcategory-select" id="select-sbctgry">
+                                Subcategory
+                            </span>
+                        </div>
+                    </div>
                     <div class="ct-body-content">
                         <div class="table-wrapper">
                             <div class="table">
                                 <div class="category-header">
                                     <div class="table-row">
                                         <div class="table-cell">
-                                            <input type="checkbox" id="selectAllCheckbox">
+                                            @if ($archivedCategories->count() > 0)
+                                                <input type="checkbox" id="selectAllCheckbox">
+                                            @endif
                                         </div>
                                         <div class="table-cell">
                                             ID
@@ -324,123 +397,183 @@
                                     </div>
                                 </div>
                                 <div class="category-body">
-                                    @foreach ($archivedCategories as $archivedCategory)
-                                        <div class="table-group" id="category-group-{{ $archivedCategory->category_id }}">
+                                    @if ($archivedCategories->count() > 0)
 
-                                            <div class="table-row row-category">
+                                        @foreach ($archivedCategories as $archivedCategory)
+                                            <div class="table-group"
+                                                id="category-group-{{ $archivedCategory->category_id }}">
 
-                                                <div class="table-cell">
-                                                    <input type="checkbox" class="userCheckbox" name="categoryIds[]"
-                                                        value="{{ $archivedCategory->id }}">
-                                                </div>
-                                                <div class="table-cell">
-                                                    C{{ $archivedCategory->category_id }}
-                                                </div>
-                                                <div class="table-cell category-cell">
+                                                <div class="table-row row-category">
 
-                                                    <img src="../../assets/images/category_uploads/{{ $archivedCategory->category_image }}"
-                                                        alt="{{ $archivedCategory->cateogry_name }}" class="picture">
-                                                    <span>{{ $archivedCategory->category_name }}</span>
-                                                </div>
-                                                <div class="table-cell">
-                                                    {{ $archivedCategory->category_description }}
-                                                </div>
-                                                <div class="table-cell">{{ $archivedCategory->products }}</div>
-                                                <div class="table-cell date">
-                                                    <span>{{ $archivedCategory->created_at->toDateString() }}</span>
-                                                    <span>{{ $archivedCategory->created_at->toTimeString() }}</span>
-                                                </div>
-                                                <div class="table-cell date" style="display: flex;">
-                                                    <span>{{ $archivedCategory->updated_at->toDateString() }}</span>
-                                                    <span>{{ $archivedCategory->updated_at->toTimeString() }}</span>
-                                                </div>
-                                                <div class="table-cell action">
-                                                    <div class="flex-col">
-                                                        <div class="action-p archive-w">
-                                                            <button type="button" class="unarchiveCategoryButton"
-                                                                data-id="{{ $archivedCategory->id }}">
-                                                                <i class="bi bi-box-arrow-up"></i>
-                                                                <span class="">Active</span>
-                                                            </button>
+                                                    <div class="table-cell">
+                                                        <input type="checkbox" class="userCheckbox" name="categoryIds[]"
+                                                            value="{{ $archivedCategory->id }}">
+                                                    </div>
+                                                    <div class="table-cell">
+                                                        C{{ $archivedCategory->category_id }}
+                                                    </div>
+                                                    <div class="table-cell category-cell">
+
+                                                        <img src="{{Storage::url($archivedCategory->category_image)}}"
+                                                            alt="{{ $archivedCategory->cateogry_name }}" class="picture">
+                                                        <span>{{ $archivedCategory->category_name }}</span>
+                                                    </div>
+                                                    <div class="table-cell">
+                                                        {{ $archivedCategory->category_description }}
+                                                    </div>
+                                                    <div class="table-cell">{{ $archivedCategory->products }}</div>
+                                                    <div class="table-cell date">
+                                                        <span>{{ $archivedCategory->created_at->toDateString() }}</span>
+                                                        <span>{{ $archivedCategory->created_at->toTimeString() }}</span>
+                                                    </div>
+                                                    <div class="table-cell date" style="display: flex;">
+                                                        <span>{{ $archivedCategory->updated_at->toDateString() }}</span>
+                                                        <span>{{ $archivedCategory->updated_at->toTimeString() }}</span>
+                                                    </div>
+                                                    <div class="table-cell action">
+                                                        <div class="flex-col">
+                                                            <div class="action-p archive-w">
+                                                                <button type="button" class="unarchiveCategoryButton"
+                                                                    data-id="{{ $archivedCategory->id }}">
+                                                                    <i class="bi bi-box-arrow-up"></i>
+                                                                    <span class="">Active</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="contain-chev-action">
+                                                            <i class="bi bi-chevron-up chevron-up-category"
+                                                                data-category-id="{{ $archivedCategory->category_id }}"></i>
+                                                            <i class="bi bi-chevron-down chevron-down-category"
+                                                                data-category-id="{{ $archivedCategory->category_id }}"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="contain-chev-action">
-                                                        <i class="bi bi-chevron-up chevron-up-category"
-                                                            data-category-id="{{ $archivedCategory->category_id }}"></i>
-                                                        <i class="bi bi-chevron-down chevron-down-category"
-                                                            data-category-id="{{ $archivedCategory->category_id }}"></i>
-                                                    </div>
+                                                </div>
+
+                                                <div class="table-subcategory-group"
+                                                    id="subcategory-group-{{ $archivedCategory->category_id }}">
+                                                    @php
+                                                        $subcategoryExists = false;
+                                                    @endphp
+
+                                                    @foreach ($archivedSubcategories as $archivedSubcategory)
+                                                        @if ($archivedCategory->id === $archivedSubcategory->category_id)
+                                                            <div class="table-row row-subcategory" id="">
+                                                                <div class="table-cell">
+                                                                </div>
+                                                                <div class="table-cell subcategory-cell">
+                                                                    S{{ $archivedSubcategory->subcategory_id }}
+                                                                </div>
+                                                                <div class="table-cell">
+                                                                    <img src="{{Storage::url($archivedSubcategory->subcategory_image)}}"
+                                                                        alt="{{ $archivedSubcategory->subcategory_name }}"
+                                                                        class="picture">
+                                                                    <span>{{ $archivedSubcategory->subcategory_name }}</span>
+                                                                </div>
+                                                                <div class="table-cell">
+                                                                    {{ $archivedSubcategory->subcategory_description }}
+                                                                </div>
+                                                                <div class="table-cell">11 products</div>
+                                                                <div class="table-cell date">
+                                                                    <span>{{ $archivedSubcategory->created_at->toDateString() }}</span>
+                                                                    <span>{{ $archivedSubcategory->created_at->toTimeString() }}</span>
+                                                                </div>
+                                                                <div class="table-cell date" style="display: flex;">
+                                                                    <span>{{ $archivedSubcategory->created_at->toDateString() }}</span>
+                                                                    <span>{{ $archivedSubcategory->updated_at->toTimeString() }}</span>
+                                                                </div>
+                                                                <div class="table-cell action">
+
+                                                                </div>
+
+
+                                                            </div>
+                                                            @php
+                                                                $subcategoryExists = true;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                    @if (!$subcategoryExists)
+                                                        <div class="table-row row-subcategory" id="">
+                                                            <div class="whole">
+                                                                <span class="no-subcategory">No subcategory found.</span>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+
+
                                                 </div>
                                             </div>
-
+                                        @endforeach
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
                                         </div>
-
-
-                                        <div class="table-subcategory-group"
-                                            id="subcategory-group-{{ $archivedCategory->category_id }}">
-
-                                            @foreach ($archivedSubcategories as $archivedSubcategory)
-                                                @if ($archivedSubcategory->category_id === $archivedSubcategory->category_id)
-                                                    <div class="table-row row-subcategory" id="">
-                                                        <div class="table-cell">
-
-                                                        </div>
-                                                        <div class="table-cell subcategory-cell">
-                                                            S{{ $archivedSubcategory->subcategory_id }}
-                                                        </div>
-                                                        <div class="table-cell">
-                                                            <img src="../../assets/images/subcategory_uploads/{{ $archivedSubcategory->subcategory_image }}"
-                                                                alt="{{ $archivedSubcategory->subcategory_name }}"
-                                                                class="picture">
-                                                            <span>{{ $archivedSubcategory->subcategory_name }}</span>
-                                                        </div>
-                                                        <div class="table-cell">
-                                                            {{ $archivedSubcategory->subcategory_description }}
-                                                        </div>
-                                                        <div class="table-cell">11 products</div>
-                                                        <div class="table-cell date">
-                                                            <span>{{ $archivedSubcategory->created_at->toDateString()}}</span>
-                                                            <span>{{ $archivedSubcategory->created_at->toTimeString()}}</span>
-                                                        </div>
-                                                        <div class="table-cell date" style="display: flex;">
-                                                            <span>{{ $archivedSubcategory->created_at->toDateString()}}</span>
-                                                            <span>{{ $archivedSubcategory->updated_at->toTimeString()}}</span>
-                                                        </div>
-                                                        <div class="table-cell action">
-                                                            <div class="flex-col">
-                                                                <div class="action-p archive-w">
-                                                                    <button type="button" class="unarchiveSubcategoryButton"
-                                                                        data-id="{{ $archivedSubcategory->id }}">
-                                                                        <i class="bi bi-box-arrow-up"></i>
-                                                                        <span class="">Active</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="contain-chev-action">
-                                                                <i class="bi bi-chevron-up chevron-up-category"
-                                                                    data-category-id="{{ $archivedSubcategory->category_id }}"></i>
-                                                                <i class="bi bi-chevron-down chevron-down-category"
-                                                                    data-category-id="{{ $archivedSubcategory->category_id }}"></i>
-                                                            </div>
-
-                                                        </div>
-
-
-                                                    </div>
-                                                @endif
-                                            @endforeach
-
-
-                                        </div>
-                                    @endforeach
+                                    @endif
 
                                 </div>
+                                <div class="subcategory-body">
+
+                                    <div class="table-subcategory-group">
+                                        @if ($archivedSubcategories->count() > 0)
+                                            @foreach ($archivedSubcategories as $archivedSubcategory)
+                                                <div class="table-row row-subcategory" id="">
+                                                    <div class="table-cell">
+
+                                                    </div>
+                                                    <div class="table-cell subcategory-cell">
+                                                        S{{ $archivedSubcategory->subcategory_id }}
+                                                    </div>
+                                                    <div class="table-cell">
+                                                        <img src="{{Storage::url($archivedSubcategory->subcategory_image)}}"
+                                                            alt="{{ $archivedSubcategory->subcategory_name }}"
+                                                            class="picture">
+                                                        <span>{{ $archivedSubcategory->subcategory_name }}</span>
+                                                    </div>
+                                                    <div class="table-cell">
+                                                        {{ $archivedSubcategory->subcategory_description }}
+                                                    </div>
+                                                    <div class="table-cell">11 products</div>
+                                                    <div class="table-cell date">
+                                                        <span>{{ $archivedSubcategory->created_at->toDateString() }}</span>
+                                                        <span>{{ $archivedSubcategory->created_at->toTimeString() }}</span>
+                                                    </div>
+                                                    <div class="table-cell date" style="display: flex;">
+                                                        <span>{{ $archivedSubcategory->created_at->toDateString() }}</span>
+                                                        <span>{{ $archivedSubcategory->updated_at->toTimeString() }}</span>
+                                                    </div>
+                                                    <div class="table-cell action">
+                                                        <div class="flex-col">
+                                                            <div class="action-p archive-sub">
+                                                                <button type="button" class="unarchiveSubcategoryButton"
+                                                                    data-id="{{ $archivedSubcategory->id }}">
+                                                                    <i class="bi bi-box-arrow-up"></i>
+                                                                    <span class="">Active</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="no-data">
+                                                <span>No data available</span>
+                                            </div>
+                                        @endif
+
+
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </form>
-                @include('action.update-user')
-                @include('action.unarchive-user')
+                @include('action.unarchive-category')
+                @include('action.unarchive-subcategory')
+
 
             </div>
 

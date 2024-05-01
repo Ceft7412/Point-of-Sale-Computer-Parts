@@ -7,7 +7,7 @@
                     <span class="material-symbols-outlined" id="close-update-modal">
                         close
                     </span>
-                </div>
+                </div>  
             </div>
             <form action="" class="form-wrapper" id="updateForm" method="POST">
                 @csrf
@@ -20,7 +20,7 @@
                     <div class="input-name input-wrapper">
                         <div class="flex-column">
                             <label for="">Name:</label>
-                            <input type="text" name="update-name"class="input">
+                            <input type="text" name="update-name"class="input" required>
 
                         </div>
                         <div class="flex-column">
@@ -36,7 +36,7 @@
                     <div class="input-email input-wrapper">
                         <div class="flex-column">
                             <label for="">Email:</label>
-                            <input type="email" name="update-email" class="input" ">
+                            <input type="email" name="update-email" class="input" required>
                             <div class="error"></div>
                         </div>
                         <div class="flex-column">

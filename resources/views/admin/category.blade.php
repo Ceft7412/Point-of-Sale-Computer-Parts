@@ -106,6 +106,9 @@
                         <i class="less bi bi-chevron-up" id="expand-less-category"></i>
                     </div>
                 </div>
+                <a href="{{ route('archive-category') }}" class="archive-show" id="subcategory-expand-category">
+                    <span class="">Subcategory</span>
+                </a>
                 <a href="{{ route('archive-category') }}" class="archive-show" id="archive-expand-category">
                     <span class="">Archive</span>
 
@@ -219,23 +222,23 @@
                         <span class="subcategory-menu">Subcategory</span>
                     </div>
                 </div>
-                <form novalidate method="POST" action="{{ route('category-store') }}" enctype="multipart/form-data"
-                    class="form-wrapper">
+                <form method="POST" action="{{ route('category-store') }}" enctype="multipart/form-data"
+                    class="form-wrapper" id="category_insert">
                     @csrf
                     <div class="modal-body">
 
                         <div class="input-wrapper flex-row">
 
                             <div class="flex-column">
-                                <label for="">Picture (Optional):</label>
-                                <input type="file" name='category_image' accept=".jpg, .jpeg, .png" class="">
+                                <label for="">Picture:</label>
+                                <input type="file" name='category_image' required accept=".jpg, .jpeg, .png" class="">
                             </div>
                             <span clas="picture-wrapper"></span>
                         </div>
                         <div class="input-wrapper">
                             <div class="flex-column">
                                 <label for="">Category Name:</label>
-                                <input type="text" name='category_name' class="input">
+                                <input type="text" name='category_name' class="input category_name" required>
                             </div>
                         </div>
                         <div class="input-wrapper">
@@ -267,8 +270,8 @@
                         <span class="subcategory-menu active">Subcategory</span>
                     </div>
                 </div>
-                <form novalidate action="{{ route('subcategory-store') }}" method="POST" enctype="multipart/form-data"
-                    class="form-wrapper">
+                <form action="{{ route('subcategory-store') }}" method="POST" enctype="multipart/form-data"
+                    class="form-wrapper" id="subcategory_insert">
                     @csrf
                     <div class="modal-body">
                         <div class="input-wrapper">
@@ -276,7 +279,7 @@
                                 <label for="">Category:</label>
                                 <select name="category_id" id="" class="input">
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->category_id }}">
+                                        <option value="{{ $category->id }}">
                                             {{ $category->category_name }}
                                         </option>
                                     @endforeach
@@ -286,8 +289,8 @@
                         </div>
                         <div class="input-wrapper flex-row">
                             <div class="flex-column">
-                                <label for="">Picture (Optional):</label>
-                                <input type="file" class="" accept=".jpg, .jpeg, .png"
+                                <label for="">Picture:</label>
+                                <input required type="file" class="" accept=".jpg, .jpeg, .png"
                                     name="subcategory_image">
                             </div>
                             <span clas="picture-wrapper"></span>
@@ -295,7 +298,7 @@
                         <div class="input-wrapper">
                             <div class="flex-column">
                                 <label for="">Subcategory Name:</label>
-                                <input type="text" class="input" name="subcategory_name">
+                                <input type="text" class="input" name="subcategory_name" required>
                             </div>
                         </div>
                         <div class="input-wrapper">
@@ -315,6 +318,69 @@
             </div>
         </div>
     </div>
+    {{-- *ERROR --}}
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="error-wrapper">
+                <div class="error-modal">
+                    <div class="body">
+                        <span class="text">
+
+                            <span>{{ $error }}</span>
+
+                        </span>
+                        <i class="bi bi-x-lg cancel"></i>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endif
+    {{-- *SUCCESS --}}
+    @if (session('success'))
+        <div class="success-modal">
+            <div class="success-modal">
+                <div class="body">
+
+                    <i class="bi bi-check-circle-fill"></i>
+                    <i class="bi bi-check"></i>
+
+
+                    <div class="text">
+                        <span class="big">Success</span>
+                        <span class="small">{{session('success')}}</span>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button type="button" class="ok">OK</button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+    {{-- *CONFIRMATION --}}
+
+    <div class="confirm-wrapper">
+        <div class="confirm-modal">
+
+            <div class="header">
+                <span class="confirm">
+                    Confirmation
+                </span>
+                <i class="bi bi-x-lg cancel"></i>
+            </div>
+            <div class="body">
+                <span class="small">Are you sure you want to proceed? You cannot delete the data after submitting.</span>
+            </div>
+            <div class="footer">
+                <button type="button" class="cancel">No, I changed my mind.</button>
+                <button type="button" class="confirm-submit">Yes, add this data to the list.</button>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
     <div class="c-wrapper">
@@ -338,9 +404,10 @@
                 <div class="ct-body-heading">
                     <span class="ct-heading-l">Active Categories</span>
                     <div class="ct-heading-r">
-                        <form class="ct-heading-search">
+                        <form method="GET" action="{{ route('category') }}"class="ct-heading-search">
 
-                            <input type="text" class="ct-heading-search-input" placeholder="Category ID">
+                            <input type="text" name="search" class="ct-heading-search-input" placeholder="ID"
+                                value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
@@ -354,7 +421,9 @@
                                 <div class="category-header">
                                     <div class="table-row">
                                         <div class="table-cell">
-                                            <input type="checkbox" id="selectAllCheckbox">
+                                            @if ($categories->count() > 0)
+                                                <input type="checkbox" id="selectAllCheckbox">
+                                            @endif
                                         </div>
                                         <div class="table-cell">
                                             ID
@@ -370,7 +439,8 @@
                                     </div>
                                 </div>
                                 <div class="category-body">
-                                    @foreach ($categories as $category)
+
+                                    @forelse ($categories as $category)
                                         <div class="table-group" id="category-group-{{ $category->category_id }}">
 
                                             <div class="table-row row-category">
@@ -383,15 +453,16 @@
                                                     C{{ $category->category_id }}
                                                 </div>
                                                 <div class="table-cell category-cell">
-
-                                                    <img src="../assets/images/category_uploads/{{ $category->category_image }}"
-                                                        alt="{{ $category->cateogry_name }}" class="picture">
+                                                        <img src="{{Storage::url($category->category_image  )}}"
+                                                            alt="{{ $category->category_name }}" class="picture">
                                                     <span>{{ $category->category_name }}</span>
                                                 </div>
                                                 <div class="table-cell">
                                                     {{ $category->category_description }}
                                                 </div>
-                                                <div class="table-cell">{{ $category->products }}</div>
+                                                <div class="table-cell">{{ $category->subcategories->count() }}
+
+                                                </div>
                                                 <div class="table-cell date">
                                                     <span>{{ $category->created_at->toDateString() }}</span>
                                                     <span>{{ $category->created_at->toTimeString() }}</span>
@@ -404,6 +475,7 @@
                                                     <div class="flex-col">
                                                         <div class="action-p edit-w">
                                                             <button type="button" class="updateCategoryButton"
+                                                                data-image-url="{{ Storage::url($category->category_image) }}"
                                                                 data-id="{{ $category->id }}">
                                                                 <i class="bi bi-pencil-square"></i>
                                                                 <span class="">Update</span>
@@ -412,7 +484,7 @@
                                                         <div class="action-p archive-w">
 
                                                             <button type="button" class="archiveCategoryButton"
-                                                                data-id="{{ $category->category_id }}">
+                                                                data-id="{{ $category->id }}">
                                                                 <i class="bi bi-archive"></i>
                                                                 <span class="">Inactive</span>
                                                             </button>
@@ -432,9 +504,11 @@
 
                                         <div class="table-subcategory-group"
                                             id="subcategory-group-{{ $category->category_id }}">
-
+                                            @php
+                                                $subcategoryExists = false;
+                                            @endphp
                                             @foreach ($subcategories as $subcategory)
-                                                @if ($subcategory->category_id === $category->category_id)
+                                                @if ($subcategory->category_id === $category->id)
                                                     <div class="table-row row-subcategory" id="">
                                                         <div class="table-cell">
 
@@ -443,15 +517,16 @@
                                                             S{{ $subcategory->subcategory_id }}
                                                         </div>
                                                         <div class="table-cell">
-                                                            <img src="../assets/images/subcategory_uploads/{{ $subcategory->subcategory_image }}"
-                                                                alt="{{ $subcategory->subcategory_name }}"
-                                                                class="picture">
+                                                                <img src="{{ Storage::url($subcategory->subcategory_image) }}"
+                                                                    alt="{{ $subcategory->subcategory_name }}"
+                                                                    class="picture">
                                                             <span>{{ $subcategory->subcategory_name }}</span>
                                                         </div>
                                                         <div class="table-cell">
                                                             {{ $subcategory->subcategory_description }}
                                                         </div>
-                                                        <div class="table-cell">11 products</div>
+                                                        <div class="table-cell"> {{ $subcategory->products->count() }}
+                                                        </div>
                                                         <div class="table-cell date">
                                                             <span>2022-03-01</span>
                                                             <span>10:30:00</span>
@@ -462,17 +537,19 @@
                                                         </div>
                                                         <div class="table-cell action">
                                                             <div class="flex-col">
-                                                                <div class="action-p edit-w">
-                                                                    <button type="button" class="updateButton"
+                                                                <div class="action-p">
+                                                                    <button type="button" class="updateSubcategoryButton"
+                                                                        data-image-url="{{ Storage::url($subcategory->subcategory_image) }}"
                                                                         data-id="{{ $subcategory->id }}">
                                                                         <i class="bi bi-pencil-square"></i>
                                                                         <span class="">Update</span>
                                                                     </button>
                                                                 </div>
 
-                                                                <div class="action-p archive-w">
+                                                                <div class="action-p archive-s-sub">
 
-                                                                    <button type="button" class="archiveButton"
+                                                                    <button type="button"
+                                                                        class="archiveSubcategoryButton"
                                                                         data-id="{{ $subcategory->id }}">
                                                                         <i class="bi bi-archive"></i>
                                                                         <span class="">Inactive</span>
@@ -482,15 +559,35 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-
                                                     </div>
+                                                    @php
+                                                        $subcategoryExists = true;
+                                                    @endphp
                                                 @endif
                                             @endforeach
+                                            @if (!$subcategoryExists)
+                                                <div class="table-row row-subcategory" id="">
+                                                    <div class="whole">
+                                                        <span class="no-subcategory">No subcategory found.</span>
+                                                    </div>
+                                                </div>
+                                            @endif
 
 
                                         </div>
-                                    @endforeach
+
+                                    @empty
+                                        @if (request()->query('search'))
+                                            <div class="no-data">
+                                                <span>No result found for query
+                                                    <strong>{{ request()->query('search') }}</strong></span>
+                                            </div>
+                                        @else
+                                            <div class="no-data">
+                                                <span>No data available</span>
+                                            </div>
+                                        @endif
+                                    @endforelse
 
                                 </div>
                             </div>
@@ -498,7 +595,9 @@
                     </div>
                 </form>
                 @include('action.update-category')
+                @include('action.update-subcategory')
                 @include('action.archive-category')
+                @include('action.archive-single-subcategory')
             </div>
         </div>
     </div>

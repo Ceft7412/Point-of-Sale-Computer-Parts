@@ -16,7 +16,7 @@
                     <div class="input-wrapper flex-row space-between margin-bottom col-530">
                         <div class="col-pic">
                             <div class="flex-column">
-                                <label for="">Picture (Optional):</label>
+                                <label for="">Picture:</label>
                                 <input type="file" name='category_image' accept=".jpg, .jpeg, .png"
                                     class="">
                             </div>
@@ -34,7 +34,7 @@
                     <div class="input-wrapper">
                         <div class="flex-column">
                             <label for="">Category Name:</label>
-                            <input type="text" name='category_name' class="input">
+                            <input type="text" required name='category_name' class="input">
                         </div>
                     </div>
                     <div class="input-wrapper">

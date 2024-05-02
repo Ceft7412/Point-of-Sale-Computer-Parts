@@ -19,11 +19,22 @@
 
             {{-- Employee name to be displayed right-side corner --}}
             <div class="item-wrapper">
-                <span class="text-name">
 
-                    Cedrick Caceres
+                <div class="item text-name">
+                    <span class="">
+                        Cedrick Caceres
+                    </span>
+                </div>
 
-                </span>
+                <div class="item text-time">
+                    <span class="">
+                        Thursday, 2 May 2024 12:00 PM
+                    </span>
+                </div>
+                <div class="item text-logout">
+
+                    <span class="">Logout</span>
+                </div>
             </div>
 
         </div>
@@ -67,305 +78,7 @@
                         <i class="bi bi-x-circle-fill"></i>
                     </div>
                 </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
 
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
 
             </div>
 
@@ -374,13 +87,13 @@
                 <div class="rightbar-flex-footer">
 
                     <div class="total-text">
-
-                        <span class=""></span>
+                        <span class="label-total">Total:</span>
+                        <span class="value-total">₱250</span>
                     </div>
 
                     <div class="flex-btn">
-                        <button type="button" class="">Hold</button>
-                        <button type="submit" class="">Proceed</button>
+                        <button type="button" class="hold-button" id="hold-order">Hold</button>
+                        <button type="submit" class="proceed-button">Proceed</button>
                     </div>
 
                 </div>
@@ -704,6 +417,51 @@
 
             </div>
 
+
+
+
+        </div>
+        <div class="o-modal-wrapper">
+            <div class="o-modal">
+
+                <div class="o-flex-modal">
+                    <div class="heading">
+
+                        <span>Payment</span>
+
+                    </div>
+
+                    <div class="body">
+
+                        <div class="membership">
+                            <span class="">Membership Card</span>
+                        </div>
+
+                        <div class="labels">
+
+                            <div class="item">
+                                <span class="">Total</span>
+                                <span class="">Change</span>
+                            </div>
+                            <div class="item">
+                                <span class="">₱1500</span>
+                                <span class="">₱10</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="footer">
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
 
 
 

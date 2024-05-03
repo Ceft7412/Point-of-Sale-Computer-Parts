@@ -32,8 +32,12 @@
                     </span>
                 </div>
                 <div class="item text-logout">
-
-                    <span class="">Logout</span>
+                    <form action="{{route('logout')}}" class="" method="POST">
+                        @csrf
+                        <button type="submit" class="">Logout</button>
+                    
+                    </form>
+                    
                 </div>
             </div>
 
@@ -55,29 +59,7 @@
             </div>
 
             <div class="rightbar-body">
-                <div class="rightbar-body-item">
-                    <div class="quantity-product">
-
-                        <i class="bi bi-chevron-up"></i>
-                        <input type="number" min="0" class="num-product-input">
-                        <i class="bi bi-chevron-down"></i>
-
-                    </div>
-                    <div class="product-name">
-
-                        <span class="">Intel Core I5-12400F</span>
-
-                    </div>
-                    <div class="product-price">
-
-                        <span class="product-price">₱1500</span>
-
-                    </div>
-
-                    <div class="icon-remove">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </div>
-                </div>
+                
 
 
             </div>
@@ -88,7 +70,7 @@
 
                     <div class="total-text">
                         <span class="label-total">Total:</span>
-                        <span class="value-total">₱250</span>
+                        <span class="value-total"></span>
                     </div>
 
                     <div class="flex-btn">
@@ -175,7 +157,7 @@
 
                         <div class="footer-product">
 
-                            <span class="">Intel Core I5-12400F</span>
+                            <span class="prod">Intel Core I5-12400F</span>
 
                         </div>
 
@@ -194,7 +176,7 @@
 
                         <div class="footer-product">
 
-                            <span class="">Intel Core I5-12400F</span>
+                            <span class="name-product">Intel Core I5-12400F</span>
 
                         </div>
 
@@ -448,13 +430,86 @@
                                 <span class="">₱10</span>
                             </div>
                         </div>
+                        <div class="numbers">
+                            <div class="input">
+                                <input type="text" disabled  id="input_numbers">
+                                <div class="backspace">
+                                    <i class="bi bi-x-square-fill"></i>
+                                </div>
+                            </div>
+
+                            <div class="num">
+
+                                <div class="item">
+                                    <span class="number">7</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">8</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">9</span>
+                                </div>
+
+
+                            </div>
+                            <div class="num">
+
+                                <div class="item">
+                                    <span class="number">4</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">5</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">6</span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="num">
+
+                                <div class="item">
+                                    <span class="number">1</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">2</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">3</span>
+                                </div>
+
+
+                            </div>
+
+                            <div class="num">
+
+                                <div class="item">
+                                    <span class="number">.</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">0</span>
+                                </div>
+                                <div class="item">
+                                    <span class="number">00</span>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
 
 
                     </div>
 
                     <div class="footer">
 
-
+                        <div class="flex-btn">
+                            <button  type="button"  class="cancel-button">CANCEL</button>
+                            <button type="submit" class="pay-button">PAY</button>
+                            
+                        </div>
                     </div>
 
 

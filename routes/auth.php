@@ -43,7 +43,14 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified', 'employee'])->group(function(){
 
     Route::get('order', [OrderController::class, 'index'])->name('order');
+  
     
+});
+
+
+Route::middleware(['auth', 'verified'])->group(function(){
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
 });
 
 // ADMIN ROUTES
@@ -145,7 +152,5 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
 });
 

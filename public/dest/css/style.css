@@ -3210,7 +3210,7 @@ a, a:visited, a:hover {
   margin: auto;
   animation: slideDown 0.3s ease-out;
   width: 350px;
-  height: 400px;
+  height: 600px;
   border-radius: 8px;
 }
 .o-modal-wrapper .o-modal .o-flex-modal {
@@ -3236,14 +3236,14 @@ a, a:visited, a:hover {
 .o-modal-wrapper .o-modal .o-flex-modal .body {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px 20px 0 20px;
   width: 100%;
   height: 100%;
 }
 .o-modal-wrapper .o-modal .o-flex-modal .body .membership {
   cursor: pointer;
   margin: 0 40px;
-  height: 60px;
+  height: 50px;
   border-radius: 5px;
   background-color: orange;
   display: flex;
@@ -3260,12 +3260,92 @@ a, a:visited, a:hover {
 .o-modal-wrapper .o-modal .o-flex-modal .body .labels {
   margin-top: 15px;
   display: flex;
-  gap: 50px;
+  gap: 10px;
   justify-content: space-between;
 }
 .o-modal-wrapper .o-modal .o-flex-modal .body .labels .item {
   display: flex;
   flex-direction: column;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 70px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  height: 50px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item:hover {
+  background-color: #f1f1f1;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item span {
+  font-size: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 35px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input input {
+  width: 80%;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  border: none;
+  padding: 0 5px;
+  font-size: 1.25rem;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  border-radius: 5px;
+  border: 1px solid grey;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace:hover {
+  background-color: #e0e0e0;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace .bi {
+  font-size: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer {
+  padding: 10px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn .pay-button {
+  background-color: orange;
+  color: white;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn .pay-button:hover {
+  background-color: #ff8c00;
 }
 
 .wrapper {

@@ -1,15 +1,18 @@
 //Hide category and show subcategory
-$('.item-category').on('click', function () {
-    $(this).hide();
-    $(this).next().css('display', 'flex');
+$('.item-category').on('click', function() {
+    $('.category-group').hide();
+    
+    const categoryId = $(this).data('category-id');
+    $(`#subcategory-order-${categoryId}`).css('display', 'flex');
 
+
+    $.get()
 });
 
-
 //Show the category again
-$('#back_category').on('click', function () {
-    $('.item-category').show();
-    $('.item-subcategory').hide();
+$('.back').on('click', function() {
+    $('.subcategory-group').hide();
+    $('.category-group').css('display', 'flex');
 });
 
 

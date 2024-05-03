@@ -491,7 +491,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="contain-chev-action">
-                                                        <i class="bi    bi-chevron-up chevron-up-category"
+                                                        <i class="bi bi-chevron-up chevron-up-category"
                                                             data-category-id="{{ $category->category_id }}"></i>
                                                         <i class="bi bi-chevron-down chevron-down-category"
                                                             data-category-id="{{ $category->category_id }}"></i>

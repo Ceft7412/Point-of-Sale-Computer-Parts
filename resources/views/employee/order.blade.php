@@ -32,12 +32,12 @@
                     </span>
                 </div>
                 <div class="item text-logout">
-                    <form action="{{route('logout')}}" class="" method="POST">
+                    <form action="{{ route('logout') }}" class="" method="POST">
                         @csrf
                         <button type="submit" class="">Logout</button>
-                    
+
                     </form>
-                    
+
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
             </div>
 
             <div class="rightbar-body">
-                
+
 
 
             </div>
@@ -116,23 +116,35 @@
 
 
                     <div class="categories-flex-row">
-                        <div class="item-category">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="Monitor">
-                            <span class="label">CPU</span>
-                        </div>
-                        <div class="item-subcategory">
-                            <div class="back" id="back_category">
-                                <i class="bi bi-chevron-left"></i>
-                                <span class="text-back">Back</span>
+                        @forelse ($categories as $category)
+
+                            <div class="item-category category-group" data-category-id="{{ $category->id }}">
+                                <img src="{{ Storage::url($category->category_image) }}"
+                                    alt="{{ $category->category_name }}">
+                                <span class="label">{{ $category->category_name }}</span>
                             </div>
 
 
-                            <div class="single-item">
-                                <img src="../assets/images/category_uploads/1713831406.jpg" alt="Monitor">
-                                <span class="label">CPU</span>
+                            <div class="item-subcategory subcategory-group" id="subcategory-order-{{ $category->id }}"  >
+                                <div class="back" id="back_category">
+                                    <i class="bi bi-chevron-left"></i>
+                                    <span class="text-back">Back</span>
+                                </div>
+                                @foreach ($subcategories as $subcategory)
+                                    @if ($subcategory->category_id == $category->id)
+                                        <div class="single-item"  id="subcategory-order-{{ $subcategory->category_id }}">
+                                            <img src="{{ Storage::url($subcategory->subcategory_image) }}"
+                                                alt="{{ $subcategory->subcategory_name }}">
+                                            <span class="label">{{ $subcategory->subcategory_name }}</span>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
 
-                        </div>
+                        @empty
+                            {{-- !empty category --}}
+                        @endforelse
+
 
 
                     </div>
@@ -432,7 +444,7 @@
                         </div>
                         <div class="numbers">
                             <div class="input">
-                                <input type="text" disabled  id="input_numbers">
+                                <input type="text" disabled id="input_numbers">
                                 <div class="backspace">
                                     <i class="bi bi-x-square-fill"></i>
                                 </div>
@@ -506,9 +518,9 @@
                     <div class="footer">
 
                         <div class="flex-btn">
-                            <button  type="button"  class="cancel-button">CANCEL</button>
+                            <button type="button" class="cancel-button">CANCEL</button>
                             <button type="submit" class="pay-button">PAY</button>
-                            
+
                         </div>
                     </div>
 
@@ -522,9 +534,9 @@
 
         </div>
     </div>
-@section('js')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../js/orders.js"></script>
-@endsection
+    @section('js')
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="../js/orders.js"></script>
+    @endsection
 
 @endsection

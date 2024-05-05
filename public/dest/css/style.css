@@ -3091,6 +3091,20 @@ a, a:visited, a:hover {
 .o-content .o-flex-content .o-heading .category .categories-flex-row::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.o-content .o-flex-content .o-heading .category .categories-flex-row .item-all {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 5px;
+  cursor: pointer;
+  width: 120px;
+  border-right: 1px solid #bdbdbd;
+}
+.o-content .o-flex-content .o-heading .category .categories-flex-row .item-all:hover {
+  background-color: #f1f1f1;
+}
 .o-content .o-flex-content .o-heading .category .categories-flex-row .item-category {
   height: 100%;
   display: flex;

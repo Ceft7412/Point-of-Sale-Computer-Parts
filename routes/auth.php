@@ -43,7 +43,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified', 'employee'])->group(function(){
 
     Route::get('order', [OrderController::class, 'index'])->name('order');
-  
+
+    Route::get('order/products/{id}', [OrderController::class, 'getProduct'])->name('getProduct');
+    Route::get('order/all-products', [OrderController::class, 'allProducts'])->name('allProducts');
+    Route::get('order/subcategory/products/{id}', [OrderController::class, 'getSubcategoryProduct'])->name('getSubcategoryProduct');
+    Route::post('order/store', [OrderController::class, 'storeOrder'])->name('storeOrder');
     
 });
 
@@ -55,16 +59,17 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
 // ADMIN ROUTES
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('admin.overview', [AdminController::class, 'redirectOverview'])->name('overview');
-    Route::get('admin.employee', [RegisteredUserController::class, 'create'])->name('employee');
-    Route::get('admin.admin', [AdminController::class, 'redirectAdmin'])->name('admin');
-
-    Route::get('admin.category', [CategoryController::class, 'redirectCategory'])->name('category');
+    Route::get('admin/overview', [AdminController::class, 'redirectOverview'])->name('overview');
+  
+    Route::get('admin/employee', [RegisteredUserController::class, 'create'])->name('employee');
+    Route::get('admin/admin', [AdminController::class, 'redirectAdmin'])->name('admin');
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
+    Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 
 
 
     // Product Controller
-    Route::get('admin.product', [ProductController::class, 'redirectProduct'])->name('product');
+    Route::get('admin/product', [ProductController::class, 'redirectProduct'])->name('product');
 
 
     // SUBCATEGORY ROUTE
@@ -85,7 +90,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('admin/archive/archive-admin', [AdminController::class, 'redirectArchiveAdmin'])->name('archive-admin');
 
     Route::get('admin/archive/archive-product', [ProductController::class, 'redirectArchiveProduct'])->name('archive-product');
-    Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
+
     Route::post('category.store', [CategoryController::class, 'storeCategory'])->name('category-store');
     Route::post('subcategory.store', [SubcategoryController::class, 'storeSubcategory'])->name('subcategory-store');
 

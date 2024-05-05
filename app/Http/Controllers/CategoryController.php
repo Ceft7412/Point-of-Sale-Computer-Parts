@@ -39,7 +39,7 @@ class CategoryController extends Controller
                 ->with('imageFiles', $imageFiles)
                 ->with('subcategoryImages', $subcategoryImages);
         }
-        $categories = Category::where('is_active', 1)->withCount('subcategories')->get();
+        
 
 
 

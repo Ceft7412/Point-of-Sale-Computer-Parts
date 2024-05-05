@@ -409,7 +409,20 @@
                     &::-webkit-scrollbar-thumb:hover {
                         background: #555;
                     }
-
+                    .item-all{
+                        height:100%;
+                        display:flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding:10px;
+                        gap:5px;
+                        cursor:pointer;
+                        width:120px;
+                        border-right:1px solid #bdbdbd;
+                        &:hover{
+                            background-color: #f1f1f1;
+                        }
+                    }
 
                     .item-category {
                         height: 100%;

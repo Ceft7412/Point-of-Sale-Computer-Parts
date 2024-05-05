@@ -22,13 +22,13 @@
 
                 <div class="item text-name">
                     <span class="">
-                        Cedrick Caceres
+                        {{$employee->name}}
                     </span>
                 </div>
 
                 <div class="item text-time">
-                    <span class="">
-                        Thursday, 2 May 2024 12:00 PM
+                    <span id="realtimeClock" class="">
+                        
                     </span>
                 </div>
                 <div class="item text-logout">
@@ -58,11 +58,133 @@
 
             </div>
 
-            <div class="rightbar-body">
+            <form action="/order/store" method="POST" class="rightbar-body">
+                @csrf  
+                <input type="hidden" class="" name="user_id" value="{{$employee->user_id}}">
 
 
+                
 
-            </div>
+
+                <div class="o-modal-wrapper">
+                    <div class="o-modal">
+        
+                        <div class="o-flex-modal">
+                            <div class="heading">
+        
+                                <span>Payment</span>
+        
+                            </div>
+        
+                            <div class="body">
+        
+                                <div class="membership">
+                                    <span class="">Membership Card</span>
+                                </div>
+        
+                                <div class="labels">
+        
+                                    <div class="item">
+                                        <span class="">Total</span>
+                                        <span class="">Change</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="">₱1500</span>
+                                        <span class="">₱10</span>
+                                    </div>
+                                </div>
+                                <div class="numbers">
+                                    <div class="input">
+                                        <input type="text" disabled id="input_numbers">
+                                        <div class="backspace">
+                                            <i class="bi bi-x-square-fill"></i>
+                                        </div>
+                                    </div>
+        
+                                    <div class="num">
+        
+                                        <div class="item">
+                                            <span class="number">7</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">8</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">9</span>
+                                        </div>
+        
+        
+                                    </div>
+                                    <div class="num">
+        
+                                        <div class="item">
+                                            <span class="number">4</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">5</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">6</span>
+                                        </div>
+        
+        
+                                    </div>
+        
+                                    <div class="num">
+        
+                                        <div class="item">
+                                            <span class="number">1</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">2</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">3</span>
+                                        </div>
+        
+        
+                                    </div>
+        
+                                    <div class="num">
+        
+                                        <div class="item">
+                                            <span class="number">.</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">0</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="number">00</span>
+                                        </div>
+        
+        
+                                    </div>
+        
+        
+                                </div>
+        
+        
+                            </div>
+        
+                            <div class="footer">
+        
+                                <div class="flex-btn">
+                                    <button type="button" class="cancel-button">CANCEL</button>
+                                    <button type="submit" class="pay-button">PAY</button>
+        
+                                </div>
+                            </div>
+        
+        
+        
+                        </div>
+        
+                    </div>
+        
+        
+        
+                </div>  
+            </form>
 
 
             <div class="rightbar-footer">
@@ -102,10 +224,10 @@
                     </div>
 
                     <div class="align-search">
-                        <form method="GET" action="#"class="search-wrapper">
+                        <form method="GET" action="{{route('order')}}"class="search-wrapper">
 
                             <input class="input" type="text" name="search" placeholder="Search Products"
-                                value="">
+                            value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
@@ -116,6 +238,9 @@
 
 
                     <div class="categories-flex-row">
+                            <div class="item-all">
+                                <span class="label">All Products</span>
+                            </div>
                         @forelse ($categories as $category)
 
                             <div class="item-category category-group" data-category-id="{{ $category->id }}">
@@ -132,7 +257,7 @@
                                 </div>
                                 @foreach ($subcategories as $subcategory)
                                     @if ($subcategory->category_id == $category->id)
-                                        <div class="single-item"  id="subcategory-order-{{ $subcategory->category_id }}">
+                                        <div class="single-item"  id="subcategory-order-{{ $subcategory->category_id }}" data-subcategory-id="{{ $subcategory->id }}">
                                             <img src="{{ Storage::url($subcategory->subcategory_image) }}"
                                                 alt="{{ $subcategory->subcategory_name }}">
                                             <span class="label">{{ $subcategory->subcategory_name }}</span>
@@ -156,45 +281,26 @@
             <div class="o-body">
 
                 <div class="o-flex-body">
-
-                    <div class="product-item">
+                    @foreach($products as $product)
+                    <div class="product-item" data-product-id="{{$product->product_id}}">
                         <div class="header-product">
-                            <span class="price-product">₱1500</span>
+                            <span class="price-product">₱{{$product->product_price}}</span>
                         </div>
                         <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
+                            <img src="{{Storage::url($product->product_image)}}" alt="{{$product->product_name}}" class="">
 
                         </div>
-
 
                         <div class="footer-product">
 
-                            <span class="prod">Intel Core I5-12400F</span>
+                            <span class="prod">{{$product->product_name}}</span>
 
                         </div>
-
-
 
                     </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
+                    @endforeach
 
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="name-product">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
+{{--                     
                     <div class="product-item">
                         <div class="header-product">
                             <span class="price-product">₱1500</span>
@@ -213,197 +319,7 @@
 
 
 
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱1500</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="../assets/images/category_uploads/1713831406.jpg" alt="CPU" class="">
-
-                        </div>
-
-
-                        <div class="footer-product">
-
-                            <span class="">Intel Core I5-12400F</span>
-
-                        </div>
-
-
-
-                    </div>
+                    </div> --}}
 
 
 
@@ -415,124 +331,7 @@
 
 
         </div>
-        <div class="o-modal-wrapper">
-            <div class="o-modal">
-
-                <div class="o-flex-modal">
-                    <div class="heading">
-
-                        <span>Payment</span>
-
-                    </div>
-
-                    <div class="body">
-
-                        <div class="membership">
-                            <span class="">Membership Card</span>
-                        </div>
-
-                        <div class="labels">
-
-                            <div class="item">
-                                <span class="">Total</span>
-                                <span class="">Change</span>
-                            </div>
-                            <div class="item">
-                                <span class="">₱1500</span>
-                                <span class="">₱10</span>
-                            </div>
-                        </div>
-                        <div class="numbers">
-                            <div class="input">
-                                <input type="text" disabled id="input_numbers">
-                                <div class="backspace">
-                                    <i class="bi bi-x-square-fill"></i>
-                                </div>
-                            </div>
-
-                            <div class="num">
-
-                                <div class="item">
-                                    <span class="number">7</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">8</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">9</span>
-                                </div>
-
-
-                            </div>
-                            <div class="num">
-
-                                <div class="item">
-                                    <span class="number">4</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">5</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">6</span>
-                                </div>
-
-
-                            </div>
-
-                            <div class="num">
-
-                                <div class="item">
-                                    <span class="number">1</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">2</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">3</span>
-                                </div>
-
-
-                            </div>
-
-                            <div class="num">
-
-                                <div class="item">
-                                    <span class="number">.</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">0</span>
-                                </div>
-                                <div class="item">
-                                    <span class="number">00</span>
-                                </div>
-
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="footer">
-
-                        <div class="flex-btn">
-                            <button type="button" class="cancel-button">CANCEL</button>
-                            <button type="submit" class="pay-button">PAY</button>
-
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-            </div>
-
-
-
-        </div>
+        
     </div>
     @section('js')
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

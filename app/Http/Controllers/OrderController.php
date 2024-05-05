@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Item;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Storage;
@@ -47,18 +48,50 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request)
     {
-        $productItems = json_decode($request->input('productItems'), true);
-        $order = new Order();   
-        do {
-            $order_id = rand(100000, 999999);
-        } while (Order::where('order_id', $order_id)->exists());
-        foreach ($productItems as $item) {
-            $id = $item['product_id'];
-            $name = $item['product_name'];
-            $price = $item['product_price'];
-            $quantity = $item['product_quantity'];
+        $orderItems = $request->input('order');
 
-            // Process the item...
+        $order_total = $request->order_total;
+        $order_total = preg_replace('/[^0-9.]/', '', $order_total); // Remove non-numeric characters
+        $order_total = intval($order_total); // Convert to integer
+        $order = new Order();
+        $order->order_id = $this->generateOrderID();
+        $order->customer_id = 1;
+        
+        $order->user_id = Auth::id();
+        $order->order_total = $order_total;
+        $order->save();
+
+        foreach ($orderItems as $item) {
+            $orderItem = new Item();
+            $orderItem->order_id = $order->id;
+            $orderItem->order_item_id = $this->generateOrderItemID();
+            $orderItem->product_id = $item['productId'];
+            $orderItem->product_name = $item['productName'];
+            $orderItem->price = $item['productPrice'];
+            $orderItem->quantity = $item['quantity'];
+            $orderItem->subtotal = $item['productPrice'] * $item['quantity'];
+            $orderItem->save();
+        }
+        return redirect()->back()->with('success', 'Order completed.');
+    }
+
+
+    public function generateOrderID()
+    {
+        $order_id = rand(100000, 999999);
+        if (Order::where('order_id', $order_id)->exists()) {
+            $this->generateOrderID();
+        } else {
+            return $order_id;
+        }
+    }
+    public function generateOrderItemID()
+    {
+        $order_item_id = rand(100000, 999999);
+        if (Item::where('order_item_id', $order_item_id)->exists()) {
+            $this->generateOrderItemID();
+        } else {
+            return $order_item_id;
         }
     }
 

@@ -61,7 +61,26 @@
             <form action="/order/store" method="POST" class="rightbar-body">
                 @csrf  
                 <input type="hidden" class="" name="user_id" value="{{$employee->user_id}}">
-
+                
+                
+                
+                
+                {{-- <div class="rightbar-body-item" data-product-id="${productId}">
+                    <div class="quantity-product">
+                        <i class="bi bi-chevron-up increase-quantity"></i>
+                        <input type="number" min="1" value="1" class="num-product-input">
+                        <i class="bi bi-chevron-down decrease-quantity"></i>
+                    </div>
+                    <div class="product-name">
+                        <input type="text" readonly value="CasdddddddddddddddddddddddddddddddddddPU">
+                    </div>
+                    <div class="product-price">
+                        <input type="text" name="product_price" value="1" readonly>
+                    </div>
+                    <div class="icon-remove remove-item">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </div>
+                </div> --}}
 
                 
 
@@ -89,7 +108,7 @@
                                         <span class="">Change</span>
                                     </div>
                                     <div class="item">
-                                        <span class="">₱1500</span>
+                                        <input readonly type="text" name="order_total" class="value-total">
                                         <span class="">₱10</span>
                                     </div>
                                 </div>
@@ -192,12 +211,12 @@
 
                     <div class="total-text">
                         <span class="label-total">Total:</span>
-                        <span class="value-total"></span>
+                        <input disabled type="text" name="order_total" class="value-total">
                     </div>
 
                     <div class="flex-btn">
                         <button type="button" class="hold-button" id="hold-order">Hold</button>
-                        <button type="submit" class="proceed-button">Proceed</button>
+                        <button type="button" class="proceed-button" id="proceed-show-modal">Proceed</button>
                     </div>
 
                 </div>
@@ -282,18 +301,18 @@
 
                 <div class="o-flex-body">
                     @foreach($products as $product)
-                    <div class="product-item" data-product-id="{{$product->product_id}}">
+                    <div class="product-item" data-product-id="{{$product->product_id}}"  data-max-quantity="{{$product->product_quantity}}">
                         <div class="header-product">
-                            <span class="price-product">₱{{$product->product_price}}</span>
+                            <span class="price-product" id="price_product">₱{{$product->product_price}}</span>
                         </div>
                         <div class="body-product">
                             <img src="{{Storage::url($product->product_image)}}" alt="{{$product->product_name}}" class="">
 
                         </div>
-
+                        <input type="hidden"  class="">
                         <div class="footer-product">
 
-                            <span class="prod">{{$product->product_name}}</span>
+                            <span class="prod" id="product_name">{{$product->product_name}}</span>
 
                         </div>
 

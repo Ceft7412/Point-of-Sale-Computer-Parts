@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('order_id')->unique();  
             $table->foreignId('customer_id');
             $table->foreignId('user_id');
-            $table->integer('order_status');
+            $table->string('order_status')->default('paid');
             $table->integer('order_total');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('user_id')->references('id')->on('users');

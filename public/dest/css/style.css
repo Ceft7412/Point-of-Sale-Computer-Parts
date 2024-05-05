@@ -1,13 +1,12 @@
 html {
   font-size: 100%;
   font-size: 0.9rem;
-  box-sizing: border-box;
   background-color: #F3F4F6;
   font-family: "Inter Regular", sans-serif;
 }
 
 *, *::before, *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body {
@@ -2921,11 +2920,20 @@ a, a:visited, a:hover {
   display: flex;
   align-items: center;
 }
-.o-rightbar .o-flex-rightbar .rightbar-body .rightbar-body-item .product-name span {
+.o-rightbar .o-flex-rightbar .rightbar-body .rightbar-body-item .product-name input {
+  border: none;
+  outline: none;
   margin-left: 10px;
+  font-size: 1.1rem;
 }
 .o-rightbar .o-flex-rightbar .rightbar-body .rightbar-body-item .product-price {
   width: 20%;
+}
+.o-rightbar .o-flex-rightbar .rightbar-body .rightbar-body-item .product-price input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1.1rem;
 }
 .o-rightbar .o-flex-rightbar .rightbar-body .rightbar-body-item .icon-remove {
   display: flex;
@@ -2960,6 +2968,9 @@ a, a:visited, a:hover {
   font-size: 1.2rem;
 }
 .o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .total-text .value-total {
+  border: none;
+  width: 25%;
+  background-color: rgb(219, 219, 219);
   font-size: 1.2rem;
 }
 .o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .flex-btn {
@@ -3209,7 +3220,6 @@ a, a:visited, a:hover {
 .o-modal-wrapper {
   display: none;
   position: fixed;
-  z-index: 1000;
   padding-top: 100px;
   left: 0;
   top: 0;

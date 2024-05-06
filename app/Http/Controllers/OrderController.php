@@ -79,6 +79,11 @@ class OrderController extends Controller
         }
         return redirect()->back()->with('success', 'Order completed.');
     }
+    public function getItem($id)
+    {
+        $product = Product::find($id);
+        return response()->json($product);
+    }
 
     public function generateCustomerID()
     {

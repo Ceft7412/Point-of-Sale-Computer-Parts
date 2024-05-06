@@ -44,7 +44,19 @@
         </div>
     </div>
 
-
+    <div class="error-modal-wrapper">
+        <div class="error-modal">
+            <div class="error-modal-header">
+                <span class="error-modal-title">Error</span>
+            </div>
+            <div class="error-modal-body">
+                <span class="error-modal-text">Product is out of stock</span>
+            </div>
+            <div class="error-modal-footer">
+                <button class="error-modal-button">OK</button>
+            </div>
+        </div>
+    </div>
     <div class="o-rightbar">
 
         <div class="o-flex-rightbar">
@@ -58,7 +70,7 @@
 
             </div>
 
-            <form action="/order/store" method="POST" class="rightbar-body">
+            <form action="{{route('storeOrder')}}" method="POST" class="rightbar-body">
                 @csrf  
                 <input type="hidden" class="" name="user_id" value="{{$employee->user_id}}">
                 
@@ -209,11 +221,17 @@
 
             <div class="rightbar-footer">
                 <div class="rightbar-flex-footer">
-
+                    <div class="total-text">
+                        <span class="label-subtotal">Subtotal:</span>
+                        
+                        <input disabled type="text" name="order_subtotal" class="value-subtotal">
+                    </div>
                     <div class="total-text">
                         <span class="label-total">Total:</span>
+                        
                         <input disabled type="text" name="order_total" class="value-total">
                     </div>
+                    
 
                     <div class="flex-btn">
                         <button type="button" class="hold-button" id="hold-order">Hold</button>
@@ -302,7 +320,8 @@
 
                 <div class="o-flex-body">
                     @foreach($products as $product)
-                    <div class="product-item" data-product-id="{{$product->id}}"  data-max-quantity="{{$product->product_quantity}}">
+                    <form action="/product/item/{{$product->id}}" method="POST" class="product-item" data-product-id="{{$product->id}}">
+                        @csrf
                         <div class="header-product">
                             <span class="price-product" id="price_product">₱{{$product->product_price}}</span>
                         </div>
@@ -315,9 +334,9 @@
 
                             <span class="prod" id="product_name">{{$product->product_name}}</span>
 
-                        </div>
+                        </div>  
 
-                    </div>
+                    </form>
                     @endforeach
 
 {{--                     

@@ -3119,12 +3119,14 @@ a, a:visited, a:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 .o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .total-text {
   padding: 10px;
   display: flex;
   justify-content: space-between;
+}
+.o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .total-text .label-subtotal {
+  font-size: 1.2rem;
 }
 .o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .total-text .label-total {
   font-size: 1.2rem;
@@ -3135,11 +3137,18 @@ a, a:visited, a:hover {
   background-color: rgb(219, 219, 219);
   font-size: 1.2rem;
 }
+.o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .total-text .value-subtotal {
+  border: none;
+  width: 25%;
+  background-color: rgb(219, 219, 219);
+  font-size: 1.2rem;
+}
 .o-rightbar .o-flex-rightbar .rightbar-footer .rightbar-flex-footer .flex-btn {
   display: flex;
   gap: 10px;
+  flex: 1;
   padding: 10px;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 100%;
 }

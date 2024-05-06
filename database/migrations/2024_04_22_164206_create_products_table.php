@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('product_name')->required()->unique();
-            $table->string('product_price')->required();
+            $table->decimal('product_price', 8, 2)->required();
             $table->string('product_image')->required();
-            $table->string('product_quantity')->default(0);
+            $table->integer('product_quantity')->default(0);
             $table->foreignId('subcategory_id');
             $table->foreignId('category_id');
             $table->boolean('is_active')->default(true);

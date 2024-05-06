@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified', 'employee'])->group(function(){
     Route::get('order/all-products', [OrderController::class, 'allProducts'])->name('allProducts');
     Route::get('order/subcategory/products/{id}', [OrderController::class, 'getSubcategoryProduct'])->name('getSubcategoryProduct');
     Route::post('order/store', [OrderController::class, 'storeOrder'])->name('storeOrder');
+    Route::post('product/item/{id}', [OrderController::class, 'getItem'])->name('getItem');
     
 });
 

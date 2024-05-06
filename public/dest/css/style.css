@@ -2760,6 +2760,166 @@ a, a:visited, a:hover {
   cursor: pointer;
 }
 
+.o-modal-wrapper {
+  display: none;
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  margin: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.o-modal-wrapper .o-modal {
+  background-color: #fefefe;
+  margin: auto;
+  animation: slideDown 0.3s ease-out;
+  width: 350px;
+  height: 550px;
+  border-radius: 8px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 10px;
+  box-sizing: border-box;
+  height: 100%;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .heading {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #f1f1f1;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .heading span {
+  font-size: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 0 20px;
+  width: 100%;
+  height: 100%;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .membership {
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .membership span {
+  font-size: 16px;
+  color: orange;
+  text-decoration: underline;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .labels {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .labels .item {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.125rem;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .labels .item input {
+  outline: none;
+  border: none;
+  font-size: 1.125rem;
+  text-align: right;
+  width: 100px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .labels .item .change-value {
+  align-self: flex-end;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 70px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  height: 50px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item:hover {
+  background-color: #f1f1f1;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item span {
+  font-size: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  height: 35px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input input {
+  width: 80%;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  border: none;
+  padding: 0 5px;
+  font-size: 1.25rem;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  border-radius: 5px;
+  border: 1px solid rgb(165, 165, 165);
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace:hover {
+  background-color: #e0e0e0;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace .bi {
+  font-size: 20px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer {
+  padding: 10px;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn .pay-button {
+  background-color: orange;
+  color: white;
+}
+.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn .pay-button:hover {
+  background-color: #ff8c00;
+}
+
 .o-topbar {
   background-color: #333333;
   top: 0;
@@ -2829,11 +2989,12 @@ a, a:visited, a:hover {
   right: 0;
   top: 0;
   bottom: 0;
+  z-index: 1001;
+  margin-top: 50px;
   width: 450px;
   height: 100%;
   background-color: white;
   border-left: 3px solid #666666;
-  padding-top: 50px;
 }
 .o-rightbar .o-flex-rightbar {
   display: flex;
@@ -2950,6 +3111,7 @@ a, a:visited, a:hover {
 .o-rightbar .o-flex-rightbar .rightbar-footer {
   border-top: 3px solid orange;
   width: 100%;
+  margin-bottom: 50px;
   height: 30%;
   background-color: rgb(219, 219, 219);
 }
@@ -3217,161 +3379,6 @@ a, a:visited, a:hover {
   padding: 5px;
   word-wrap: break-word;
 }
-.o-modal-wrapper {
-  display: none;
-  position: fixed;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.o-modal-wrapper .o-modal {
-  background-color: #fefefe;
-  margin: auto;
-  animation: slideDown 0.3s ease-out;
-  width: 350px;
-  height: 600px;
-  border-radius: 8px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal {
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  gap: 10px;
-  box-sizing: border-box;
-  height: 100%;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .heading {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background-color: #f1f1f1;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .heading span {
-  font-size: 20px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 20px 0 20px;
-  width: 100%;
-  height: 100%;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .membership {
-  cursor: pointer;
-  margin: 0 40px;
-  height: 50px;
-  border-radius: 5px;
-  background-color: orange;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .membership:hover {
-  background-color: #ff8c00;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .membership span {
-  font-size: 20px;
-  color: white;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .labels {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .labels .item {
-  display: flex;
-  flex-direction: column;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num {
-  display: flex;
-  gap: 10px;
-  justify-content: space-evenly;
-  margin-bottom: 20px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid white;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 70px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-  height: 50px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item:hover {
-  background-color: #f1f1f1;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .num .item span {
-  font-size: 20px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  width: 100%;
-  height: 35px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input input {
-  width: 80%;
-  border-radius: 5px;
-  background-color: #f1f1f1;
-  border: none;
-  padding: 0 5px;
-  font-size: 1.25rem;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20%;
-  border-radius: 5px;
-  border: 1px solid grey;
-  background-color: #f1f1f1;
-  cursor: pointer;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace:hover {
-  background-color: #e0e0e0;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .body .numbers .input .backspace .bi {
-  font-size: 20px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .footer {
-  padding: 10px;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn {
-  display: flex;
-  justify-content: space-between;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn button {
-  width: 100px;
-  height: 40px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn .pay-button {
-  background-color: orange;
-  color: white;
-}
-.o-modal-wrapper .o-modal .o-flex-modal .footer .flex-btn .pay-button:hover {
-  background-color: #ff8c00;
-}
-
 .wrapper {
   height: 100svh;
 }

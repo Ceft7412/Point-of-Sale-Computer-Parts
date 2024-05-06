@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
@@ -48,14 +49,18 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request)
     {
-        $orderItems = $request->input('order');
+        $customer   = new Customer();
+        $customer->customer_id = $this->generateCustomerID();
+        $customer->save();
 
+        $orderItems = $request->input('order');
+        
         $order_total = $request->order_total;
         $order_total = preg_replace('/[^0-9.]/', '', $order_total); // Remove non-numeric characters
         $order_total = intval($order_total); // Convert to integer
         $order = new Order();
         $order->order_id = $this->generateOrderID();
-        $order->customer_id = 1;
+        $order->customer_id = $customer->id;
         
         $order->user_id = Auth::id();
         $order->order_total = $order_total;
@@ -75,6 +80,15 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Order completed.');
     }
 
+    public function generateCustomerID()
+    {
+        $customer_id = rand(100000, 999999);
+        if (Customer::where('customer_id', $customer_id)->exists()) {
+            $this->generateCustomerID();
+        } else {
+            return $customer_id;
+        }
+    }
 
     public function generateOrderID()
     {

@@ -97,9 +97,7 @@
         
                             <div class="body">
         
-                                <div class="membership">
-                                    <span class="">Membership Card</span>
-                                </div>
+                               
         
                                 <div class="labels">
         
@@ -109,7 +107,7 @@
                                     </div>
                                     <div class="item">
                                         <input readonly type="text" name="order_total" class="value-total">
-                                        <span class="">₱10</span>
+                                        <span class="change-value">₱10</span>
                                     </div>
                                 </div>
                                 <div class="numbers">
@@ -181,6 +179,9 @@
         
         
                                 </div>
+                                <div class="membership">
+                                    <span class="">Membership Card</span>
+                                </div>  
         
         
                             </div>
@@ -301,7 +302,7 @@
 
                 <div class="o-flex-body">
                     @foreach($products as $product)
-                    <div class="product-item" data-product-id="{{$product->product_id}}"  data-max-quantity="{{$product->product_quantity}}">
+                    <div class="product-item" data-product-id="{{$product->id}}"  data-max-quantity="{{$product->product_quantity}}">
                         <div class="header-product">
                             <span class="price-product" id="price_product">₱{{$product->product_price}}</span>
                         </div>

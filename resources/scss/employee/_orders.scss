@@ -82,13 +82,15 @@
     right: 0;
     top: 0;
     bottom: 0;
+    z-index:1001;
+    margin-top: 50px;
     width: 450px;
     height: 100%;
     background-color: white;
     border-left: 3px solid #666666;
 
 
-    padding-top: 50px;
+        
 
     .o-flex-rightbar {
         display:flex;
@@ -233,6 +235,7 @@
             border-top:3px solid orange;
    
             width:100%;
+            margin-bottom:50px;
             height:30%;
             background-color:rgb(219, 219, 219);
 

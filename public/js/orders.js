@@ -210,7 +210,7 @@ function renderProductToRightbar(product, index) {
                     <input type="text" readonly value="${product.productName}" name="order[${index}][productName]">
                 </div>
                 <div class="product-price">
-                    <input type="text" name="product_price" value="${product.productPrice}" readonly name="order[${index}][productPrice]">
+                    <input type="text" value="${product.productPrice}" readonly name="order[${index}][productPrice]">
                 </div>
                 <input type="hidden" name="order[${index}][productId]" value="${product.productId}">
                 <div class="icon-remove remove-item">

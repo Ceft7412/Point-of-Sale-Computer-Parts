@@ -14,6 +14,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MembershipController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -43,12 +44,18 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified', 'employee'])->group(function(){
 
     Route::get('order', [OrderController::class, 'index'])->name('order');
+    Route::get('order/membership', [MembershipController::class, 'membership'])->name('membership');
 
     Route::get('order/products/{id}', [OrderController::class, 'getProduct'])->name('getProduct');
     Route::get('order/all-products', [OrderController::class, 'allProducts'])->name('allProducts');
     Route::get('order/subcategory/products/{id}', [OrderController::class, 'getSubcategoryProduct'])->name('getSubcategoryProduct');
     Route::post('order/store', [OrderController::class, 'storeOrder'])->name('storeOrder');
     Route::post('product/item/{id}', [OrderController::class, 'getItem'])->name('getItem');
+    // === request membership ===
+    Route::post('request-membership', [MembershipController::class, 'storeMembership'])->name('storeMembership');
+    
+    // ===getting the membership id===
+    Route::post('order/membership/{id}', [OrderController::class, 'getMembership'])->name('getMembership');	
     
 });
 
@@ -64,6 +71,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
   
     Route::get('admin/employee', [RegisteredUserController::class, 'create'])->name('employee');
     Route::get('admin/admin', [AdminController::class, 'redirectAdmin'])->name('admin');
+
+    Route::get('admin/membership', [AdminController::class, 'redirectMembership'])->name('membershipRedirect');
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 

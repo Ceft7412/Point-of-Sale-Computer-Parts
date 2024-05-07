@@ -11,6 +11,10 @@ use App\Models\User;
 class AdminController extends Controller
 {
     //
+
+    public function redirectMembership(){
+        return view("admin.membership");    
+    }
     public function redirectOverview()
     {
 

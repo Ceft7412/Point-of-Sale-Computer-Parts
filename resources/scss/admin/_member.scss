@@ -1,0 +1,65 @@
+.m-ct-wr{
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    .hd-ct{
+       
+        display:flex;
+        
+
+
+        .hd-active-itm.active{
+            border-bottom:3px solid orange;
+            cursor:default;
+            
+        }
+
+        .itm-ct:not(.active){
+            padding:10px;
+            text-align: center;
+            width:170px;
+            cursor:pointer;
+            &:hover{
+                border-bottom:3px solid grey;
+            }
+        }
+        .hd-active-itm{
+            padding:10px;
+            text-align: center;
+            width:170px;
+            cursor:pointer;
+            
+        }
+
+        .hd-pending-itm{
+            
+        }
+    }
+    .hd-fl-ct{
+        margin-top:20px;
+
+        .fl-sr{
+            position:relative;
+            display:flex;
+            align-items: center;
+            label{
+                position: absolute;
+                left:0;
+                top:5;
+
+                .bi{
+                    margin-left:10px;
+                }
+               
+            }
+            input{
+                padding-left:30px;
+                border:1px solid grey;
+                height:35px;
+                width:250px;
+                font-size:1rem;
+            }
+        }
+    }
+}

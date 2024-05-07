@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->integer('membership_id')->unique();
+            $table->integer('membership_id')->unique()->nullable();
             $table->string('membership_name')->nullable();
             $table->string('membership_email')->nullable();
             $table->string('membership_phone')->nullable();
-            $table->integer('membership_card_number')->unique();
-            $table->string('membership_discount');
-            $table->string('is_active')->nullable();
+            $table->integer('membership_card_number')->unique()->nullable();
+            $table->integer('membership_discount')->default(10);
+            $table->string('membership_status')->default('Pending');
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

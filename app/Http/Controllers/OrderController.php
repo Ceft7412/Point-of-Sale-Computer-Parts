@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Item;
+use Illuminate\Support\Facades\Log;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Storage;
@@ -49,36 +50,46 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request)
     {
-        $customer   = new Customer();
-        $customer->customer_id = $this->generateCustomerID();
-        $customer->save();
-
-        $orderItems = $request->input('order');
-        
-        $order_total = $request->order_total;
-        $order_total = preg_replace('/[^0-9.]/', '', $order_total); // Remove non-numeric characters
-        $order_total = intval($order_total); // Convert to integer
-        $order = new Order();
-        $order->order_id = $this->generateOrderID();
-        $order->customer_id = $customer->id;
-        
-        $order->user_id = Auth::id();
-        $order->order_total = $order_total;
-        $order->save();
-
-        foreach ($orderItems as $item) {
-            $orderItem = new Item();
-            $orderItem->order_id = $order->id;
-            $orderItem->order_item_id = $this->generateOrderItemID();
-            $orderItem->product_id = $item['productId'];
-            $orderItem->product_name = $item['productName'];
-            $orderItem->price = $item['productPrice'];
-            $orderItem->quantity = $item['quantity'];
-            $orderItem->subtotal = $item['productPrice'] * $item['quantity'];
-            $orderItem->save();
+        try {
+            $customer   = new Customer();
+            $customer->customer_id = $this->generateCustomerID();
+            $customer->save();
+    
+            $orderItems = $request->input('order');
+            
+            $order_total = $request->order_total;
+            $order_total = preg_replace('/[^0-9.]/', '', $order_total); // Remove non-numeric characters
+            $order_total = intval($order_total); // Convert to integer
+            $order = new Order();
+            $order->order_id = $this->generateOrderID();
+            $order->customer_id = $customer->id;
+            
+            $order->user_id = Auth::id();
+            $order->order_change = $request->order_change;
+            $order->order_total = $order_total;
+            $order->save();
+    
+            foreach ($orderItems as $item) {
+                $orderItem = new Item();
+                $orderItem->order_id = $order->id;
+                $orderItem->order_item_id = $this->generateOrderItemID();
+                $orderItem->product_id = $item['id'];
+                $orderItem->product_name = $item['product_name'];
+                $orderItem->price = $item['product_price'];
+                $orderItem->quantity = $item['item_quantity'];
+                $orderItem->subtotal = $item['product_price'] * $item['item_quantity'];
+                $orderItem->save();
+            }
+          
+            return redirect()->back()->with('success', 'Order completed.');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+    
+            return redirect()->back()->with('error', 'There was a problem processing your order.');
         }
-        return redirect()->back()->with('success', 'Order completed.');
     }
+
+    
     public function getItem($id)
     {
         $product = Product::find($id);

@@ -14,6 +14,7 @@ class Order extends Model
         'customer_id',
         'user_id',
         'order_status',
+        'order_change',
         'order_total',
     ];
 }

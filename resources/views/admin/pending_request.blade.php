@@ -219,12 +219,7 @@
             <span class="description">Track and manage members</span>
         </div>
         <div class="ct-add" id="add-button-modal">
-            <div class="ct-add-flex">
-                <span class="material-symbols-outlined">
-                    add
-                </span>
-                <span class="employee">Member</span>
-            </div>
+            
         </div>
     </div>
 

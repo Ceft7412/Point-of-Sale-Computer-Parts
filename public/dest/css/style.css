@@ -457,17 +457,10 @@ a, a:visited, a:hover {
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex #archiveButton {
   width: 140px;
-  height: 40px;
+  height: 30px;
   border-radius: 5px;
-  border: 1px solid;
-  background-color: #393fae;
-  color: white;
-  border-color: #393fae;
-}
-.parent-wrapper .c-wrapper .ct-body .ct-body-flex #archiveButton:hover {
-  background-color: #2e338e;
+  border: 1px solid grey;
   cursor: pointer;
-  border-color: #2e338e;
 }
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-heading {
   display: flex;
@@ -2797,8 +2790,15 @@ a, a:visited, a:hover {
 .m-ct-wr .hd-fl-ct {
   margin-top: 20px;
   display: flex;
+  align-items: center;
   flex: 1;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+.m-ct-wr .hd-fl-ct .fl-per-pg button {
+  width: 140px;
+  height: 30px;
+  border: 1px solid grey;
+  cursor: pointer;
 }
 .m-ct-wr .hd-fl-ct .fl-sr {
   position: relative;
@@ -2817,6 +2817,7 @@ a, a:visited, a:hover {
   text-align: center;
 }
 .m-ct-wr .hd-fl-ct .fl-sr input {
+  outline: none;
   padding-left: 10px;
   padding-right: 45px;
   border: 1px solid grey;

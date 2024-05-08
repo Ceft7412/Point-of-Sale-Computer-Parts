@@ -295,7 +295,7 @@
         </div>
         <div class="hd-fl-ct">
             <div class="fl-per-pg">
-
+                <button type="button" class="">Set as Inactive</button>
             </div>
             <form method="GET" action="{{route('membershipRedirect')}}" class="fl-sr">
                 <input type="text" name="search" value="{{ request()->query('search') }}" placeholder="Member ID">

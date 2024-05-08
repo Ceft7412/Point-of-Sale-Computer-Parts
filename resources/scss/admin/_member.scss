@@ -64,9 +64,20 @@
     .hd-fl-ct {
         margin-top: 20px;
         display: flex;
-
+        align-items: center;
         flex: 1;
-        justify-content: flex-end;
+        justify-content: space-between;
+
+        .fl-per-pg {
+            button {
+                width:140px;
+                height:30px;
+                
+                border:1px solid grey;
+                cursor:pointer;
+            }
+
+        }
 
         .fl-sr {
 
@@ -79,9 +90,10 @@
             button {
                 position: absolute;
                 right: 0;
-                height:100%;
-                width:40px;
+                height: 100%;
+                width: 40px;
                 top: 5;
+
                 .bi {
                     text-align: center;
 
@@ -90,7 +102,7 @@
             }
 
             input {
-                
+                outline:none;
                 padding-left: 10px;
                 padding-right: 45px;
                 border: 1px solid grey;
@@ -148,6 +160,7 @@
                         overflow-x: auto;
                         padding-right: 10px;
                     }
+
                     .tbl-cell:nth-child(1) {
                         width: 5%;
                         min-width: 50px;
@@ -156,7 +169,7 @@
                     .tbl-cell:last-child {
                         display: flex;
                         gap: 5px;
-                        
+
                         flex-direction: column;
 
                         button {
@@ -239,7 +252,7 @@
 
                                             &:hover {
                                                 background-color: #2e338e;
-                                                
+
                                                 border-color: #2e338e;
                                             }
                                         }

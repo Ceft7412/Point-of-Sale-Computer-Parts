@@ -482,3 +482,20 @@ $('.cancel').click(function () {
     
 });
 
+
+
+// ===membership modal===
+$('#accept_membership').on('click', function (e) {
+    $('#accept_membership_modal').css('display', 'flex');
+});
+
+$('#decline_membership').on('click', function (e) {
+    $('#decline_membership_modal').css('display', 'flex');
+});
+
+$('.btn-no').on('click', function (e) {
+    $('#accept_membership_modal').hide();
+    $('#decline_membership_modal').hide();
+});
+// ===end of membership modal action===
+

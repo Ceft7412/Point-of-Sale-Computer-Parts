@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\AdminMembershipController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -72,7 +73,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('admin/employee', [RegisteredUserController::class, 'create'])->name('employee');
     Route::get('admin/admin', [AdminController::class, 'redirectAdmin'])->name('admin');
 
-    Route::get('admin/membership', [AdminController::class, 'redirectMembership'])->name('membershipRedirect');
+    
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 
@@ -146,8 +147,12 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::put('category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category-update');
     Route::put('category/subcategory/update/{id}', [SubcategoryController::class, 'updateSubcategory'])->name('subcategory-update');
 
-
-
+    //membership routes
+    Route::get('admin/membership', [AdminMembershipController::class, 'redirectMembership'])->name('membershipRedirect');
+    Route::get('admin/membership/pending-membership', [AdminMembershipController::class, 'pendingMembership'])->name('pending.request-membership');
+    // membership pending actions
+    Route::post('pending-membership/accepted/{id}', [AdminMembershipController::class, 'acceptedMembership'])->name('acceptedMembership');
+    Route::post('pending-membership/rejected/{id}', [AdminMembershipController::class, 'rejectedMembership'])->name('rejectedMembership');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Membership')
+@section('title', 'Pending')
 @section('css')
-<link rel="stylesheet" href="../dest/css/style.css">
+<link rel="stylesheet" href="/dest/css/style.css">
 @endsection
 @section('content')
 <div class="topbar-wrapper">
@@ -230,13 +230,13 @@
 
     <div class="m-ct-wr">
         <div class="hd-ct">
-            <div class="itm-ct hd-active-itm active">
+            <a href="{{route('membershipRedirect')}}" class="itm-ct hd-active-itm">
                 <span class="">Active Members</span>
-            </div>
-
-            <a href="{{route('pending.request-membership')}}"class="itm-ct hd-pending-itm">
-                <span class="">Pending Request</span>
             </a>
+
+            <div class="itm-ct hd-pending-itm active">
+                <span class="">Pending Request</span>
+            </div>
         </div>
         <div class="hd-fl-ct">
             <div class="fl-per-pg">
@@ -244,7 +244,7 @@
             </div>
             <div class="fl-sr">
                 <label for=""><i class="bi bi-search"></i></label>
-                <input type="text" placeholder="Member ID">
+                <input type="text" placeholder="Search for name">
             </div>
 
         </div>
@@ -255,9 +255,7 @@
                     <div class="tbl-cell">
                         <input type="checkbox">
                     </div>
-                    <div class="tbl-cell">
-                        <span class="txt-cell">Membership ID</span>
-                    </div>
+
                     <div class="tbl-cell">
                         <span class="txt-cell">Name</span>
 
@@ -268,40 +266,80 @@
                     <div class="tbl-cell">
                         <span class="txt-cell">Phone</span>
                     </div>
-                    <div class="tbl-cell">
-                        <span class="txt-cell">Card Number</span>
-                    </div>
-                   
+
+
                     <div class="tbl-cell">
                         <span class="txt-cell">Action</span>
                     </div>
                 </div>
                 <div class="tbdy">
-                    @forelse($activeMembers as $activeMember)
+                    @forelse($pendingMembers as $pendingMember)
                     <div class="tbdy-rw">
                         <div class="tbl-cell">
                             <input type="checkbox">
                         </div>
+
                         <div class="tbl-cell">
-                            <span class="txt-cell">{{$activeMember->membership_id}}</span>
-                        </div>
-                        <div class="tbl-cell">
-                            <span class="txt-cell">{{$activeMember->membership_name}}</span>
+                            <span class="txt-cell">{{$pendingMember->membership_name}}</span>
 
                         </div>
                         <div class="tbl-cell">
-                            <span class="txt-cell">{{$activeMember->membership_email}}</span>
+                            <span class="txt-cell">{{$pendingMember->membership_email}}</span>
                         </div>
                         <div class="tbl-cell">
-                            <span class="txt-cell">{{$activeMember->membership_phone}}</span>
+                            <span class="txt-cell">{{$pendingMember->membership_phone}}</span>
                         </div>
                         <div class="tbl-cell">
-                            <span class="txt-cell">M{{$activeMember->membership_card_number}}</span>
-                        </div>
-                        
-                        <div class="tbl-cell">
-                            <button><i class="bi bi-pencil-square"></i>Update</button>
-                            <button><i class="bi bi-archive"></i>Archive</button>
+                            <form action="/pending-membership/accepted/{{$pendingMember->id}}" method="POST">
+                                @csrf
+                                <button type="button" id="accept_membership"><i
+                                        class="bi bi-check-circle"></i>Accept</button>
+
+                                <div class="a-m-wrapper" id="accept_membership_modal">
+                                    <div class="a-modal">
+                                        <div class="a-modal-f">
+                                            <div class="hdr">
+                                                <span class="">Are you sure?</span>
+                                            </div>
+                                            <div class="bdy">
+                                                <span class="">By confirming, the applicant for membership will be move
+                                                    to a member. Are you sure you want to proceed?</span>
+                                            </div>
+                                            <div class="ftr">
+
+                                                <button type="button" class="btn-no">No</button>
+                                                <button type="submit" class="btn-yes">Yes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form action="/pending-membership/rejected/{{$pendingMember->id}}" method="POST">
+                                @csrf
+                                <button type="button" id="decline_membership"><i
+                                        class="bi bi-x-circle"></i>Reject</button>
+                                <div class="a-m-wrapper" id="decline_membership_modal">
+                                    <div class="a-modal">
+                                        <div class="a-modal-f">
+                                            <div class="hdr">
+                                                <span class="">Decline application for membership?</span>
+                                            </div>
+                                            <div class="bdy">
+                                                <span class="">By confirming, the applicant will be remove. Are you sure
+                                                    you
+                                                    want to proceed?</span>
+                                            </div>
+                                            <div class="ftr">
+
+                                                <button type="button" class="btn-no">No</button>
+                                                <button type="button" class="btn-yes">Yes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
                         </div>
                     </div>
                     @empty
@@ -320,5 +358,5 @@
 @endsection
 @section('js')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../js/script.js"></script>
+<script src="/js/script.js"></script>
 @endsection

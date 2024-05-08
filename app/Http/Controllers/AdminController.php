@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\User;
+use App\Models\Member;
 
 class AdminController extends Controller
 {
     //
 
-    public function redirectMembership(){
-        return view("admin.membership");    
-    }
+
     public function redirectOverview()
     {
 

@@ -8,12 +8,38 @@ use App\Models\Member;
 class AdminMembershipController extends Controller
 {
     public function redirectMembership(){
-        $activeMembers = Member::where('membership_status', 'Accepted')->get();
-        return view("admin.membership")->with('activeMembers', $activeMembers);    
+
+        $search = request()->query('search');
+        if ($search) {
+            $activeMembers = Member::where('membership_status', 'Accepted')->where('membership_id', 'like', '%'.$search.'%')->get();
+            return view("admin.membership")->with('activeMembers', $activeMembers);    
+        } else {
+            $activeMembers = Member::where('membership_status', 'Accepted')->get();
+            return view("admin.membership")->with('activeMembers', $activeMembers); 
+        }
+           
     }
     public function pendingMembership(){
         $pendingMembers = Member::where('membership_status', 'Pending')->get();
         return view("admin.pending_request")->with('pendingMembers', $pendingMembers);
+    }
+
+    public function addMember(Request $request){
+        $request->validate([
+            'membership_name' => 'required',
+            'membership_email' => 'required',
+            'membership_phone' => 'required',
+        ]);
+        $member = new Member();
+        $member->membership_name = $request->membership_name;
+        $member->membership_id = $this->generateMembershipId();
+        $member->membership_card_number = $this->generateMembershipCard();
+        $member->membership_status = "Accepted";
+        $member->membership_email = $request->membership_email;
+        $member->membership_phone = $request->membership_phone;
+        $member->save();
+        return redirect()->back()->with('success', 'Member has been added successfully');
+        
     }
     public function acceptedMembership($id){
         

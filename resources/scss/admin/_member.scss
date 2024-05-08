@@ -76,20 +76,23 @@
             justify-content: center;
             align-items: center;
 
-            label {
+            button {
                 position: absolute;
                 right: 0;
+                height:100%;
+                width:40px;
                 top: 5;
-
                 .bi {
-                    margin-right: 10px;
+                    text-align: center;
+
                 }
 
             }
 
             input {
+                
                 padding-left: 10px;
-                padding-right: 30px;
+                padding-right: 45px;
                 border: 1px solid grey;
                 height: 35px;
                 width: 250px;

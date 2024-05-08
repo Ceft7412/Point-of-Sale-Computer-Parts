@@ -212,6 +212,61 @@
         </form>
     </div>
 </div>
+
+<div class="modal-wrapper" id="modal">
+    <div class="modal-card-wrapper" id="modal-card">
+        <div class="modal-flex">
+            <div class="modal-header">
+                <div class="item-1">
+                    <span class="new-title">New Member</span>
+                    <span class="material-symbols-outlined" id="close-modal">
+                        close
+                    </span>
+                </div>
+            </div>
+            <form action="{{ route('application-membership') }}" class="form-wrapper"  method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="input-user-type input-wrapper">
+                        <input type="hidden" name="type" value="2">
+                    </div>
+                    <div class="input-name input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Name:</label>
+                            <input type="text" name="membership_name" class="input" required>
+
+                        </div>
+                    </div>
+
+
+                    <div class="input-email input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Email:</label>
+                            <input type="email" name="membership_email" class="input" required>
+                            <div class="error"></div>
+                        </div>
+
+                    </div>
+                    <div class="input-password input-wrapper">
+                        <div class="flex-column">
+                            <label for="">Contact No:</label>
+                            <input type="num" name="membership_phone" class="input">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-flex-footer">
+                        <button type="button" class="cancel" id="cancel-modal">Cancel</button>
+                        <button type="submit" class="save">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 <div class="c-wrapper">
     <div class="c-heading-wrapper category">
         <div class="ct-title">
@@ -234,7 +289,7 @@
                 <span class="">Active Members</span>
             </div>
 
-            <a href="{{route('pending.request-membership')}}"class="itm-ct hd-pending-itm">
+            <a href="{{route('pending.request-membership')}}" class="itm-ct hd-pending-itm">
                 <span class="">Pending Request</span>
             </a>
         </div>
@@ -242,10 +297,10 @@
             <div class="fl-per-pg">
 
             </div>
-            <div class="fl-sr">
-                <label for=""><i class="bi bi-search"></i></label>
-                <input type="text" placeholder="Member ID">
-            </div>
+            <form method="GET" action="{{route('membershipRedirect')}}" class="fl-sr">
+                <input type="text" name="search" value="{{ request()->query('search') }}" placeholder="Member ID">
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
 
         </div>
 
@@ -271,7 +326,7 @@
                     <div class="tbl-cell">
                         <span class="txt-cell">Card Number</span>
                     </div>
-                   
+
                     <div class="tbl-cell">
                         <span class="txt-cell">Action</span>
                     </div>
@@ -298,7 +353,7 @@
                         <div class="tbl-cell">
                             <span class="txt-cell">M{{$activeMember->membership_card_number}}</span>
                         </div>
-                        
+
                         <div class="tbl-cell">
                             <button><i class="bi bi-pencil-square"></i>Update</button>
                             <button><i class="bi bi-archive"></i>Archive</button>

@@ -150,6 +150,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     //membership routes
     Route::get('admin/membership', [AdminMembershipController::class, 'redirectMembership'])->name('membershipRedirect');
     Route::get('admin/membership/pending-membership', [AdminMembershipController::class, 'pendingMembership'])->name('pending.request-membership');
+    // adding member action
+    Route::post('admin/member/add', [AdminMembershipController::class, 'addMember'])->name('application-membership');
     // membership pending actions
     Route::post('pending-membership/accepted/{id}', [AdminMembershipController::class, 'acceptedMembership'])->name('acceptedMembership');
     Route::post('pending-membership/rejected/{id}', [AdminMembershipController::class, 'rejectedMembership'])->name('rejectedMembership');

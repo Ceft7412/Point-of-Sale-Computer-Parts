@@ -2806,17 +2806,19 @@ a, a:visited, a:hover {
   justify-content: center;
   align-items: center;
 }
-.m-ct-wr .hd-fl-ct .fl-sr label {
+.m-ct-wr .hd-fl-ct .fl-sr button {
   position: absolute;
   right: 0;
+  height: 100%;
+  width: 40px;
   top: 5;
 }
-.m-ct-wr .hd-fl-ct .fl-sr label .bi {
-  margin-right: 10px;
+.m-ct-wr .hd-fl-ct .fl-sr button .bi {
+  text-align: center;
 }
 .m-ct-wr .hd-fl-ct .fl-sr input {
   padding-left: 10px;
-  padding-right: 30px;
+  padding-right: 45px;
   border: 1px solid grey;
   height: 35px;
   width: 250px;

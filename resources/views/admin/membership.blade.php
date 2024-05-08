@@ -2,7 +2,7 @@
 
 @section('title', 'Membership')
 @section('css')
-    <link rel="stylesheet" href="../dest/css/style.css">
+<link rel="stylesheet" href="../dest/css/style.css">
 @endsection
 @section('content')
 <div class="topbar-wrapper">
@@ -141,7 +141,7 @@
         </div>
         <div class="menu-item">
             <div class="r-item">
-                <a href="{{ url('admin/employee') }}"class="sidebar-menu-item">
+                <a href="{{ url('admin/employee') }}" class="sidebar-menu-item">
                     <div class="flex-item">
                         <i class="bi bi-people"></i>
                         <span class="">Employee
@@ -181,7 +181,7 @@
         </div>
         <div class="menu-item active">
             <div class="r-item active">
-                <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
                     <div class="flex-item">
                         <i class="bi bi-person-vcard"></i>
                         <span class="">Membership
@@ -189,7 +189,7 @@
 
                     </div>
                 </a>
-              
+
             </div>
             <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
                 <span class="">Archive</span>
@@ -239,17 +239,77 @@
             </div>
         </div>
         <div class="hd-fl-ct">
+            <div class="fl-per-pg">
+
+            </div>
             <div class="fl-sr">
                 <label for=""><i class="bi bi-search"></i></label>
-                <input type="text" placeholder="Search member">
+                <input type="text" placeholder="Member ID">
             </div>
-            <div class="fl-per-pg">
-                
-            </div>
+
         </div>
 
         <div class="bd-ct">
+            <div class="tbl">
+                <div class="thdr">
+                    <div class="tbl-cell">
+                        <input type="checkbox">
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Membership ID</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Name</span>
 
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Email</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Phone</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Card Number</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Status</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Action</span>
+                    </div>
+                </div>
+                <div class="tbdy">
+                    <div class="tbl-cell">
+                        <input type="checkbox">
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">123456890</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Name</span>
+
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Email</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Phone</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Card Number</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <span class="txt-cell">Status</span>
+                    </div>
+                    <div class="tbl-cell">
+                        <button><i class="bi bi-pencil-square"></i>Update</button>
+                        <button><i class="bi bi-archive"></i>Archive</button>
+                    </div>
+                </div>
+
+
+
+            </div>
         </div>
 
 
@@ -257,6 +317,6 @@
 </div>
 @endsection
 @section('js')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../js/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/script.js"></script>
 @endsection

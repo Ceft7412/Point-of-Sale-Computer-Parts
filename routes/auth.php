@@ -142,17 +142,25 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
 
 
-    // UPDATE RECORD
+    // *UPDATE RECORD
     Route::put('update/{id}', [RegisteredUserController::class, 'update'])->name('update-store');
     Route::put('category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category-update');
     Route::put('category/subcategory/update/{id}', [SubcategoryController::class, 'updateSubcategory'])->name('subcategory-update');
 
-    //membership routes
+    // *membership routes
     Route::get('admin/membership', [AdminMembershipController::class, 'redirectMembership'])->name('membershipRedirect');
     Route::get('admin/membership/pending-membership', [AdminMembershipController::class, 'pendingMembership'])->name('pending.request-membership');
-    // adding member action
+    // *adding member action
     Route::post('admin/member/add', [AdminMembershipController::class, 'addMember'])->name('application-membership');
-    // membership pending actions
+
+    // *update member action
+    Route::put('admin/member/update/{id}', [AdminMembershipController::class, 'updateMember'])->name('update-member');
+
+    Route::get('admin/member/{id}', [AdminMembershipController::class, 'getMember'])->name('update-member');
+    //  *archive members action
+    Route::post('admin/member/archive', [AdminMembershipController::class, 'archiveMembers'])->name('archive-members');
+    Route::post('admin/member/archive/{id}', [AdminMembershipController::class, 'archiveSingleMember'])->name('archive-single-member');
+    // *membership pending actions
     Route::post('pending-membership/accepted/{id}', [AdminMembershipController::class, 'acceptedMembership'])->name('acceptedMembership');
     Route::post('pending-membership/rejected/{id}', [AdminMembershipController::class, 'rejectedMembership'])->name('rejectedMembership');
 

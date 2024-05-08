@@ -11,10 +11,12 @@ class AdminMembershipController extends Controller
 
         $search = request()->query('search');
         if ($search) {
-            $activeMembers = Member::where('membership_status', 'Accepted')->where('membership_id', 'like', '%'.$search.'%')->get();
+            $activeMembers = Member::where('membership_status', 'Accepted')
+                                    ->where('is_active', 1)
+                                    ->where('membership_id', 'like', '%'.$search.'%')->get();
             return view("admin.membership")->with('activeMembers', $activeMembers);    
         } else {
-            $activeMembers = Member::where('membership_status', 'Accepted')->get();
+            $activeMembers = Member::where('membership_status', 'Accepted')->where('is_active', 1)->get();
             return view("admin.membership")->with('activeMembers', $activeMembers); 
         }
            
@@ -41,6 +43,24 @@ class AdminMembershipController extends Controller
         return redirect()->back()->with('success', 'Member has been added successfully');
         
     }
+
+    public function updateMember(Request $request, $id){
+        $request->validate([
+            'update_membership_name' => 'required',
+            'update_membership_email' => 'required',
+            'update_membership_phone' => 'required',
+        ]);
+        $member = Member::findOrfail($id);
+        $member->membership_name = $request->update_membership_name;
+        $member->membership_email = $request->update_membership_email;
+        $member->membership_phone = $request->update_membership_phone;
+        $member->save();
+        return redirect()->back()->with('success', 'Member has been updated successfully');
+    }
+    public function getMember($id){
+        $member = Member::findOrfail($id);
+        return response()->json($member);
+    }
     public function acceptedMembership($id){
         
         $applicant = Member::findOrfail($id);
@@ -56,6 +76,28 @@ class AdminMembershipController extends Controller
         $applicant->membership_status = "Rejected";
         $applicant->save();
         return redirect()->back()->with('success', 'Membership request has been rejected');
+    }
+
+
+    public function archiveMembers(Request $request){
+        $memberIds = $request->input('memberIds');
+        if($memberIds){
+            foreach($memberIds as $memberId){
+                $member = Member::find($memberId);
+                $member->is_active = 0;
+                $member->save();
+            }
+            return redirect()->back()->with('success', 'Members archived successfully');
+        }else {
+            return redirect()->back()->with('error', 'No members selected');
+        }
+    }
+
+    public function archiveSingleMember($id){
+        $member = Member::find($id);
+        $member->is_active = 0;
+        $member->save();
+        return redirect()->back()->with('success', 'Member archived successfully');
     }
     public function generateMembershipId(){
         do{

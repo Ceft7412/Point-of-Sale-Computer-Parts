@@ -483,19 +483,55 @@ $('.cancel').click(function () {
 });
 
 
+// *===members updating===
 
-// ===membership modal===
-$('#accept_membership').on('click', function (e) {
+
+// *===members archiving===
+$('#archiveButton').on('click', function(){
+    $('#archiveGroupMembers').submit();
+});
+
+$('.tbl-cell').on('click', '.select_archive_active_member', function(){
+    const memberId = $(this).data('member-id');
+    $('#archive_member').attr('action', `/admin/member/archive/${memberId}`);
+    $('#archive_modal').css('display', 'flex');
+    
+});
+
+// *===end of members archiving===
+$('.tbl-cell').on('click', '.select_update_active_member', function(){
+    const memberId = $(this).data('member-id');
+    $('#update_members_form').attr('action', `/admin/member/update/${memberId}`)
+    console.log(memberId);
+    $.ajax({
+        type:"GET",
+        url: `/admin/member/${memberId}`,
+        success:function (member) {
+            $('input[name="type"]').val(member.type);
+            $('input[name="update_membership_name"]').val(member.membership_name);
+            $('input[name="update_membership_email"]').val(member.membership_email);
+            $('input[name="update_membership_phone"]').val(member.membership_phone);
+        }
+    });
+    $('.update-modal-wrapper').show();
+
+});
+
+
+// *===membership modal===
+
+$('.tbdy-rw').on('click','#accept_membership', function (e) {
     $('#accept_membership_modal').css('display', 'flex');
 });
 
-$('#decline_membership').on('click', function (e) {
+$('.tbdy-rw').on('click', '#decline_membership',function (e) {
     $('#decline_membership_modal').css('display', 'flex');
 });
 
 $('.btn-no').on('click', function (e) {
     $('#accept_membership_modal').hide();
     $('#decline_membership_modal').hide();
+    $('#archive_modal').hide();
 });
-// ===end of membership modal action===
+// *===end of membership modal action===
 

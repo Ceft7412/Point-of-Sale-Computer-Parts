@@ -182,6 +182,26 @@
 
                 </a>
             </div>
+            <div class="menu-item">
+                <div class="r-item">
+                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                        <div class="flex-item">
+                            <i class="bi bi-people"></i>
+                            <span class="">Membership
+                            </span>
+
+                        </div>
+                    </a>
+                    <div class="chevrons-action">
+                        <i class="more bi bi-chevron-down" id=""></i>
+                        <i class="less bi bi-chevron-up" id=""></i>
+                    </div>
+                </div>
+                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                    <span class="">Archive</span>
+
+                </a>
+            </div>  
         </div>
         <div class="out-wrapper">
 
@@ -243,7 +263,7 @@
     @endif
 
 
-    
+
     <div class="c-wrapper">
         <div class="c-heading-wrapper category">
             <div class="ct-title">
@@ -253,11 +273,62 @@
         <div class="ct-body">
             <div class="ct-body-flex">
                 <div class="ct-body-heading">
-                    <a href="{{ route('product') }}" class="go-back">
-                        <i class="bi bi-arrow-bar-left"></i>
-                        <span class="back">GO BACK</span>
-                    </a>
+                    <div class="pr-dt">
+                        <a href="{{ route('product') }}" class="go-back">
+                            <i class="bi bi-arrow-bar-left"></i>
+                            <span class="back">GO BACK</span>
+
+                        </a>
+                    </div>
+
                     <div class="ct-heading-r">
+                        <form action="{{ route('unarchiveProductGroup') }}" class="" id="archiveGroup" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button type="button" class="archive_select_group" id="archive_select_group"
+                                style="display: none;">Set to active</button>
+                                <div class="unarchive-modal-wrapper"
+                                >
+                                <div class="modal-card-wrapper" id="modal-card">
+                                    <div class="heading">
+
+                                        <div class="text-left">
+                                            <span class="big">Set to Active</span>
+                                            <span class="small"><i
+                                                    class="bi bi-info-circle"></i></span>
+                                        </div>
+
+                                        <span class="cancel-archive">
+                                            <i class="bi bi-x-lg"></i>
+                                        </span>
+                                    </div>
+                                    {{-- ACTION: /category/unarchive/{id} --}}
+                                    <div class="unarchiveForm">
+                                      
+                                        <div class="body">
+                                            <div class="text">
+
+                                                <select name="subcategory_id" id="categorySelect"
+                                                    class="category-select">
+
+                                                    @foreach ($subcategories as $subcategory)
+                                                        <option value="{{ $subcategory->id }}">
+                                                            {{ $subcategory->subcategory_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <button type="button" class="cancel-archive">No, keep
+                                                this inactive</button>
+                                            <button type="submit" class="confirm-archive">Yes,
+                                                make this active</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                         <form method="GET" action="{{ route('archive-product') }}"class="ct-heading-search">
 
                             <input type="text" name="search" class="ct-heading-search-input"
@@ -266,128 +337,177 @@
                         </form>
                     </div>
                 </div>
-                <form action="{{ route('unarchiveProductGroup') }}" class="" method="POST">
-                    @csrf
-                    <button type="submit" id="archiveButton" style="display: none;">Set to active</button>
-                    <div class="ct-body-content">
-                        <div class="table-wrapper">
-                            <div class="table">
-                                <div class="product-header">
-                                    <div class="table-row">
-                                        <div class="table-cell">
-                                            @if (count($products) > 0)
-                                                <input type="checkbox" id="selectAllCheckbox">
-                                            @endif
-                                        </div>
-                                        <div class="table-cell">Product ID</div>
-                                        <div class="table-cell category-cell">
-                                            <span>Name</span>
-                                        </div>
-                                        <div class="table-cell">Category</div>
-                                        <div class="table-cell">Price</div>
-                                        <div class="table-cell">Quantity</div>
-                                        <div class="table-cell">Purchase</div>
-                                        <div class="table-cell">Inserted Date</div>
-                                        <div class="table-cell">Modified Date</div>
-                                        <div class="table-cell">Action</div>
+
+                <div class="ct-body-content">
+                    <div class="table-wrapper">
+                        <div class="table">
+                            <div class="product-header">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @if (count($products) > 0)
+                                            <input type="checkbox" id="selectAllCheckbox">
+                                        @endif
                                     </div>
+                                    <div class="table-cell">Product ID</div>
+                                    <div class="table-cell category-cell">
+                                        <span>Name</span>
+                                    </div>
+                                    <div class="table-cell">Category</div>
+                                    <div class="table-cell">Price</div>
+                                    <div class="table-cell">Quantity</div>
+                                    <div class="table-cell">Purchase</div>
+                                    <div class="table-cell">Inserted Date</div>
+                                    <div class="table-cell">Modified Date</div>
+                                    <div class="table-cell">Action</div>
                                 </div>
-                                <div class="product-body">
-                                    @forelse($products as $product)
-                                        <div class="table-row" id="">
+                            </div>
+                            <div class="product-body">
+                                @forelse($products as $product)
+                                    <div class="table-row" id="">
 
-                                            <div class="table-cell">
-                                                <input type="checkbox" class="userCheckbox" name="productIds[]"
-                                                    value="{{ $product->id }}">
-                                            </div>
-                                            <div class="table-cell">P{{ $product->product_id }}</div>
-                                            <div class="table-cell">
-                                                <img src="/../assets/images/product_uploads/{{ $product->product_image }}"
-                                                    alt="{{ $product->product_name }}" class="picture">
-                                                <span class="item">{{ $product->product_name }}</span>
-                                            </div>
-                                            <div class="table-cell">
-                                                {{ $product->subcategory->subcategory_name }}
-                                            </div>
+                                        <div class="table-cell">
+                                            <input type="checkbox" class="userCheckbox" name="archiveIds[]"
+                                                value="{{ $product->id }}">
+                                        </div>
+                                        <div class="table-cell">P{{ $product->product_id }}</div>
+                                        <div class="table-cell">
+                                            <img src="{{ Storage::url('public/product_images/' . $product->product_image) }}"
+                                                alt="{{ $product->product_name }}" class="picture">
+                                            <span class="item">{{ $product->product_name }}</span>
+                                        </div>
+                                        <div class="table-cell">
+                                            {{ $product->subcategory->subcategory_name }}
+                                        </div>
 
-                                            <div class="table-cell">{{ $product->product_price }}</div>
-                                            <div class="table-cell">
-                                                <span>{{ $product->product_quantity }}</span>
+                                        <div class="table-cell">{{ $product->product_price }}</div>
+                                        <div class="table-cell">
+                                            <span>{{ $product->product_quantity }}</span>
 
-                                            </div>
-                                            <div class="table-cell" style="display: flex;">
-                                                <span>3</span>
+                                        </div>
+                                        <div class="table-cell" style="display: flex;">
+                                            <span>3</span>
 
-                                            </div>
-                                            <div class="table-cell date">
-                                                <span>{{ $product->created_at->toDateString() }}</span>
-                                                <span>{{ $product->created_at->toTimeString() }}</span>
-                                            </div>
-                                            <div class="table-cell date" style="display: flex;">
-                                                <span>{{ $product->updated_at->toDateString() }}</span>
-                                                <span>{{ $product->updated_at->toTimeString() }}</span>
-                                            </div>
-                                            <div class="table-cell action">
-                                                <div class="flex-col">
-                                                    <div class="action-p archive-w">
-                                                        <button type="button" class="unarchiveProductButton"
-                                                            data-id="{{ $product->id }}">
-                                                            <i class="bi bi-archive"></i>
-                                                            <span class="">Active</span>
-                                                        </button>
+                                        </div>
+                                        <div class="table-cell date">
+                                            <span>{{ $product->created_at->toDateString() }}</span>
+                                            <span>{{ $product->created_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell date">
+                                            <span>{{ $product->updated_at->toDateString() }}</span>
+                                            <span>{{ $product->updated_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell action">
+                                            <div class="flex-col">
+                                                <div class="action-p archive-w">
+                                                    <button type="button" class="unarchiveProductButton"
+                                                        data-id="{{ $product->id }}"
+                                                        data-parent-id="{{ $product->subcategory_id }}">
+                                                        <i class="bi bi-archive"></i>
+                                                        <span class="">Active</span>
+                                                    </button>
+                                                </div>
+                                                <div class="unarchive-modal-wrapper"
+                                                    id="unarchiveChoose_{{ $product->id }}">
+                                                    <div class="modal-card-wrapper" id="modal-card">
+                                                        <div class="heading">
+
+                                                            <div class="text-left">
+                                                                <span class="big">Set to Active</span>
+                                                                <span class="small"><i
+                                                                        class="bi bi-info-circle"></i></span>
+                                                            </div>
+
+                                                            <span class="cancel-archive">
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </span>
+                                                        </div>
+                                                        {{-- ACTION: /category/unarchive/{id} --}}
+                                                        <form method="POST"
+                                                            action="/admin/product/archive/unarchive/{{ $product->id }}"
+                                                            id="unarchiveFormSubcategory" class="unarchiveForm">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="body">
+                                                                <div class="text">
+
+                                                                    <select name="subcategory_id" id="categorySelect"
+                                                                        class="category-select">
+
+                                                                        @foreach ($subcategories as $subcategory)
+                                                                            <option value="{{ $subcategory->id }}">
+                                                                                {{ $subcategory->subcategory_name }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="footer">
+                                                                <button type="button" class="cancel-archive">No, keep
+                                                                    this inactive</button>
+                                                                <button type="submit" class="confirm-archive">Yes,
+                                                                    make this active</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="archive-modal-wrapper" id="unarchive_{{ $product->id }}">
+                                                    <div class="modal-card-wrapper" id="modal-card">
+                                                        <div class="heading">
+
+                                                            <span class="text-left">
+                                                                Set to Active
+                                                            </span>
+                                                            <span class="cancel-archive">
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <div class="body">
+                                                            <div class="text">
+                                                                Unarchiving this row will remove the product from the
+                                                                inactive list and will remain active.
+                                                                Are you sure
+                                                                you
+                                                                want to
+                                                                proceed?
+                                                            </div>
+                                                        </div>
+                                                        <div class="footer">
+                                                            <form method="POST"
+                                                                action="/admin/product/archive/unarchive/{{ $product->id }}"
+                                                                id="unarchiveProductForm">
+                                                                @csrf
+                                                                <button type="button" class="cancel-archive">No, keep
+                                                                    this inactive</button>
+                                                                <button type="submit" class="confirm-archive">Yes, make
+                                                                    this active</button>
+                                                            </form>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                    @empty
-                                        @if (request()->query('search'))
-                                            <div class="no-data">
-                                                <span>No result found for query
-                                                    <strong>{{ request()->query('search') }}</strong></span>
-                                            </div>
-                                        @else
-                                            <div class="no-data">
-                                                <span>No data available</span>
-                                            </div>
-                                        @endif
-                                    @endforelse
-                                </div>
+                                @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
+                                        </div>
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
+                                        </div>
+                                    @endif
+                                @endforelse
                             </div>
                         </div>
-                    </div>
-                </form>
-                <div class="archive-modal-wrapper">
-                    <div class="modal-card-wrapper" id="modal-card">
-                        <div class="heading">
-
-                            <span class="text-left">
-                                Set to Active
-                            </span>
-                            <span class="cancel-archive">
-                                <i class="bi bi-x-lg"></i>
-                            </span>
-                        </div>
-
-                        <div class="body">
-                            <div class="text">
-                                Unarchiving this row will remove the product from the inactive list and will remain active.
-                                Are you sure
-                                you
-                                want to
-                                proceed?
-                            </div>
-                        </div>
-                        <div class="footer">
-                            <form method="POST" action="" id="unarchiveProductForm">
-                                @csrf
-                                <button type="button" class="cancel-archive">No, keep this inactive</button>
-                                <button type="submit" class="confirm-archive">Yes, make this active</button>
-                            </form>
-                        </div>
-
                     </div>
                 </div>
+                </form>
+
 
             </div>
         </div>

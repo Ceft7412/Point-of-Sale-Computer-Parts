@@ -68,13 +68,62 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
 // ADMIN ROUTES
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+
+
+
+    // *user - admin/employee actions
+    Route::post('admin/user/archive/{id}', [RegisteredUserController::class, 'archive'])->name('archive');
+    Route::post('admin/user/{id}', [RegisteredUserController::class, 'unarchive'])->name('unarchive');
+    Route::put('/admin/user/update/{id}', [RegisteredUserController::class, 'update'])->name('update-store');
+    Route::post('archive', [RegisteredUserController::class, 'archiveGroup'])->name('archiveGroup');
+    Route::post('unarchive', [RegisteredUserController::class, 'unarchiveGroup'])->name('unarchiveGroup');
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
+    Route::get('admin/employee', [RegisteredUserController::class, 'create'])->name('employee');
+    Route::get('admin/archive/archive-employee', [RegisteredUserController::class, 'redirectArchiveEmployee'])->name('archive-employee');
+    Route::get('admin/employee/{id}', [RegisteredUserController::class, 'getUser'])->name('getUser');
+
+
+
+    // *category actions
+    Route::put('admin/category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category-update');
+    Route::post('admin/category/archive/{id}', [CategoryController::class, 'archiveCategory'])->name('archiveCategory');
+    Route::get('admin/archive/brands/check-category/{id}', [CategoryController::class, 'checkCategory'])->name('checkCategory');
+
+    // *category archive actions
+    Route::get('admin/archive/archive-category', [CategoryController::class, 'archivedCategories'])->name('archive-category');
+    Route::post('admin/category/unarchive/{id}', [CategoryController::class, 'unarchiveCategory'])->name('unarchiveCategory');
+    Route::post('unarchiveCategoryGroup', [CategoryController::class, 'unarchiveCategoryGroup'])->name('unarchiveCategoryGroup');
+    
+
+    // *subcategory actions
+    Route::get('admin/category/brands', [SubcategoryController::class, 'index'])->name('brands');
+    Route::get('admin/archive/archive-subcategory', [SubcategoryController::class, 'createArchive'])->name('archive-subcategory');
+    Route::post('/category/brands/archive/{id}', [SubcategoryController::class, 'archiveSubcategory'])->name('archiveSubcategory');
+    Route::post('archiveSubcategoryGroup', [SubcategoryController::class, 'archiveSubcategoryGroup'])->name('archiveSubcategoryGroup');
+    Route::put('admin/subcategory/update/{id}', [SubcategoryController::class, 'updateSubcategory'])->name('subcategory-update');
+    Route::get('admin/archive/product/check-brands/{id}', [SubcategoryController::class, 'checkSubcategory'])->name('checkSubcategory');
+
+    // *subcategory archive actions
+    Route::put('unarchiveSubcategoryGroup', [SubcategoryController::class, 'unarchiveSubcategoryGroup'])->name('unarchiveSubcategoryGroup');
+    Route::put('admin/archive/brands/unarchive/{id}', [SubcategoryController::class, 'unarchiveSubcategory'])->name('unarchiveSubcategory');
+
+
+
+    // *product actions
+    Route::put('admin/product/update/{id}', [ProductController::class, 'updateProduct'])->name('product-update');
+    Route::post('admin/product/archive/{id}', [ProductController::class, 'archiveProduct'])->name('archiveProduct');
+    Route::put('admin/product/archive/unarchive/{id}', [ProductController::class, 'unarchiveProduct'])->name('unarchiveProduct');
+    Route::put('unarchiveProductGroup', [ProductController::class, 'unarchiveProductGroup'])->name('unarchiveProductGroup');
+
+
+
     Route::get('admin/overview', [AdminController::class, 'redirectOverview'])->name('overview');
   
-    Route::get('admin/employee', [RegisteredUserController::class, 'create'])->name('employee');
+   
     Route::get('admin/admin', [AdminController::class, 'redirectAdmin'])->name('admin');
 
+
     
-    Route::post('register', [RegisteredUserController::class, 'store'])->name('register-store');
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 
 
@@ -86,7 +135,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     // SUBCATEGORY ROUTE
 
 
-    Route::get('admin/employee/{id}', [RegisteredUserController::class, 'getUser'])->name('getUser');
+    
 
     //GET THE VALUE BY SPECIFIC ID
     Route::get('admin/category/{id}', [CategoryController::class, 'getCategory'])->name('getCategory');
@@ -95,9 +144,9 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
 
     // *Category
-    Route::get('admin/archive/archive-category', [CategoryController::class, 'archivedCategories'])->name('archive-category');
+    
 
-    Route::get('admin/archive/archive-employee', [RegisteredUserController::class, 'redirectArchiveEmployee'])->name('archive-employee');
+   
     Route::get('admin/archive/archive-admin', [AdminController::class, 'redirectArchiveAdmin'])->name('archive-admin');
 
     Route::get('admin/archive/archive-product', [ProductController::class, 'redirectArchiveProduct'])->name('archive-product');
@@ -108,47 +157,43 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     // Product
     Route::post('product.store', [ProductController::class, 'storeProduct'])->name('product-store');
-    Route::put('product/update/{id}', [ProductController::class, 'updateProduct'])->name('product-update');
-    Route::post('product/archive/{id}', [ProductController::class, 'archiveProduct'])->name('archiveProduct');
-    Route::post('product/unarchive/{id}', [ProductController::class, 'unarchiveProduct'])->name('unarchiveProduct');
+    
+   
+
     Route::get('admin/product/{id}', [ProductController::class, 'getProduct'])->name('getProduct');
     Route::get('product/search', [ProductController::class, 'searchProduct'])->name('search-product');
 
     Route::post('archiveProductGroup', [ProductController::class, 'archiveProductGroup'])->name('archiveProductGroup');
-    Route::post('unarchiveProductGroup', [ProductController::class, 'unarchiveProductGroup'])->name('unarchiveProductGroup');
+   
 
-    // *ARCHIVE SELECT ID WHETHER IT IS USER OR CATEGORY
-    Route::post('archive/{id}', [RegisteredUserController::class, 'archive'])->name('archive');
-    Route::post('unarchive/{id}', [RegisteredUserController::class, 'unarchive'])->name('unarchive');
+    
 
 
-    //
+    
 
-    // *USER ARCHIVE
-    Route::post('archive', [RegisteredUserController::class, 'archiveGroup'])->name('archiveGroup');
-    Route::post('unarchive', [RegisteredUserController::class, 'unarchiveGroup'])->name('unarchiveGroup');
+    
 
 
     // *CATEGORY ARCHIVE
     Route::post('archiveCategoryGroup', [CategoryController::class, 'archiveCategoryGroup'])->name('archiveCategoryGroup');
-    Route::post('unarchiveCategoryGroup', [CategoryController::class, 'unarchiveCategoryGroup'])->name('unarchiveCategoryGroup');
-    Route::post('category/archive/{id}', [CategoryController::class, 'archiveCategory'])->name('archiveCategory');
-    Route::post('category/unarchive/{id}', [CategoryController::class, 'unarchiveCategory'])->name('unarchiveCategory');
+
+    
+    
 
 
     // *SUBCATEGORY ARCHIVE
-    Route::post('/category/subcategory/archive/{id}', [SubcategoryController::class, 'archiveSubcategory'])->name('archiveSubcategory');
-    Route::put('/category/subcategory/unarchive/{id}', [SubcategoryController::class, 'unarchiveSubcategory'])->name('unarchiveSubcategory');
-
+   
+   
 
 
     // *UPDATE RECORD
-    Route::put('update/{id}', [RegisteredUserController::class, 'update'])->name('update-store');
-    Route::put('category/update/{id}', [CategoryController::class, 'updateCategory'])->name('category-update');
-    Route::put('category/subcategory/update/{id}', [SubcategoryController::class, 'updateSubcategory'])->name('subcategory-update');
+   
+    
+    
 
     // *membership routes
     Route::get('admin/membership', [AdminMembershipController::class, 'redirectMembership'])->name('membershipRedirect');
+    Route::get('archive-member', [AdminMembershipController::class, 'redirectArchiveMember'])->name('archive-member');
     Route::get('admin/membership/pending-membership', [AdminMembershipController::class, 'pendingMembership'])->name('pending.request-membership');
     // *adding member action
     Route::post('admin/member/add', [AdminMembershipController::class, 'addMember'])->name('application-membership');
@@ -159,7 +204,12 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('admin/member/{id}', [AdminMembershipController::class, 'getMember'])->name('update-member');
     //  *archive members action
     Route::post('admin/member/archive', [AdminMembershipController::class, 'archiveMembers'])->name('archive-members');
+    Route::post('admin/member/unarchive', [AdminMembershipController::class, 'unarchiveMembers'])->name('unarchive-members');
     Route::post('admin/member/archive/{id}', [AdminMembershipController::class, 'archiveSingleMember'])->name('archive-single-member');
+    Route::post('admin/member/unarchive/{id}', [AdminMembershipController::class, 'unarchiveSingleMember'])->name('unarchive-single-member');
+    // *reject membership action
+    Route::post('admin/member/reject_membership', [AdminMembershipController::class, 'rejectmemberships'])->name('decline-members');
+    
     // *membership pending actions
     Route::post('pending-membership/accepted/{id}', [AdminMembershipController::class, 'acceptedMembership'])->name('acceptedMembership');
     Route::post('pending-membership/rejected/{id}', [AdminMembershipController::class, 'rejectedMembership'])->name('rejectedMembership');

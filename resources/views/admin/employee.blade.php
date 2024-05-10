@@ -188,6 +188,26 @@
 
                 </a>
             </div>
+            <div class="menu-item">
+                <div class="r-item">
+                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                        <div class="flex-item">
+                            <i class="bi bi-people"></i>
+                            <span class="">Membership
+                            </span>
+
+                        </div>
+                    </a>
+                    <div class="chevrons-action">
+                        <i class="more bi bi-chevron-down" id=""></i>
+                        <i class="less bi bi-chevron-up" id=""></i>
+                    </div>
+                </div>
+                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                    <span class="">Archive</span>
+
+                </a>
+            </div>
         </div>
         <div class="out-wrapper">
 
@@ -310,7 +330,7 @@
 
                     <div class="text">
                         <span class="big">Success</span>
-                        <span class="small">{{session('success')}}</span>
+                        <span class="small">{{ session('success') }}</span>
                     </div>
                 </div>
                 <div class="footer">
@@ -363,116 +383,246 @@
                 <div class="ct-body-heading">
                     <span class="ct-heading-l">Active Employee</span>
                     <div class="ct-heading-r">
+                        <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('archiveGroup') }}">
+                            @csrf
+                            <button type="button" class="archive_select_group" id="archive_select_group">Set to
+                                inactive</button>
+                            <div class="archive-modal-wrapper">
+                                <div class="modal-card-wrapper" id="modal-card">
+                                    <div class="heading">
+
+                                        <span class="text-left">
+                                            Set to Inactive
+                                        </span>
+                                        <span class="cancel-archive">
+                                            <i class="bi bi-x-lg"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="body">
+                                        <div class="text">
+                                            Archiving this grou p will remove the users from the active list and will remain
+                                            unactive. Are you sure you
+                                            want to
+                                            proceed?
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+
+                                        <button type="button" class="cancel-archive">No, keep this active</button>
+                                        <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
                         <form method="GET" action="{{ route('employee') }}"class="ct-heading-search">
 
                             <input type="text" name="search" class="ct-heading-search-input"
-                                placeholder="Employee ID" value="{{ request()->query('search') }}">
+                                placeholder="Search for employees..." value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('archiveGroup') }}">
-                    @csrf
-                    <button type="submit" id="archiveButton" style="display: none;">Set to inactive</button>
-                    <div class="ct-body-content">
+                <div class="ct-body-content">
 
-                        <div class="table-wrapper">
-                            <div class="table">
-                                <div class="employee-header">
+                    <div class="table-wrapper">
+                        <div class="table">
+                            <div class="employee-header">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @if ($users->count() > 0)
+                                            <input type="checkbox" id="selectAllCheckbox">
+                                        @endif
+                                    </div>
+                                    <div class="table-cell category-cell">
+                                        <span>Employee ID</span>
+                                    </div>
+                                    <div class="table-cell">Name</div>
+                                    <div class="table-cell">Username</div>
+                                    <div class="table-cell">Email</div>
+                                    <div class="table-cell">Contact No.</div>
+                                    <div class="table-cell">Inserted Date</div>
+                                    <div class="table-cell">Modified Date</div>
+                                    <div class="table-cell">Action</div>
+                                </div>
+                            </div>
+                            <div class="employee-body">
+                                @forelse($users as $user)
                                     <div class="table-row">
+
                                         <div class="table-cell">
-                                            @if ($users->count() > 0)
-                                                <input type="checkbox" id="selectAllCheckbox">
-                                            @endif
+                                            <input type="checkbox" class="userCheckbox" name="archiveIds[]"
+                                                value="{{ $user->id }}">
                                         </div>
                                         <div class="table-cell category-cell">
-                                            <span>Employee ID</span>
+                                            <span>{{ $user->user_id }}</span>
                                         </div>
-                                        <div class="table-cell">Name</div>
-                                        <div class="table-cell">Username</div>
-                                        <div class="table-cell">Email</div>
-                                        <div class="table-cell">Contact No.</div>
-                                        <div class="table-cell">Inserted Date</div>
-                                        <div class="table-cell">Modified Date</div>
-                                        <div class="table-cell">Action</div>
+                                        <div class="table-cell">
+                                            {{ $user->name }}
+                                        </div>
+                                        <div class="table-cell">{{ $user->username }}</div>
+                                        <div class="table-cell">
+                                            <span>{{ $user->email }}</span>
+
+                                        </div>
+                                        <div class="table-cell" style="display: flex;">
+                                            <span>{{ $user->contact }}</span>
+
+                                        </div>
+                                        <div class="table-cell date">
+                                            <span>{{ $user->created_at->toDateString() }}</span>
+                                            <span>{{ $user->created_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell date" style="display: flex;">
+                                            <span>{{ $user->updated_at->toDateString() }}</span>
+                                            <span>{{ $user->updated_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell action">
+                                            <div class="action-p edit-w">
+                                                <button type="button" class="updateButton"
+                                                    data-id="{{ $user->id }}">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                    <span class="">Update</span>
+                                                </button>
+                                            </div>
+                                            <div class="update-modal-wrapper" id="update_{{ $user->id }}">
+                                                <div class="modal-card-wrapper" id="modal-card">
+                                                    <div class="modal-flex-employee">
+                                                        <div class="modal-header">
+                                                            <div class="item-1">
+                                                                <span class="new-title">Update Employee</span>
+                                                                <span class="material-symbols-outlined"
+                                                                    id="close-update-modal">
+                                                                    close
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <form action="/admin/user/update/{{ $user->id }}"
+                                                            class="form-wrapper" id="updateForm" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+
+                                                                <div class="input-user-type input-wrapper">
+                                                                    <input type="hidden" name="type" value="2">
+                                                                </div>
+                                                                <div class="input-name input-wrapper">
+                                                                    <div class="flex-column">
+                                                                        <label for="">Name:</label>
+                                                                        <input type="text" value="{{ $user->name }}"
+                                                                            name="update-name"class="input" required>
+
+                                                                    </div>
+                                                                    <div class="flex-column">
+                                                                        <label for="">Username:</label>
+                                                                        <input type="text"
+                                                                            value="{{ $user->username }}"
+                                                                            name="update-username" class="input"
+                                                                            required>
+                                                                        @error('username')
+                                                                            <div class="error">{{ $message }}</div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="input-email input-wrapper">
+                                                                    <div class="flex-column">
+                                                                        <label for="">Email:</label>
+                                                                        <input type="email"
+                                                                            value="{{ $user->email }}"name="update-email"
+                                                                            class="input" required>
+                                                                        <div class="error"></div>
+                                                                    </div>
+                                                                    <div class="flex-column">
+                                                                        <label for="">Contact No:
+                                                                            (Optional)</label>
+                                                                        <input type="tel"value="{{ $user->contact }}"
+                                                                            name="update-contact" class="input">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="modal-flex-footer">
+                                                                    <button type="button"
+                                                                        class="cancel-modal">Cancel</button>
+                                                                    <button type="submit" class="save">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="action-p archive-w">
+                                                <button type="button" class="archiveButton"
+                                                    data-id="{{ $user->id }}">
+                                                    <i class="bi bi-archive"></i>
+                                                    <span class="">Inactive</span>
+                                                </button>
+                                            </div>
+                                            <div class="archive-modal-wrapper" id="archive_{{ $user->id }}">
+                                                <div class="modal-card-wrapper" id="modal-card">
+                                                    <div class="heading">
+
+                                                        <span class="text-left">
+                                                            Set to Inactive
+                                                        </span>
+                                                        <span class="cancel-archive">
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="body">
+                                                        <div class="text">
+                                                            Archiving this row will remove the user from the active list and
+                                                            will remain unactive. Are you sure you
+                                                            want to
+                                                            proceed?
+                                                        </div>
+                                                    </div>
+                                                    <div class="footer">
+                                                        <form method="POST"
+                                                            action="/admin/user/archive/{{ $user->id }}"
+                                                            id="archiveForm">
+                                                            @csrf
+                                                            <button type="button" class="cancel-archive">No, keep this
+                                                                active</button>
+                                                            <button type="submit" class="confirm-archive">Yes, set this
+                                                                to inactive</button>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
                                     </div>
-                                </div>
-                                <div class="employee-body">
-                                    @forelse($users as $user)
-                                        <div class="table-row">
 
-                                            <div class="table-cell">
-                                                <input type="checkbox" class="userCheckbox" name="userIds[]"
-                                                    value="{{ $user->id }}">
-                                            </div>
-                                            <div class="table-cell category-cell">
-                                                <span>{{ $user->user_id }}</span>
-                                            </div>
-                                            <div class="table-cell">
-                                                {{ $user->name }}
-                                            </div>
-                                            <div class="table-cell">{{ $user->username }}</div>
-                                            <div class="table-cell">
-                                                <span>{{ $user->email }}</span>
-
-                                            </div>
-                                            <div class="table-cell" style="display: flex;">
-                                                <span>{{ $user->contact }}</span>
-
-                                            </div>
-                                            <div class="table-cell date">
-                                                <span>{{ $user->created_at->toDateString() }}</span>
-                                                <span>{{ $user->created_at->toTimeString() }}</span>
-                                            </div>
-                                            <div class="table-cell date" style="display: flex;">
-                                                <span>{{ $user->updated_at->toDateString() }}</span>
-                                                <span>{{ $user->updated_at->toTimeString() }}</span>
-                                            </div>
-                                            <div class="table-cell action">
-                                                <div class="action-p edit-w">
-                                                    <button type="button" class="updateButton"
-                                                        data-id="{{ $user->id }}">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                        <span class="">Update</span>
-                                                    </button>
-                                                </div>
-
-                                                <div class="action-p archive-w">
-
-                                                    <button type="button" class="archiveButton"
-                                                        data-id="{{ $user->id }}">
-                                                        <i class="bi bi-archive"></i>
-                                                        <span class="">Inactive</span>
-                                                    </button>
-
-
-                                                </div>
-
-                                            </div>
-
-
+                                @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
                                         </div>
-
-                                    @empty
-                                        @if (request()->query('search'))
-                                            <div class="no-data">
-                                                <span>No result found for query
-                                                    <strong>{{ request()->query('search') }}</strong></span>
-                                            </div>
-                                        @else
-                                            <div class="no-data">
-                                                <span>No data available</span>
-                                            </div>
-                                        @endif
-                                    @endforelse
-                                </div>
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
+                                        </div>
+                                    @endif
+                                @endforelse
                             </div>
                         </div>
                     </div>
-                </form>
-                @include('action.update-user')
-                @include('action.archive-user')
+                </div>
+
+
 
             </div>
 

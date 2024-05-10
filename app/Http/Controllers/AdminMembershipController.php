@@ -21,9 +21,24 @@ class AdminMembershipController extends Controller
         }
            
     }
+
+    public function redirectArchiveMember(){
+        $inactiveMembers = Member::where('is_active', 0)->where('membership_status', 'Accepted')->get();
+        return view('admin.archive.archive-member')->with('inactiveMembers', $inactiveMembers);
+    }
     public function pendingMembership(){
-        $pendingMembers = Member::where('membership_status', 'Pending')->get();
-        return view("admin.pending_request")->with('pendingMembers', $pendingMembers);
+        $search = request()->query('search');
+        if($search){
+            $pendingMembers = Member::where('membership_status', 'Pending')
+                                    ->where('membership_name', 'like', '%'.$search.'%')->get();
+            return view("admin.pending_request")->with('pendingMembers', $pendingMembers);
+
+        }
+        else{
+            $pendingMembers = Member::where('membership_status', 'Pending')->get();
+            return view("admin.pending_request")->with('pendingMembers', $pendingMembers);  
+        }
+        
     }
 
     public function addMember(Request $request){
@@ -79,18 +94,68 @@ class AdminMembershipController extends Controller
     }
 
 
-    public function archiveMembers(Request $request){
-        $memberIds = $request->input('memberIds');
-        if($memberIds){
-            foreach($memberIds as $memberId){
+    public function rejectmemberships(Request $request){
+        $memberIds = $request->input('archiveIds');
+        if ($memberIds) {
+            $memberIdsArray = explode(',', $memberIds);
+            foreach ($memberIdsArray as $memberId) {
                 $member = Member::find($memberId);
-                $member->is_active = 0;
-                $member->save();
+                if ($member) {
+                    $member->membership_status = "Rejected";
+                    $member->save();
+                }
             }
-            return redirect()->back()->with('success', 'Members archived successfully');
-        }else {
+            return redirect()->back()->with('success', 'Members rejected successfully');
+        } else {
             return redirect()->back()->with('error', 'No members selected');
         }
+    }
+
+    public function archiveMembers(Request $request) {
+        // Get the memberIds from the request
+        $memberIds = $request->input('archiveIds');
+        
+        // Check if memberIds is provided and not empty
+        if ($memberIds) {
+            // Convert the comma-separated string of member IDs into an array
+            $memberIdsArray = explode(',', $memberIds);
+    
+            // Iterate through each member ID in the array
+            foreach ($memberIdsArray as $memberId) {
+                // Find the member by its ID
+                $member = Member::find($memberId);
+                
+                // If the member is found, update its status to inactive
+                if ($member) {
+                    $member->is_active = 0;
+                    $member->save();
+                }   
+            }
+            
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'Members archived successfully');
+        } else {
+            // If no member IDs are provided, redirect back with an error message
+            return redirect()->back()->with('error', 'No members selected');
+        }
+    }
+
+    public function unarchiveMembers(Request $request){
+        $memberIds = $request->input('archiveIds');
+        if ($memberIds) {
+            $memberIdsArray = explode(',', $memberIds);
+            foreach ($memberIdsArray as $memberId) {
+                $member = Member::find($memberId);
+                if ($member) {
+                    $member->is_active = 1;
+                    $member->save();
+                }
+            }
+            return redirect()->back()->with('success', 'Members unarchived successfully');
+        } else {
+            return redirect()->back()->with('error', 'No members selected');
+        }
+
     }
 
     public function archiveSingleMember($id){
@@ -98,6 +163,13 @@ class AdminMembershipController extends Controller
         $member->is_active = 0;
         $member->save();
         return redirect()->back()->with('success', 'Member archived successfully');
+    }
+
+    public function unarchiveSingleMember($id){
+        $member = Member::find($id);
+        $member->is_active = 1;
+        $member->save();
+        return redirect()->back()->with('success', 'Member unarchived successfully');
     }
     public function generateMembershipId(){
         do{

@@ -42,15 +42,15 @@ class ProductController extends Controller
         $search = request()->query('search');
         if ($search) {
             $products = Product::where('is_active', 0)->where('product_id', 'like', '%' . $search . '%')->get();
-            $subcategories = Subcategory::all();
+            $subcategories = Subcategory::where('is_active', 1)->get();
             $imageFiles = $this->getProductImages();
             return view('admin.archive.archive-product')
-                ->with('products', $products)
+                ->with('products', $products)   
                 ->with('subcategories', $subcategories)
                 ->with('imageFiles', $imageFiles);
         } else {
             $products = Product::where('is_active', 0)->get();
-            $subcategories = Subcategory::all();
+            $subcategories = Subcategory::where('is_active', 1)->get();
             $imageFiles = $this->getProductImages();
             return view('admin.archive.archive-product')
                 ->with('products', $products)
@@ -88,7 +88,7 @@ class ProductController extends Controller
         if ($request->hasFile('product_image')) {
             $image = $request->file('product_image');
             $imagePath = $image->store('public/product_images');
-            $product->product_image = $imagePath;
+            $product->product_image = basename($imagePath);
         }
         $product->save();
         return redirect()->back()->with('success', 'Product added successfully');
@@ -113,14 +113,14 @@ class ProductController extends Controller
 
 
 
-        if ($request->filled('selected_image')) {
+        if ($request->filled('selected_image')) {   
             $imageName = basename($request->selected_image);
             $product->product_image = $imageName;
         } elseif ($request->hasFile('product_image')) {
 
             $image = $request->file('product_image');
             $imagePath = $image->store('public/product_images');
-            $product->product_image = $imagePath;
+            $product->product_image = basename($imagePath);
         }
         $product->save();
         return redirect()->back()->with('success', 'Product updated successfully');
@@ -134,9 +134,13 @@ class ProductController extends Controller
         $product->save();
         return redirect()->back()->with('success', 'Product archived successfully');
     }
-    public function unarchiveProduct($id)
+    public function unarchiveProduct(Request $request, $id)
     {
+        $request->validate([
+            'subcategory_id' => 'required'
+        ]);
         $product = Product::findOrFail($id);
+        $product->subcategory_id = $request->subcategory_id;
         $product->is_active = true;
         $product->save();
         return redirect()->back()->with('success', 'Product unarchived successfully');
@@ -149,9 +153,10 @@ class ProductController extends Controller
     }
     public function archiveProductGroup(Request $request)
     {
-        $product_ids = $request->input('productIds');
+        $product_ids = $request->input('archiveIds');
         if ($product_ids) {
-            foreach ($product_ids as $product_id) {
+            $archiveIdsArray = explode(',', $product_ids);
+            foreach ($archiveIdsArray as $product_id) {
                 $product = Product::findOrFail($product_id);
                 $product->is_active = false;
                 $product->save();
@@ -166,10 +171,14 @@ class ProductController extends Controller
 
     public function unarchiveProductGroup(Request $request)
     {
-        $product_ids = $request->input('productIds');
+        $subcategoryId = $request->input('subcategory_id');
+        $product_ids = $request->input('archiveIds');
         if ($product_ids) {
-            foreach ($product_ids as $product_id) {
+            $productArray = explode(",", $product_ids);
+            foreach ($productArray as $product_id) {
+
                 $product = Product::findOrFail($product_id);
+                $product->subcategory_id = $subcategoryId;
                 $product->is_active = true;
                 $product->save();
             }

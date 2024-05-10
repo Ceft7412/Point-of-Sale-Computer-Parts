@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('subcategory_id');
             $table->foreignId('category_id');
             $table->boolean('is_active')->default(true);
-            $table->foreign('category_id')->references('category_id')->on('subcategories');
+            $table->foreign('category_id')->references('category_id')->on('subcategories')->onUpdate('cascade');
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
             $table->timestamps();
         });

@@ -182,6 +182,26 @@
 
                 </a>
             </div>
+            <div class="menu-item">
+                <div class="r-item">
+                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                        <div class="flex-item">
+                            <i class="bi bi-people"></i>
+                            <span class="">Membership
+                            </span>
+
+                        </div>
+                    </a>
+                    <div class="chevrons-action">
+                        <i class="more bi bi-chevron-down" id=""></i>
+                        <i class="less bi bi-chevron-up" id=""></i>
+                    </div>
+                </div>
+                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                    <span class="">Archive</span>
+
+                </a>
+            </div>
         </div>
         <div class="out-wrapper">
 
@@ -222,7 +242,7 @@
                     <div class="modal-body">
                         <div class="input-wrapper">
                             <div class="flex-column">
-                                <label for="">Category:</label>
+                                <label for="">Brands:</label>
                                 <select name="subcategory_id" id="" class="input" required>
                                     @foreach ($subcategories as $subcategory)
                                         <option value="{{ $subcategory->id }}">
@@ -350,261 +370,291 @@
         <div class="ct-body">
             <div class="ct-body-flex">
                 <div class="ct-body-heading">
-                    <span class="ct-heading-l">Active Products</span>
+
                     <div class="ct-heading-r">
+                        <form action="{{ route('archiveProductGroup') }}" class="fl-per-pg" id="archiveGroup"
+                            method="POST">
+                            @csrf
+                            <button type="submit" class="archive_select_group" id="archive_select_group">Set to inactive</button>
+                        </form>
                         <form method="GET" action="{{ route('product') }}"class="ct-heading-search">
 
                             <input type="text" name="search" class="ct-heading-search-input"
-                                placeholder="Product ID" value="{{ request()->query('search') }}">
+                                placeholder="Search for products..." value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
                 </div>
-                <form action="{{ route('archiveProductGroup') }}" class="" method="POST">
-                    @csrf
-                    <button type="submit" id="archiveButton" style="display: none;">Set to inactive</button>
-                    <div class="ct-body-content">
-                        <div class="table-wrapper">
-                            <div class="table">
-                                <div class="product-header">
-                                    <div class="table-row">
-                                        <div class="table-cell">
-                                            @if (count($products) > 0)
-                                                <input type="checkbox" id="selectAllCheckbox">
-                                            @endif
-                                        </div>
-                                        <div class="table-cell">Product ID</div>
-                                        <div class="table-cell category-cell">
-                                            <span>Name</span>
-                                        </div>
-                                        <div class="table-cell">Category</div>
-                                        <div class="table-cell">Price</div>
-                                        <div class="table-cell">Quantity</div>
-                                        <div class="table-cell">Purchase</div>
-                                        <div class="table-cell">Inserted Date</div>
-                                        <div class="table-cell">Modified Date</div>
-                                        <div class="table-cell">Action</div>
-                                    </div>
-                                </div>
-                                <div class="product-body">
 
-
-                                    @forelse ($products as $product)
-                                        <div class="table-row" id="">
-
-                                            <div class="table-cell">
-                                                <input type="checkbox" class="userCheckbox" name="productIds[]"
-                                                    value="{{ $product->id }}">
-                                            </div>
-                                            <div class="table-cell">P{{ $product->product_id }}</div>
-                                            <div class="table-cell">
-                                                <img src="{{ Storage::url($product->product_image) }}"
-                                                    alt="{{ $product->product_name }}" class="picture">
-                                                <span class="item">{{ $product->product_name }}</span>
-                                            </div>
-                                            <div class="table-cell">
-                                                {{ $product->subcategory->subcategory_name }}
-                                            </div>
-
-                                            <div class="table-cell">{{ $product->product_price }}</div>
-                                            <div class="table-cell">
-                                                <span>{{ $product->product_quantity }}</span>
-
-                                            </div>
-                                            <div class="table-cell" style="display: flex;">
-                                                <span>3</span>
-
-                                            </div>
-                                            <div class="table-cell date">
-                                                <span>{{ $product->created_at->toDateString() }}</span>
-                                                <span>{{ $product->created_at->toTimeString() }}</span>
-                                            </div>
-                                            <div class="table-cell date" style="display: flex;">
-                                                <span>{{ $product->updated_at->toDateString() }}</span>
-                                                <span>{{ $product->updated_at->toTimeString() }}</span>
-                                            </div>
-                                            <div class="table-cell action">
-                                                <div class="flex-col">
-                                                    <div class="action-p edit-w">
-                                                        <button type="button" class="updateProductButton"
-                                                            data-image-url="{{ Storage::url($product->product_image) }}"
-                                                            data-id="{{ $product->id }}">
-                                                            <i class="bi bi-pencil-square"></i>
-                                                            <span class="">Update</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="action-p archive-w">
-
-                                                        <button type="button" class="archiveProductButton"
-                                                            data-id="{{ $product->id }}">
-                                                            <i class="bi bi-archive"></i>
-                                                            <span class="">Inactive</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    @empty
-                                        @if (request()->query('search'))
-                                            <div class="no-data">
-                                                <span>No result found for query
-                                                    <strong>{{ request()->query('search') }}</strong></span>
-                                            </div>
-                                        @else
-                                            <div class="no-data">
-                                                <span>No data available</span>
-                                            </div>
+                <div class="ct-body-content">
+                    <div class="table-wrapper">
+                        <div class="table">
+                            <div class="product-header">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @if (count($products) > 0)
+                                            <input type="checkbox" id="selectAllCheckbox">
                                         @endif
-                                    @endforelse
+                                    </div>
+                                    <div class="table-cell">Product ID</div>
+                                    <div class="table-cell category-cell">
+                                        <span>Name</span>
+                                    </div>
+                                    <div class="table-cell">Brands</div>
+                                    <div class="table-cell">Price</div>
+                                    <div class="table-cell">Quantity</div>
+                                    <div class="table-cell">Purchase</div>
+                                    <div class="table-cell">Inserted Date</div>
+                                    <div class="table-cell">Modified Date</div>
+                                    <div class="table-cell">Action</div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </form>
-                <div class="update-modal-wrapper">
-                    <div class="modal-card-wrapper" id="modal-card">
-                        <div class="modal-flex-employee">
-                            <div class="modal-header">
-                                <div class="item-1">
-                                    <span class="new-title">Update Product</span>
-                                    <span class="material-symbols-outlined" id="close-update-modal">
-                                        close
-                                    </span>
-                                </div>
-                            </div>
-                            <form action="" class="form-wrapper" id="updateProductForm" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-body">
+                            <div class="product-body">
 
-                                    <div class="input-type input-wrapper">
-                                        <input type="hidden" name="type">
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <div class="flex-column">
-                                            <label for="">Category:</label>
-                                            <select name="subcategory_id" id="" class="input">
-                                                @foreach ($subcategories as $subcategory)
-                                                    <option value="{{ $subcategory->id }}">
-                                                        {{ $subcategory->subcategory_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="input-wrapper flex-row space-between">
 
-                                        <div class="col-pic">
-                                            <div class="flex-column">
-                                                <label for="">Picture (Optional):</label>
-                                                <input type="file" name="product_image" accept=".jpg, .jpeg, .png"
-                                                    class="">
-                                            </div>
-                                            <span class="divider">Or</span>
-                                            <div class="pictures-group">
-                                                <span class="t-ps">Choose existing images</span>
-                                                <input type="hidden" id="selected_image" name="selected_image">
-                                            </div>
+                                @forelse ($products as $product)
+                                    <div class="table-row" id="">
+
+                                        <div class="table-cell">
+                                            <input type="checkbox" class="userCheckbox" name="archiveIds[]"
+                                                value="{{ $product->id }}">
                                         </div>
-                                        <div class="picture-wrapper">
-                                            <img id="product_image" class="image-place" alt="Product Image">
+                                        <div class="table-cell">P{{ $product->product_id }}</div>
+                                        <div class="table-cell">
+                                            <img src="{{ Storage::url('public/product_images/' . $product->product_image) }}"
+                                                alt="{{ $product->product_name }}" class="picture">
+                                            <span class="item">{{ $product->product_name }}</span>
+                                        </div>
+                                        <div class="table-cell">
+                                            {{ $product->subcategory->subcategory_name }}
                                         </div>
 
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <div class="flex-column">
-                                            <label for="">Name:</label>
-                                            <input type="text" name="product_name"class="input">
+                                        <div class="table-cell">{{ $product->product_price }}</div>
+                                        <div class="table-cell">
+                                            <span>{{ $product->product_quantity }}</span>
 
                                         </div>
-                                        <div class="flex-column">
-                                            <label for="">Price:</label>
-                                            <input type="text" name="product_price" class="input" required>
-                                            @error('username')
-                                                <div class="error">{{ $message }}</div>
-                                            @enderror
+                                        <div class="table-cell" style="display: flex;">
+                                            <span>3</span>
+
                                         </div>
-                                    </div>
+                                        <div class="table-cell date">
+                                            <span>{{ $product->created_at->toDateString() }}</span>
+                                            <span>{{ $product->created_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell date" style="display: flex;">
+                                            <span>{{ $product->updated_at->toDateString() }}</span>
+                                            <span>{{ $product->updated_at->toTimeString() }}</span>
+                                        </div>
+                                        <div class="table-cell action">
+                                            <div class="flex-col">
+                                                <div class="action-p edit-w">
+                                                    <button type="button" class="updateButton"
+                                                        data-id="{{ $product->id }}">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                        <span class="">Update</span>
+                                                    </button>
+                                                </div>
 
+                                                <div class="update-modal-wrapper" id="update_{{ $product->id }}">
+                                                    <div class="modal-card-wrapper" id="modal-card">
+                                                        <div class="modal-flex-employee">
+                                                            <div class="modal-header">
+                                                                <div class="item-1">
+                                                                    <span class="new-title">Update Product</span>
+                                                                    <span class="material-symbols-outlined"
+                                                                        id="close-update-modal">
+                                                                        close
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <form action="/admin/product/update/{{ $product->id }}"
+                                                                class="form-wrapper" id="updateProductForm"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <div class="modal-body">
+                                                                    <div class="input-type input-wrapper">
+                                                                        <input type="hidden" name="type">
+                                                                    </div>
+                                                                    <div class="input-wrapper">
+                                                                        <div class="flex-column">
+                                                                            <label for="subcategory_id">Brands:</label>
+                                                                            <select name="subcategory_id"
+                                                                                id="subcategory_id" class="input">
+                                                                                @foreach ($subcategories as $subcategory)
+                                                                                    @if ($subcategory->id == $product->subcategory_id)
+                                                                                        <option
+                                                                                            value="{{ $subcategory->id }}"
+                                                                                            selected>
+                                                                                            {{ $subcategory->subcategory_name }}
+                                                                                        </option>
+                                                                                    @else
+                                                                                        <option
+                                                                                            value="{{ $subcategory->id }}">
+                                                                                            {{ $subcategory->subcategory_name }}
+                                                                                        </option>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="input-wrapper flex-row space-between">
+                                                                        <div class="col-pic">
+                                                                            <div class="flex-column">
+                                                                                <label for="product_image">Picture
+                                                                                    (Optional):</label>
+                                                                                <input type="file" name="product_image"
+                                                                                    accept=".jpg, .jpeg, .png"
+                                                                                    class="">
+                                                                            </div>
+                                                                            <span class="divider">Or</span>
+                                                                            <div class="pictures-group">
+                                                                                <span class="t-ps">Choose existing
+                                                                                    images</span>
+                                                                                <input type="hidden"
+                                                                                    class="selected_product_image"
+                                                                                    id="selected_image"
+                                                                                    name="selected_image">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="picture-wrapper">
+                                                                            <img id="product_image"
+                                                                                src="{{ Storage::url('public/product_images/' . $product->product_image) }}"
+                                                                                class="image-place" alt="Product Image">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="input-wrapper">
+                                                                        <div class="flex-column">
+                                                                            <label for="product_name">Name:</label>
+                                                                            <input type="text"
+                                                                                value="{{ $product->product_name }}"
+                                                                                name="product_name" id="product_name"
+                                                                                class="input">
+                                                                        </div>
+                                                                        <div class="flex-column">
+                                                                            <label for="product_price">Price:</label>
+                                                                            <input type="text"
+                                                                                value="{{ $product->product_price }}"
+                                                                                name="product_price" id="product_price"
+                                                                                class="input" required>
+                                                                            @error('username')
+                                                                                <div class="error">{{ $message }}</div>
+                                                                            @enderror
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="input-wrapper">
+                                                                        <div class="flex-column">
+                                                                            <label for="product_quantity">Quantity:</label>
+                                                                            <input type="number"
+                                                                                value="{{ $product->product_quantity }}"
+                                                                                name="product_quantity"
+                                                                                id="product_quantity" class="input">
+                                                                            <div class="error"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="modal-flex-footer">
+                                                                        <button type="button"
+                                                                            class="cancel-modal">Cancel</button>
+                                                                        <button type="submit"
+                                                                            class="save">Submit</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <div class="image-modal-wrapper">
 
-                                    <div class="input-wrapper">
-                                        <div class="flex-column">
-                                            <label for="">Quantity:</label>
-                                            <input type="number" name="product_quantity" class="input" ">
-                                                                        <div class="error"></div>
+                                                                <div class="image-modal">
+                                                                    <div class="header">
+                                                                        <span class="b-title">Choose a picture...</span>
+                                                                        <span class="s-title"><i class="bi bi-info-circle"></i>Selecting an image will instantly
+                                                                            update the form.</span>
+                                                                    </div>
+                                            
+                                                                    <div class="image-modal-flex">
+                                                                        @foreach ($imageFiles as $imageFile)
+                                                                            <div class="img-pro-con" id="image-select">
+                                                                                <img src="{{ asset($imageFile) }}" alt="" id="image-preview">
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <div class="footer">
+                                                                        <span class="cancel-image-modal">Cancel</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <div class="modal-flex-footer">
-                                                                    <button type="button" class="cancel-modal">Cancel</button>
-                                                                    <button type="submit" class="save">Submit</button>
-                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="action-p archive-w">
+
+                                                    <button type="button" class="archiveButton"
+                                                        data-id="{{ $product->id }}">
+                                                        <i class="bi bi-archive"></i>
+                                                        <span class="">Inactive</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="archive-modal-wrapper" id="archive_{{$product->id}}">
+                                                    <div class="modal-card-wrapper" id="modal-card">
+                                                        <div class="heading">
+                                
+                                                            <span class="text-left">
+                                                                Set to Inactive
+                                                            </span>
+                                                            <span class="cancel-archive">
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </span>
+                                                        </div>
+                                
+                                                        <div class="body">
+                                                            <div class="text">
+                                                                Archiving this row will remove the product from the active list and will remain unactive.
+                                                                Are you sure you
+                                                                want to
+                                                                proceed?
                                                             </div>
-                                                        </form>
-                                            
+                                                        </div>
+                                                        <div class="footer">
+                                                            <form method="POST" action="/admin/product/archive/{{$product->id}}" id="archiveProductForm" id="product_archive">
+                                                                @csrf
+                                                                <button type="button" class="cancel-archive">No, keep this active</button>
+                                                                <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
+                                                            </form>
+                                                        </div>
+                                
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                </div>
-                                <div class="archive-modal-wrapper"  >
-                                    <div class="modal-card-wrapper" id="modal-card">
-                                        <div class="heading">
-                                
-                                            <span class="text-left">
-                                                Set to Inactive
-                                            </span>
-                                            <span class="cancel-archive">
-                                                <i class="bi bi-x-lg"></i>
-                                            </span>
-                                        </div>
-                                
-                                        <div class="body">
-                                            <div class="text">
-                                                Archiving this row will remove the product from the active list and will remain unactive. Are you sure you
-                                                want to
-                                                proceed?
-                                            </div>
-                                        </div>
-                                        <div class="footer">
-                                            <form method="POST" action="" id="archiveProductForm" id="product_archive">
-                                                @csrf
-                                                <button type="button" class="cancel-archive">No, keep this active</button>
-                                                <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
-                                            </form>
-                                        </div>
-                                
-                                    </div>
-                                </div>
-                                <div class="image-modal-wrapper">
 
-                                    <div class="image-modal">
-                                        <div class="header">
-                                            <span class="b-title">Choose a picture...</span>
-                                            <span class="s-title"><i class="bi bi-info-circle"></i>Selecting an image will instantly update the form.</span>
+                                @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
                                         </div>
-                                        
-                                        <div class="image-modal-flex">
-                                                @foreach ($imageFiles as $imageFile)
-                                            <div class="img-pro-con" id="image-select">
-                                                <img src="{{ asset($imageFile) }}" alt="" id="image-preview">
-                                            </div>
-                                            @endforeach
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
                                         </div>
-                                        <div class="footer">
-                                            <span class="cancel-image-modal">Cancel</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endsection
+                                    @endif
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+
+                @endsection
 
 
-                            @section('js')
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                <script src="../js/script.js"></script>
-                            @endsection
+                @section('js')
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script src="../js/script.js"></script>
+                @endsection

@@ -106,9 +106,6 @@
                         <i class="less bi bi-chevron-up" id="expand-less-category"></i>
                     </div>
                 </div>
-                <a href="{{ route('archive-category') }}" class="archive-show" id="subcategory-expand-category">
-                    <span class="">Subcategory</span>
-                </a>
                 <a href="{{ route('archive-category') }}" class="archive-show" id="archive-expand-category">
                     <span class="">Archive</span>
 
@@ -186,6 +183,26 @@
 
                 </a>
             </div>
+            <div class="menu-item">
+                <div class="r-item">
+                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                        <div class="flex-item">
+                            <i class="bi bi-people"></i>
+                            <span class="">Membership
+                            </span>
+
+                        </div>
+                    </a>
+                    <div class="chevrons-action">
+                        <i class="more bi bi-chevron-down" id=""></i>
+                        <i class="less bi bi-chevron-up" id=""></i>
+                    </div>
+                </div>
+                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                    <span class="">Archive</span>
+
+                </a>
+            </div>
         </div>
         <div class="out-wrapper">
 
@@ -217,10 +234,6 @@
                             close
                         </span>
                     </div>
-                    <div class="item-2">
-                        <span class="category-menu active">Category</span>
-                        <span class="subcategory-menu">Subcategory</span>
-                    </div>
                 </div>
                 <form method="POST" action="{{ route('category-store') }}" enctype="multipart/form-data"
                     class="form-wrapper" id="category_insert">
@@ -231,7 +244,8 @@
 
                             <div class="flex-column">
                                 <label for="">Picture:</label>
-                                <input type="file" name='category_image' required accept=".jpg, .jpeg, .png" class="">
+                                <input type="file" name='category_image' required accept=".jpg, .jpeg, .png"
+                                    class="">
                             </div>
                             <span clas="picture-wrapper"></span>
                         </div>
@@ -245,66 +259,6 @@
                             <div class="flex-column">
                                 <label for="">Description (Optional):</label>
                                 <input type="text" name='category_description' class="input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="modal-flex-footer">
-                            <button type="button" class="cancel" id="cancel-modal">Cancel</button>
-                            <button type="submit" class="save">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- SUBCATEGORY -->
-            <div class="modal-flex subcategory-show">
-                <div class="modal-header">
-                    <div class="item-1">
-                        <span class="new-title">New Subcategory</span>
-                        <span class="material-symbols-outlined" id="close-modal">
-                            close
-                        </span>
-                    </div>
-                    <div class="item-2">
-                        <span class="category-menu">Category</span>
-                        <span class="subcategory-menu active">Subcategory</span>
-                    </div>
-                </div>
-                <form action="{{ route('subcategory-store') }}" method="POST" enctype="multipart/form-data"
-                    class="form-wrapper" id="subcategory_insert">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="input-wrapper">
-                            <div class="flex-column">
-                                <label for="">Category:</label>
-                                <select name="category_id" id="" class="input">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">
-                                            {{ $category->category_name }}
-                                        </option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="input-wrapper flex-row">
-                            <div class="flex-column">
-                                <label for="">Picture:</label>
-                                <input required type="file" class="" accept=".jpg, .jpeg, .png"
-                                    name="subcategory_image">
-                            </div>
-                            <span clas="picture-wrapper"></span>
-                        </div>
-                        <div class="input-wrapper">
-                            <div class="flex-column">
-                                <label for="">Subcategory Name:</label>
-                                <input type="text" class="input" name="subcategory_name" required>
-                            </div>
-                        </div>
-                        <div class="input-wrapper">
-                            <div class="flex-column">
-                                <label for="">Description (Optional):</label>
-                                <input type="text" class="input" name="subcategory_description">
                             </div>
                         </div>
                     </div>
@@ -347,7 +301,7 @@
 
                     <div class="text">
                         <span class="big">Success</span>
-                        <span class="small">{{session('success')}}</span>
+                        <span class="small">{{ session('success') }}</span>
                     </div>
                 </div>
                 <div class="footer">
@@ -402,202 +356,234 @@
         <div class="ct-body">
             <div class="ct-body-flex">
                 <div class="ct-body-heading">
-                    <span class="ct-heading-l">Active Categories</span>
+                    <div class="ct-heading-l">
+                        <div class="itm-ct hd-active-itm active">
+                            <span class="">Categories</span>
+                        </div>
+        
+                        <a href="{{ route('brands') }}" class="itm-ct hd-pending-itm">
+                            <span class="">Brands</span>
+                        </a>
+                    </div>
                     <div class="ct-heading-r">
+                        <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('archiveCategoryGroup') }}">
+                            @csrf
+                            <button type="submit" class="archive_select_group" id="archive_select_group">Set to inactive</button>
+                        </form>
                         <form method="GET" action="{{ route('category') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input" placeholder="ID"
+                            <input type="text" name="search" class="ct-heading-search-input" placeholder="Search for categories..."
                                 value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
                     </div>
                 </div>
-                <form method="POST" action="{{ route('archiveCategoryGroup') }}">
-                    @csrf
-                    <button type="submit" id="archiveButton" style="display: none;">Set to inactive</button>
-                    <div class="ct-body-content">
-                        <div class="table-wrapper">
-                            <div class="table">
-                                <div class="category-header">
-                                    <div class="table-row">
-                                        <div class="table-cell">
-                                            @if ($categories->count() > 0)
-                                                <input type="checkbox" id="selectAllCheckbox">
-                                            @endif
-                                        </div>
-                                        <div class="table-cell">
-                                            ID
-                                        </div>
-                                        <div class="table-cell">
-                                            Name
-                                        </div>
-                                        <div class="table-cell">Description</div>
-                                        <div class="table-cell">Products</div>
-                                        <div class="table-cell">Inserted Date</div>
-                                        <div class="table-cell">Modified Date</div>
-                                        <div class="table-cell">Action</div>
+
+                <div class="ct-body-content">
+                    <div class="table-wrapper">
+                        <div class="table">
+                            <div class="category-header">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @if ($categories->count() > 0)
+                                            <input type="checkbox" id="selectAllCheckbox">
+                                        @endif
                                     </div>
+                                    <div class="table-cell">
+                                        ID
+                                    </div>
+                                    <div class="table-cell">
+                                        Name
+                                    </div>
+                                    <div class="table-cell">Description</div>
+                                    <div class="table-cell">Brands</div>
+                                    <div class="table-cell">Inserted Date</div>
+                                    <div class="table-cell">Modified Date</div>
+                                    <div class="table-cell">Action</div>
                                 </div>
-                                <div class="category-body">
+                            </div>
+                            <div class="category-body">
 
-                                    @forelse ($categories as $category)
-                                        <div class="table-group" id="category-group-{{ $category->category_id }}">
+                                @forelse ($categories as $category)
+                                    <div class="table-group" id="category-group-{{ $category->category_id }}">
 
-                                            <div class="table-row row-category">
+                                        <div class="table-row row-category">
 
-                                                <div class="table-cell">
-                                                    <input type="checkbox" class="userCheckbox" name="categoryIds[]"
-                                                        value="{{ $category->id }}">
-                                                </div>
-                                                <div class="table-cell">
-                                                    C{{ $category->category_id }}
-                                                </div>
-                                                <div class="table-cell category-cell">
-                                                        <img src="{{Storage::url($category->category_image  )}}"
-                                                            alt="{{ $category->category_name }}" class="picture">
-                                                    <span>{{ $category->category_name }}</span>
-                                                </div>
-                                                <div class="table-cell">
-                                                    {{ $category->category_description }}
-                                                </div>
-                                                <div class="table-cell">{{ $category->subcategories->count() }}
-
-                                                </div>
-                                                <div class="table-cell date">
-                                                    <span>{{ $category->created_at->toDateString() }}</span>
-                                                    <span>{{ $category->created_at->toTimeString() }}</span>
-                                                </div>
-                                                <div class="table-cell date" style="display: flex;">
-                                                    <span>{{ $category->updated_at->toDateString() }}</span>
-                                                    <span>{{ $category->updated_at->toTimeString() }}</span>
-                                                </div>
-                                                <div class="table-cell action">
-                                                    <div class="flex-col">
-                                                        <div class="action-p edit-w">
-                                                            <button type="button" class="updateCategoryButton"
-                                                                data-image-url="{{ Storage::url($category->category_image) }}"
-                                                                data-id="{{ $category->id }}">
-                                                                <i class="bi bi-pencil-square"></i>
-                                                                <span class="">Update</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="action-p archive-w">
-
-                                                            <button type="button" class="archiveCategoryButton"
-                                                                data-id="{{ $category->id }}">
-                                                                <i class="bi bi-archive"></i>
-                                                                <span class="">Inactive</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="contain-chev-action">
-                                                        <i class="bi bi-chevron-up chevron-up-category"
-                                                            data-category-id="{{ $category->category_id }}"></i>
-                                                        <i class="bi bi-chevron-down chevron-down-category"
-                                                            data-category-id="{{ $category->category_id }}"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="table-cell">
+                                                <input type="checkbox" class="userCheckbox" name="archiveIds[]"
+                                                    value="{{ $category->id }}">
                                             </div>
+                                            <div class="table-cell">
+                                                C{{ $category->category_id }}
+                                            </div>
+                                            <div class="table-cell category-cell">
+                                                <img src="{{ Storage::url('public/category_images/' .$category->category_image) }}"
+                                                    alt="{{ $category->category_name }}" class="picture">
+                                                <span>{{ $category->category_name }}</span>
+                                            </div>
+                                            <div class="table-cell">
+                                                {{ $category->category_description }}
+                                            </div>
+                                            <div class="table-cell">{{ $category->subcategories->count() }}
 
-                                        </div>
-
-
-                                        <div class="table-subcategory-group"
-                                            id="subcategory-group-{{ $category->category_id }}">
-                                            @php
-                                                $subcategoryExists = false;
-                                            @endphp
-                                            @foreach ($subcategories as $subcategory)
-                                                @if ($subcategory->category_id === $category->id)
-                                                    <div class="table-row row-subcategory" id="">
-                                                        <div class="table-cell">
-
-                                                        </div>
-                                                        <div class="table-cell subcategory-cell">
-                                                            S{{ $subcategory->subcategory_id }}
-                                                        </div>
-                                                        <div class="table-cell">
-                                                                <img src="{{ Storage::url($subcategory->subcategory_image) }}"
-                                                                    alt="{{ $subcategory->subcategory_name }}"
-                                                                    class="picture">
-                                                            <span>{{ $subcategory->subcategory_name }}</span>
-                                                        </div>
-                                                        <div class="table-cell">
-                                                            {{ $subcategory->subcategory_description }}
-                                                        </div>
-                                                        <div class="table-cell"> {{ $subcategory->products->count() }}
-                                                        </div>
-                                                        <div class="table-cell date">
-                                                            <span>2022-03-01</span>
-                                                            <span>10:30:00</span>
-                                                        </div>
-                                                        <div class="table-cell date" style="display: flex;">
-                                                            <span>2022-03-05</span>
-                                                            <span>15:45:00</span>
-                                                        </div>
-                                                        <div class="table-cell action">
-                                                            <div class="flex-col">
-                                                                <div class="action-p">
-                                                                    <button type="button" class="updateSubcategoryButton"
-                                                                        data-image-url="{{ Storage::url($subcategory->subcategory_image) }}"
-                                                                        data-id="{{ $subcategory->id }}">
-                                                                        <i class="bi bi-pencil-square"></i>
-                                                                        <span class="">Update</span>
-                                                                    </button>
+                                            </div>
+                                            <div class="table-cell date">
+                                                <span>{{ $category->created_at->toDateString() }}</span>
+                                                <span>{{ $category->created_at->toTimeString() }}</span>
+                                            </div>
+                                            <div class="table-cell date" style="display: flex;">
+                                                <span>{{ $category->updated_at->toDateString() }}</span>
+                                                <span>{{ $category->updated_at->toTimeString() }}</span>
+                                            </div>
+                                            <div class="table-cell action">
+                                                <div class="flex-col">
+                                                    <div class="action-p edit-w">
+                                                        <button type="button" class="updateButton"
+                                                            data-id="{{ $category->id }}">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                            <span class="">Update</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="update-modal-wrapper" id="update_{{$category->id}}">
+                                                        <div class="modal-card-wrapper" id="modal-card">
+                                                            <div class="modal-flex-employee">
+                                                                <div class="modal-header">
+                                                                    <div class="item-1">
+                                                                        <span class="new-title">Update Category</span>
+                                                                        <span class="material-symbols-outlined" id="close-update-modal">
+                                                                            close
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-
-                                                                <div class="action-p archive-s-sub">
-
-                                                                    <button type="button"
-                                                                        class="archiveSubcategoryButton"
-                                                                        data-id="{{ $subcategory->id }}">
-                                                                        <i class="bi bi-archive"></i>
-                                                                        <span class="">Inactive</span>
-                                                                    </button>
-
-
+                                                                <form action="/admin/category/update/{{$category->id}}" class="form-wrapper" enctype="multipart/form-data" id="updateForm" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="modal-body">
+                                                                        <div class="input-wrapper flex-row space-between margin-bottom col-530">
+                                                                            <div class="col-pic">
+                                                                                <div class="flex-column">
+                                                                                    <label for="">Picture:</label>
+                                                                                    <input type="file" name='category_image' accept=".jpg, .jpeg, .png"
+                                                                                        class="">
+                                                                                </div>
+                                                                                <span class="divider">Or</span>
+                                                                                <div class="pictures-group">
+                                                                                    <span class="t-ps">Choose existing images</span>
+                                                                                    <input type="hidden" class="selected_image" id="selected_image" name="selected_image">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="picture-wrapper">
+                                                                                <img id="update_category_image" src="{{Storage::url('public/category_images/' .$category->category_image)}}" class="image-place" alt="{{$category->category_image}}">
+                                                                            </div>
+                                                    
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <div class="flex-column">
+                                                                                <label for="">Category Name:</label>
+                                                                                <input type="text" value="{{$category->category_name}}" required name='category_name' class="input">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="input-wrapper">
+                                                                            <div class="flex-column">
+                                                                                <label for="">Description (Optional):</label>
+                                                                                <input type="text" value="{{$category->category_description}}" name='category_description' class="input">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <div class="modal-flex-footer">
+                                                                            <button type="button" class="cancel-modal">Cancel</button>
+                                                                            <button type="submit" class="save">Submit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                                
+                                                                <div class="image-modal-wrapper">
+                                                    
+                                                                    <div class="image-modal">
+                                                                        <div class="header">
+                                                                            <span class="b-title">Choose a picture...</span>
+                                                                            <span class="s-title"><i class="bi bi-info-circle"></i>Selecting an image will instantly update the form.</span>
+                                                                        </div>
+                                                                        
+                                                                        <div class="image-modal-flex">
+                                                                            @foreach ($imageFiles as $imageFile)
+                                                                                <div class="img-con" id="image-select">
+                                                                                    <img data-id="{{$category->id}}" src="{{ asset($imageFile) }}" alt=""
+                                                                                        id="image-preview">
+                                                                                </div>
+                                                                            @endforeach
+                                                                        </div>
+                                                                        <div class="footer">
+                                                                            <span class="cancel-image-modal">Cancel</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @php
-                                                        $subcategoryExists = true;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                            @if (!$subcategoryExists)
-                                                <div class="table-row row-subcategory" id="">
-                                                    <div class="whole">
-                                                        <span class="no-subcategory">No subcategory found.</span>
+                                                    
+                                                    <div class="action-p archive-w">
+
+                                                        <button type="button" class="archiveButton"
+                                                            data-id="{{ $category->id }}">
+                                                            <i class="bi bi-archive"></i>
+                                                            <span class="">Inactive</span>
+                                                        </button>
                                                     </div>
+                                                    <div class="archive-modal-wrapper" id="archive_{{$category->id}}">
+                                                        <div class="modal-card-wrapper" id="modal-card">
+                                                            <div class="heading">
+                                                    
+                                                                <span class="text-left">
+                                                                    Set to Inactive
+                                                                </span>
+                                                                <span class="cancel-archive">
+                                                                    <i class="bi bi-x-lg"></i>
+                                                                </span>
+                                                            </div>
+                                                    
+                                                            <div class="body">
+                                                                <div class="text">
+                                                                    Archiving this row will remove the category from the active list and will remain unactive. Are you sure you
+                                                                    want to
+                                                                    proceed?
+                                                                </div>
+                                                            </div>
+                                                            <div class="footer">
+                                                                <form method="POST" action="/admin/category/archive/{{$category->id}}" id="archiveCategoryForm">
+                                                                    @csrf
+                                                                    <button type="button" class="cancel-archive">No, keep this active</button>
+                                                                    <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
+                                                                </form>
+                                                            </div>
+                                                    
+                                                        </div>
+                                                    </div>
+                                                    
                                                 </div>
-                                            @endif
-
-
+                                               
+                                            </div>
                                         </div>
 
-                                    @empty
-                                        @if (request()->query('search'))
-                                            <div class="no-data">
-                                                <span>No result found for query
-                                                    <strong>{{ request()->query('search') }}</strong></span>
-                                            </div>
-                                        @else
-                                            <div class="no-data">
-                                                <span>No data available</span>
-                                            </div>
-                                        @endif
-                                    @endforelse
+                                    </div>
+                                @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
+                                        </div>
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
+                                        </div>
+                                    @endif
+                                @endforelse
 
-                                </div>
                             </div>
                         </div>
                     </div>
-                </form>
-                @include('action.update-category')
-                @include('action.update-subcategory')
-                @include('action.archive-category')
-                @include('action.archive-single-subcategory')
+                </div>
             </div>
         </div>
     </div>

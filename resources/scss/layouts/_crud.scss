@@ -98,20 +98,103 @@
                 cursor:pointer;
                 }
                 .ct-body-heading {
-                    display: flex;
-                    align-items: center;
+                    display: flex;  
+                    flex-direction: column;
+                        
                     justify-content: space-between;
                     gap: 20px;
+                    .pr-dt{
+                        display:flex;
+                        width:150px;
 
+                        
+                    }
                     .ct-heading-l {
-                        font-size: 1.25rem;
-                        font-family: 'Inter Semibold';
+                            
+                        
+
+                            display: flex;
+                    
+                    
+                    
+                            .hd-active-itm.active {
+                                border-bottom: 3px solid orange;
+                                cursor: default;
+                    
+                            }
+                    
+                            .itm-ct:not(.active) {
+                                padding: 10px;
+                                text-align: center;
+                                width: 170px;
+                                cursor: pointer;
+                                color: black;
+                    
+                                &:hover {
+                                    border-bottom: 3px solid grey;
+                                }
+                            }
+                    
+                            .hd-active-itm {
+                                padding: 10px;
+                                text-align: center;
+                                width: 170px;
+                                cursor: pointer;
+                    
+                            }
+                    
+                            .hd-pending-itm.active {
+                                border-bottom: 3px solid orange;
+                                cursor: default;
+                            }
+                    
+                            .hd-pending-itm:not(.active) {
+                                padding: 10px;
+                                text-align: center;
+                                width: 170px;
+                                cursor: pointer;
+                    
+                                &:hover {
+                                    border-bottom: 3px solid grey;
+                                }
+                            }
+                    
+                            .hd-pending-itm {
+                                padding: 10px;
+                                text-align: center;
+                                width: 170px;
+                                cursor: pointer;
+                    
+                            }
+                        
                     }
 
                     .ct-heading-r {
                         display: flex;
                         align-items: center;
+                        justify-content: space-between;
                         gap: 10px;
+                        .fl-per-pg {
+                            .archive_select_group {
+                                width: 140px;
+                                height: 30px;
+                                display: none;
+                                
+                                border: 1px solid grey;
+                                cursor: pointer;
+                            }
+                            .unarchive_select_group {
+                                width: 140px;
+                                height: 30px;
+                                display: none;
+                                
+                                border: 1px solid grey;
+                                cursor: pointer;
+                            }
+
+                            
+                
+                        }
 
                         .ct-heading-search {
                             position: relative;

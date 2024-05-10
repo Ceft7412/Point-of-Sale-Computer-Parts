@@ -1,7 +1,6 @@
 .modal-wrapper {
     .modal-card-wrapper {
         .modal-flex.subcategory-show{
-            display:none;
         }
         .modal-flex {
             display: flex;
@@ -11,6 +10,7 @@
             }
             .modal-header  {
                 margin-top: 0px;
+                border-bottom:1px solid  rgb(199, 199, 199);    
                 .item-1 {
                     display: flex;
                     justify-content: space-between;
@@ -35,11 +35,11 @@
                    
                     display:flex;
                     align-items: center;
-                    justify-content: center;
-                    text-align: center;
+                   
+                  
                     border: 1px solid rgb(199, 199, 199);
                     span{
-                        width:100%;
+                        
                         padding:8px;
                         &:hover:not(.active){
                             cursor:pointer;
@@ -163,16 +163,15 @@
                     }
 
                     .save {
-                        background-color: #393fae;
+                        background-color: rgb(0, 192, 0);
                         border: 1px solid;
-                        border-color:#393fae;
+                        border-color:rgb(0, 207, 0);    
                         border-radius: 5px;
                         color: white;
 
                         &:hover {
-                            background-color: #2e338e;
+                            background-color: rgb(0, 185, 0);
                             cursor:pointer; 
-                            border-color:#2e338e;
                         }
                     }
 

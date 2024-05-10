@@ -13,14 +13,17 @@ $("#add-button-modal").click(function (event) {
 });
 
 
-$("#close-update-modal, #cancel-update-modal, .cancel-modal").click(function (event) {
+$(document).on('click', "#close-update-modal, #cancel-update-modal, .cancel-modal", function (event) {
+    $('.cancel-modal').each(function() {
+        $(this).closest('form')[0].reset();
+    });
     $(".update-modal-wrapper").hide();
     $(".subcategoryUpdate-modal-wrapper").hide();
     event.preventDefault();
 });
 
 $("#close-modal, #cancel-modal").click(function (event) {
-    $("#modal").hide();
+    $("#modal").hide(); 
     event.preventDefault();
 });
 $(".cancel-image-modal").click(function (event) {
@@ -56,6 +59,7 @@ toggleElements('#archive-expand-product', '#expand-more-product', '#expand-less-
 toggleElements('#archive-expand-category', '#expand-more-category', '#expand-less-category');
 toggleElements('#archive-expand-employee', '#expand-more-employee', '#expand-less-employee');
 toggleElements('#archive-expand-admin', '#expand-more-admin', '#expand-less-admin');
+toggleElements('#archive-expand-member', '#expand-more-member', '#expand-less-member');
 if ($('#subcategory-expand-category').hasClass('active')) {
     $('.table-subcategory-group').show();
     $('.category-body').hide();
@@ -68,16 +72,16 @@ $(".table-group").each(function () {
     }
 });
 $(".chevron-down-category").click(function (event) {
-    const categoryId = $(this).data("category-id");
+    const chevId = $(this).data("id");
     $(this).hide();
-    $(`#category-group-${categoryId} .chevron-up-category`).show();
+    $(` .chevron-up-category`).show();
     $(`#subcategory-group-${categoryId}`).slideDown(50);
 });
 
 $(".chevron-up-category").click(function (event) {
-    const categoryId = $(this).data("category-id");
+    const categoryId = $(this).data("id");
     $(this).hide();
-    $(`#category-group-${categoryId} .chevron-down-category`).show();
+    $(` .chevron-down-category`).show();
     $(`#subcategory-group-${categoryId}`).slideUp(50);
 });
 
@@ -102,23 +106,83 @@ $('#toggle-password').click(function () {
         input.attr('type', 'password');
     }
 });
-$('.archive-w').on('click', function (e) {
-    $('.archive-modal-wrapper').show();
+
+
+
+
+// *===archive===
+
+$(document).on('click', '.archiveButton', function () {
+    const archiveId = $(this).data('id');
+    $(`#archive_${archiveId}`).show();
 
 });
-$('.archiveSubcategoryButton').on('click', function (e) {
-    $('.archiveSubcategory-modal-wrapper').show();
+$(document).on('click', '.unarchiveParentButton', function(){
+    const archiveId = $(this).data('id');   
+    $(`#unarchive_${archiveId}`).show();
+})
 
+
+// ? this block will check if there are any parents archived. if there are, 
+// ? we will show a different modal requesting the user to pick a new and active parent
+$(document).on('click', '.unarchiveButton', function(){
+    const archiveId = $(this).data('id');
+    const parentId = $(this).data('parent-id');
+
+    $.ajax({
+        url: '/admin/archive/brands/check-category/' + parentId,
+        method: 'GET',
+        success: function(response) {
+            console.log(response);
+            if (response.is_active == 0) {
+
+                $('.small').html(`Since the category ${response.category_name} is archived, we request you to choose a new and active category. `);
+                $(`#unarchiveChoose_${archiveId}`).show();
+               
+            } else {
+                
+                $(`#unarchive_${archiveId}`).show();
+            }
+        }   
+    })
+    
+});
+
+// ? end
+
+
+// ? this block will check if there are any parents archived. if there are, 
+// ? we will show a different modal requesting the user to pick a new and active parent
+$(document).on('click', '.unarchiveProductButton', function(){
+    const archiveId = $(this).data('id');
+    const parentId = $(this).data('parent-id');
+    $.ajax({
+        url: '/admin/archive/product/check-brands/' + parentId,
+        method: 'GET',
+        success: function(response) {
+            console.log(response);
+            if (response.is_active == 0) {
+                $('.small').html(`Since the brand ${response.subcategory_name} is archived, we request you to choose a new and active brand. `);
+                $(`#unarchiveChoose_${archiveId}`).show();
+               
+            } else {
+                
+                $(`#unarchive_${archiveId}`).show();
+            }
+        }   
+    })
+});
+
+// ? end
+
+
+// *===update===
+$(document).on('click', '.updateButton', function (e) {
+    const updateId = $(this).data('id');
+    $(`#update_${updateId}`).show();
 });
 
 
-$('.archive-sub').on('click', function (e) {
-    $('.unarchive-modal-wrapper').show();
-
-});
-$('.edit-w').on('click', function (e) {
-    $('.update-modal-wrapper').show();
-});
 
 $('.updateSubcategoryButton').on('click', function (e) {
     $('.subcategoryUpdate-modal-wrapper').show();
@@ -136,192 +200,63 @@ $('.cancel-archive').on('click', function (e) {
     $('.archiveSubcategory-modal-wrapper').hide();
     $('.unarchive-modal-wrapper').hide();
 });
+// *===start of archiving groups===
 
-$('#selectAllCheckbox').change(function () {
-
-    $('.userCheckbox').prop('checked', $(this).prop('checked'));
-
-    if ($(this).is(':checked')) {
-
-        $('#archiveButton').show();
-    } else {
-
-        $('#archiveButton').hide();
-    }
-});
-
-$('.userCheckbox').change(function () {
-
-    if ($('.userCheckbox:checked').length > 0) {
-        $('#archiveButton').show();
-    } else {
-
-        $('#archiveButton').hide();
-    }
-});
-
-
-class FormHandler {
-    constructor(formId) {
-        this.form = $(formId);
-    }
-
-    setAction(userId, action) {
-        this.form.attr('action', `/${action}/` + userId);
-    }
-    setProduct(productId, action) {
-        this.form.attr('action', `/product/${action}/` + productId); // e.g. product/update/1
-    }
-    setCategory(categoryId, action) {
-        this.form.attr('action', `/category/${action}/` + categoryId); // e.g. category/update/1
-    }
-
-    setSubcategory(subcategoryId, action) {
-        this.form.attr('action', `/category/subcategory/${action}/` + subcategoryId); // e.g. category/subcategory/update/1
-
-    }
-
-}
-
-var updateFormHandler = new FormHandler('#updateForm');
-
-
-$('.updateButton').click(function () {
-    var userId = $(this).data('id');
-    var action = 'update';
-    updateFormHandler.setAction(userId, action);
-
-    $.get('/admin/employee/' + userId, function (user) {
-        $('input[name="type"]').val(user.type);
-        $('input[name="update-name"]').val(user.name);
-        $('input[name="update-username"]').val(user.username);
-        $('input[name="update-email"]').val(user.email);
-        $('input[name="update-contact"]').val(user.contact);
-    });
-});
-$('.updateCategoryButton').click(function () {
-    var imageUrl = $(this).data('image-url');  
-    var categoryId = $(this).data('id');
-    var action = 'update';
-    updateFormHandler.setCategory(categoryId, action);
-
-    $.get('/admin/category/' + categoryId, function (category) {
-        $('#update_category_image').attr('src', imageUrl);
-        $('#update_category_image').attr('alt', category.category_name);
-        $('input[name="category_name"]').val(category.category_name);
-        $('input[name="category_description"]').val(category.category_description);
-
-    });
-});
-
-var updateFormSubcategory = new FormHandler('#updateFormSubcategory');
-$('.updateSubcategoryButton').click(function () {
-    var imageUrl = $(this).data('image-url');
-    var subcategoryId = $(this).data('id');
-    console.log(subcategoryId);
-    var action = 'update';
-    updateFormSubcategory.setSubcategory(subcategoryId, action);
-
-    $.get('/admin/category/subcategory/' + subcategoryId, function (subcategory) {
-        $('#update_subcategory_image').attr('src', imageUrl);
-        $('#update_subcategory_image').attr('alt', subcategory.subcategory_image);
-        $('input[name="subcategory_name"]').val(subcategory.subcategory_name);
-        $('input[name="subcategory_description"]').val(subcategory.subcategory_description);
-
-    });
-
-});
-
-var updateProductForm = new FormHandler('#updateProductForm');
-$('.updateProductButton').click(function () {
-    var imageUrl = $(this).data('image-url');   
-    var productId = $(this).data('id');
-    var action = 'update';
-    updateProductForm.setProduct(productId, action);
-    $.get('/admin/product/' + productId, function (product) {
-        $('#product_image').attr('src', imageUrl);
-        $('#product_image').attr('alt', product.product_name);
-        $('input[name="product_name"]').val(product.product_name);
-        $('input[name="product_price"]').val(product.product_price);
-        $('input[name="product_quantity"]').val(product.product_quantity);
-        $('input[name="product_description"]').val(product.product_description);
-        $('input[name="product_category"]').val(product.category_id);
-        $('input[name="product_subcategory"]').val(product.subcategory_id);
-    });
-});
-
-var archiveFormHandler = new FormHandler('#archiveForm');
-
-var unarchiveFormHandler = new FormHandler('#unarchiveForm');
-
-
-$('.archiveButton').click(function () {
-    var userId = $(this).data('id');
-    archiveFormHandler.setAction(userId, 'archive');
-
-});
-
-
-
-
-
-var archiveCategoryForm = new FormHandler('#archiveCategoryForm');
-$('.archiveCategoryButton').click(function () {
-    var categoryId = $(this).data('id');
-    archiveCategoryForm.setCategory(categoryId, 'archive');
-
+$('#archive_select_group').on('click', function(){
+    $(this).siblings('.unarchive-modal-wrapper').show();
+    $(this).siblings('.archive-modal-wrapper').show(); 
 })
+$(document).ready(function() {
+    $('<input>').attr({
+        type: 'hidden',
+        id: 'memberIdsInput',
+        name: 'archiveIds'
+    }).appendTo('#archiveGroup');
+    function updateMemberIdsInput() {
+        var checkedMemberIds = [];
+        $('.userCheckbox:checked').each(function() {
+            checkedMemberIds.push($(this).val());
+        });
+        $('#memberIdsInput').val(checkedMemberIds.join(','));
+    }
 
+    function updateArchiveButtonVisibility() {
+        var anyChecked = $('.userCheckbox:checked').length > 0;
+        if (anyChecked) {
+            $('#archive_select_group').show();
+        } else {
+            $('#archive_select_group').hide();
+        }
+    }
 
-var archiveSubcategoryForm = new FormHandler('#archiveSubcategoryForm');
-$('.archiveSubcategoryButton').click(function () {
-    var categoryId = $(this).data('id');
-    archiveSubcategoryForm.setSubcategory(categoryId, 'archive');
+    $('.userCheckbox').on('change', function() {
+        updateMemberIdsInput();
+        updateArchiveButtonVisibility();
+        var allChecked = $('.userCheckbox').length === $('.userCheckbox:checked').length;
+        $('#selectAllCheckbox').prop('checked', allChecked);
+    });
+    $('#selectAllCheckbox').on('change', function() {
+        var isChecked = $(this).is(':checked');
+        $('.userCheckbox').prop('checked', isChecked);
+        updateMemberIdsInput();
+        updateArchiveButtonVisibility();
+    });
+    updateArchiveButtonVisibility();
+    
 });
 
-var archiveProductForm = new FormHandler('#archiveProductForm');
-$('.archiveProductButton').click(function () {
-    var productId = $(this).data('id');
-    archiveProductForm.setProduct(productId, 'archive');
-});
-
-$('.unarchiveCategoryButton').click(function () {
-    var categoryId = $(this).data('id');
-    unarchiveFormHandler.setCategory(categoryId, 'unarchive');
+// *===end of archiving groups===
 
 
-});
 
-var unarchiveSubcategory = new FormHandler('#unarchiveFormSubcategory');
-$('.unarchiveSubcategoryButton').click(function () {
-    var categoryId = $(this).data('id');
-    unarchiveSubcategory.setSubcategory(categoryId, 'unarchive');
-
-
-});
-
-var unarchiveProductForm = new FormHandler('#unarchiveProductForm');
-$('.unarchiveProductButton').click(function () {
-    var productId = $(this).data('id');
-    unarchiveProductForm.setProduct(productId, 'unarchive');
-
-});
+// $('.unarchiveButton').click(function () {
+//     var userId = $(this).data('id');
+//     unarchiveFormHandler.setAction(userId, 'unarchive');
 
 
 
 
-$('.unarchiveButton').click(function () {
-    var userId = $(this).data('id');
-    unarchiveFormHandler.setAction(userId, 'unarchive');
-
-
-
-
-});
-$('.img-con').click(function () {
-    var imgId = $(this).data('id');
-
-});
+// });
 
 
 $('.t-ps').click(function () {
@@ -345,24 +280,26 @@ function handleImageChange(inputName, updateImageId, selectedImageId) {
 }
 
 function handleImageClick(imageContainerClass, updateImageId, selectedImageId) {
-    $('.' + imageContainerClass + ' img').on('click', function () {
+    $(document).on('click', '.' + imageContainerClass + ' img', function () {
+        var imgId = $(this).data('id');
+        console.log(imgId);
         var src = $(this).attr('src');
-        $('#' + updateImageId).attr('src', src);
-        $('#' + selectedImageId).val(src);
+        console.log(src);
+        $('.' + updateImageId).attr('src', src);
+        $('.' + selectedImageId).val(src);
         $('input[name="' + updateImageId + '"]').val('');
         $('.image-modal-wrapper').hide();
-        $('#myModal').modal('hide');
     });
 }
 
 handleImageChange('category_image', 'update_category_image', 'selected_image');
-handleImageClick('img-con', 'update_category_image', 'selected_image');
+handleImageClick('img-con', 'image-place', 'selected_image');
 
 handleImageChange('subcategory_image', 'update_subcategory_image', 'selected_subcategory_image');
 handleImageClick('img-sub-con', 'update_subcategory_image', 'selected_subcategory_image');
 
 handleImageChange('product_image', 'product_image', 'selected_product_image');
-handleImageClick('img-pro-con', 'product_image', 'selected_product_image');
+handleImageClick('img-pro-con', 'image-place', 'selected_product_image');
 
 
 
@@ -493,27 +430,15 @@ $('#archiveButton').on('click', function(){
 
 $('.tbl-cell').on('click', '.select_archive_active_member', function(){
     const memberId = $(this).data('member-id');
-    $('#archive_member').attr('action', `/admin/member/archive/${memberId}`);
-    $('#archive_modal').css('display', 'flex');
+    $(`#archive_modal_${memberId}`).css('display', 'flex');
     
 });
 
 // *===end of members archiving===
 $('.tbl-cell').on('click', '.select_update_active_member', function(){
     const memberId = $(this).data('member-id');
-    $('#update_members_form').attr('action', `/admin/member/update/${memberId}`)
     console.log(memberId);
-    $.ajax({
-        type:"GET",
-        url: `/admin/member/${memberId}`,
-        success:function (member) {
-            $('input[name="type"]').val(member.type);
-            $('input[name="update_membership_name"]').val(member.membership_name);
-            $('input[name="update_membership_email"]').val(member.membership_email);
-            $('input[name="update_membership_phone"]').val(member.membership_phone);
-        }
-    });
-    $('.update-modal-wrapper').show();
+    $(`#update_modal_${memberId}`).show();
 
 });
 
@@ -531,7 +456,7 @@ $('.tbdy-rw').on('click', '#decline_membership',function (e) {
 $('.btn-no').on('click', function (e) {
     $('#accept_membership_modal').hide();
     $('#decline_membership_modal').hide();
-    $('#archive_modal').hide();
+    $('.a-m-wrapper').hide();
 });
 // *===end of membership modal action===
 

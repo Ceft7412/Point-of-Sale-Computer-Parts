@@ -1,10 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Membership')
+@section('title', 'Archive Member')
 @section('css')
-    <link rel="stylesheet" href="../dest/css/style.css">
+    <link rel="stylesheet" href="/../dest/css/style.css">
 @endsection
 @section('content')
+    {{-- * TOP BAR IS FINISHED --}}
+    {{-- ! AN ERROR?! --}}
+    {{-- TODO: MAKE A SANDWICH! --}}
+    {{-- ? HUH????? --}}
+
+
     <div class="topbar-wrapper">
         <div class="topbar-flex-wrapper">
             <div class="topbar-left">
@@ -195,7 +201,7 @@
                     </div>
 
                 </div>
-                <a href="{{ route('archive-member') }}" class="archive-show" id="archive-expand-member">
+                <a class="archive-show active" id="archive-expand-member">
                     <span class="">Archive</span>
 
                 </a>
@@ -217,59 +223,7 @@
         </div>
     </div>
 
-    <div class="modal-wrapper" id="modal">
-        <div class="modal-card-wrapper" id="modal-card">
-            <div class="modal-flex">
-                <div class="modal-header">
-                    <div class="item-1">
-                        <span class="new-title">New Member</span>
-                        <span class="material-symbols-outlined" id="close-modal">
-                            close
-                        </span>
-                    </div>
-                </div>
-                <form action="{{ route('application-membership') }}" class="form-wrapper" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="input-user-type input-wrapper">
-                            <input type="hidden" name="type" value="2">
-                        </div>
-                        <div class="input-name input-wrapper">
-                            <div class="flex-column">
-                                <label for="">Name:</label>
-                                <input type="text" name="membership_name" class="input" required>
 
-                            </div>
-                        </div>
-
-
-                        <div class="input-email input-wrapper">
-                            <div class="flex-column">
-                                <label for="">Email:</label>
-                                <input type="email" name="membership_email" class="input" required>
-                                <div class="error"></div>
-                            </div>
-
-                        </div>
-                        <div class="input-password input-wrapper">
-                            <div class="flex-column">
-                                <label for="">Contact No:</label>
-                                <input type="num" name="membership_phone" class="input">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <div class="modal-flex-footer">
-                            <button type="button" class="cancel" id="cancel-modal">Cancel</button>
-                            <button type="submit" class="save">Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
     {{-- *ERROR --}}
     @if ($errors->any())
         @foreach ($errors->all() as $error)
@@ -330,37 +284,31 @@
             </div>
         </div>
     </div>
+
+    {{-- *CONTENT --}}
+
     <div class="c-wrapper">
         <div class="c-heading-wrapper category">
             <div class="ct-title">
-                <span class="title">Membership</span>
+                <span class="title">Archived Members</span>
                 <span class="description">Track and manage members</span>
             </div>
-            <div class="ct-add" id="add-button-modal">
-                <div class="ct-add-flex">
-                    <span class="material-symbols-outlined">
-                        add
-                    </span>
-                    <span class="employee">Member</span>
-                </div>
-            </div>
+
         </div>
 
-        <div class="m-ct-wr">
-            <div class="hd-ct">
-                <div class="itm-ct hd-active-itm active">
-                    <span class="">Active Members</span>
-                </div>
+        <div class="m-ct-wr ct-body-heading">
+            <div class="pr-dt ">
+                <a href="{{ route('membershipRedirect') }}" class="go-back">
+                    <i class="bi bi-arrow-bar-left"></i>
+                    <span class="back">GO BACK</span>
 
-                <a href="{{ route('pending.request-membership') }}" class="itm-ct hd-pending-itm">
-                    <span class="">Pending Request</span>
                 </a>
+                <div class=""></div>
             </div>
             <div class="hd-fl-ct">
-                <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('archive-members') }}">
+                <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('unarchive-members') }}">
                     @csrf
-                    <button type="button" class="archive_select_group" id="archive_select_group">Set to
-                        inactive</button>
+                    <button type="button" class="archive_select_group" id="archive_select_group">Set to active</button>
                     <div class="archive-modal-wrapper">
                         <div class="modal-card-wrapper" id="modal-card">
                             <div class="heading">
@@ -391,9 +339,9 @@
                         </div>
                     </div>
                 </form>
-                <form method="GET" action="{{ route('membershipRedirect') }}" class="fl-sr">
+                <form method="GET" action="{{ route('archive-member') }}" class="fl-sr">
                     <input type="text" name="search" value="{{ request()->query('search') }}"
-                        placeholder="Member ID">
+                        placeholder="Search for members...">
                     <button type="submit"><i class="bi bi-search"></i></button>
                 </form>
 
@@ -403,8 +351,8 @@
                 <div class="tbl">
                     <div class="thdr">
                         <div class="tbl-cell">
-                            @if($activeMembers->count() > 0)
-                            <input type="checkbox" id="selectAllCheckbox">
+                            @if ($inactiveMembers->count() > 0)
+                                <input type="checkbox" id="selectAllCheckbox">
                             @endif
                         </div>
                         <div class="tbl-cell">
@@ -429,111 +377,47 @@
                         </div>
                     </div>
                     <div class="tbdy">
-                        @forelse($activeMembers as $activeMember)
+                        @forelse($inactiveMembers as $inactiveMember)
                             <div class="tbdy-rw">
                                 <div class="tbl-cell">
                                     <input type="checkbox" class="userCheckbox" name="archiveIds[]"
-                                        value="{{ $activeMember->id }}">
+                                        value="{{ $inactiveMember->id }}">
                                 </div>
                                 <div class="tbl-cell">
-                                    <span class="txt-cell">{{ $activeMember->membership_id }}</span>
+                                    <span class="txt-cell">{{ $inactiveMember->membership_id }}</span>
                                 </div>
                                 <div class="tbl-cell">
-                                    <span class="txt-cell">{{ $activeMember->membership_name }}</span>
+                                    <span class="txt-cell">{{ $inactiveMember->membership_name }}</span>
 
                                 </div>
                                 <div class="tbl-cell">
-                                    <span class="txt-cell">{{ $activeMember->membership_email }}</span>
+                                    <span class="txt-cell">{{ $inactiveMember->membership_email }}</span>
                                 </div>
                                 <div class="tbl-cell">
-                                    <span class="txt-cell">{{ $activeMember->membership_phone }}</span>
+                                    <span class="txt-cell">{{ $inactiveMember->membership_phone }}</span>
                                 </div>
                                 <div class="tbl-cell">
-                                    <span class="txt-cell">M{{ $activeMember->membership_card_number }}</span>
+                                    <span class="txt-cell">M{{ $inactiveMember->membership_card_number }}</span>
                                 </div>
 
                                 <div class="tbl-cell">
 
-                                    <button type="button" data-member-id="{{ $activeMember->id }}"
-                                        class="select_update_active_member"><i
-                                            class="bi bi-pencil-square"></i>Update</button>
-
-                                    <div class="update-modal-wrapper" id="update_modal_{{ $activeMember->id }}">
-                                        <div class="modal-card-wrapper" id="modal-card">
-                                            <div class="modal-flex-employee">
-                                                <div class="modal-header">
-                                                    <div class="item-1">
-                                                        <span class="new-title">Update Member</span>
-                                                        <span class="material-symbols-outlined" id="close-update-modal">
-                                                            close
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <form
-                                                    action="/admin/member/update/{{ $activeMember->id }}"class="form-wrapper"
-                                                    id="update_members_form" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="modal-body">
-
-                                                        <div class="input-user-type input-wrapper">
-                                                            <input type="hidden" name="type">
-                                                        </div>
-                                                        <div class="input-name input-wrapper">
-                                                            <div class="flex-column">
-                                                                <label for="">Name:</label>
-                                                                <input type="text"
-                                                                    name="update_membership_name"class="input"
-                                                                    value="{{ $activeMember->membership_name }}" required>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="input-email input-wrapper">
-                                                            <div class="flex-column">
-                                                                <label for="">Email:</label>
-                                                                <input type="email" name="update_membership_email"
-                                                                    class="input"
-                                                                    value="{{ $activeMember->membership_email }}"
-                                                                    required>
-                                                                <div class="error"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-email input-wrapper">
-                                                            <div class="flex-column">
-                                                                <label for="">Contact No: (Optional)</label>
-                                                                <input type="tel" name="update_membership_phone"
-                                                                    value="{{ $activeMember->membership_phone }}"
-                                                                    class="input">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <div class="modal-flex-footer">
-                                                            <button type="button" class="cancel-modal">Cancel</button>
-                                                            <button type="submit" class="save">Submit</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                     <button type="button" class="select_archive_active_member"
-                                        data-member-id="{{ $activeMember->id }}"><i
+                                        data-member-id="{{ $inactiveMember->id }}"><i
                                             class="bi bi-archive"></i>Archive</button>
-                                    <div class="a-m-wrapper" id="archive_modal_{{ $activeMember->id }}">
+
+                                    <div class="a-m-wrapper" id="archive_modal_{{ $inactiveMember->id }}">
                                         <div class="a-modal">
                                             <div class="a-modal-f">
                                                 <div class="hdr">
-                                                    <span class="">Set to inactive</span>
+                                                    <span class="">Set to active</span>
                                                 </div>
                                                 <div class="bdy">
-                                                    <span class="">By confirming, the member will be set to inactive.
+                                                    <span class="">By confirming, the member will be set to active.
                                                         Are you sure you want
                                                         to proceed?</span>
                                                 </div>
-                                                <form action="/admin/member/archive/{{ $activeMember->id }}"
+                                                <form action="/admin/member/unarchive/{{ $inactiveMember->id }}"
                                                     method="POST" id="archive_member"class="ftr">
                                                     @csrf
                                                     <button type="button" class="btn-no">No</button>
@@ -542,6 +426,9 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    
+
 
                                 </div>
                             </div>
@@ -564,5 +451,5 @@
 @endsection
 @section('js')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="/../js/script.js"></script>
 @endsection

@@ -28,10 +28,10 @@ class CategoryController extends Controller
                 ->with('subcategoryImages', $subcategoryImages);
         } else {
             $categories = Category::where('is_active', 1)->withCount('subcategories')->get();
-            $subcategoryController = new SubcategoryController();   
+            $subcategoryController = new SubcategoryController();
             $subcategoryImages = $subcategoryController->getSubcategoryImages();
             $subcategories = Subcategory::where('is_active', 1)->get();
-    
+
             $imageFiles = $this->getCategoryImages();
             return view('admin.category')
                 ->with('categories', $categories)
@@ -39,7 +39,7 @@ class CategoryController extends Controller
                 ->with('imageFiles', $imageFiles)
                 ->with('subcategoryImages', $subcategoryImages);
         }
-        
+
 
 
 
@@ -60,16 +60,16 @@ class CategoryController extends Controller
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
             $imagePath = $image->store('public/category_images');
-            $category->category_image = $imagePath;
+            $category->category_image = basename($imagePath);
         }
         do {
             $category_id = rand(100000, 999999);
         } while (Category::where('category_id', $category_id)->exists() || Subcategory::where('subcategory_id', $category_id)->exists());
         $category->category_id = $category_id;
         $category->save();
-       
+
         return redirect()->back()->with('success', 'Category added successfully');
-        
+
     }
 
     public function updateCategory(Request $request, $id)
@@ -90,7 +90,7 @@ class CategoryController extends Controller
         } elseif ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
             $imagePath = $image->store('public/category_images');
-            $category->category_image = $imagePath;
+            $category->category_image = basename($imagePath);
         }
         $category->save();
 
@@ -131,40 +131,62 @@ class CategoryController extends Controller
     }
     public function archivedCategories()
     {
-        $categories = Category::where('is_active', 1)->get();
-        $archivedCategories = Category::where('is_active', 0)->get();
-        $archivedSubcategories = Subcategory::where('is_active', 0)->get();
-        return view('admin.archive.archive-category')
-            ->with('archivedCategories', $archivedCategories)
-            ->with('archivedSubcategories', $archivedSubcategories)
-            ->with('categories', $categories);
+        $search = request()->query('search');
+        if ($search) {
+            $archivedCategories = Category::where('is_active', 0)->where('category_id', 'like', '%' . $search . '%')->get();
+            $archivedSubcategories = Subcategory::where('is_active', 0)->get();
+            return view('admin.archive.archive-category')
+                ->with('archivedCategories', $archivedCategories)
+                ->with('archivedSubcategories', $archivedSubcategories);
+        } else {
+            $archivedCategories = Category::where('is_active', 0)->get();
+            $archivedSubcategories = Subcategory::where('is_active', 0)->get();
+            return view('admin.archive.archive-category')
+                ->with('archivedCategories', $archivedCategories)
+                ->with('archivedSubcategories', $archivedSubcategories);
+        }
+
     }
+    
+
+    
+    public function checkCategory($id){
+        $category = Category::findOrFail($id);
+        return response()->json($category);
+    }
+
 
     public function archiveCategoryGroup(Request $request)
     {
-        $categoryIds = $request->input('categoryIds');
+        $categoryIds = $request->input('archiveIds');
         if ($categoryIds) {
-            foreach ($categoryIds as $categoryId) {
-                $category = Category::findOrFail($categoryId);
-                $category->is_active = false;
-                $category->save();
-                $childCategories = Subcategory::where('category_id', $categoryId)->get();
-                foreach ($childCategories as $childCategory) {
-                    $childCategory->is_active = false;
-                    $childCategory->save();
+            $categoryIdsArray = explode(',', $categoryIds);
+            foreach ($categoryIdsArray as $categoryId) {
+                $category = Category::find($categoryId);
+                if ($category) {
+                    $category->is_active = 0;
+                    $category->save();
+                    $childCategories = Subcategory::where('category_id', $categoryId)->get();
+                    foreach ($childCategories as $childCategory) {
+                        $childCategory->is_active = 0;
+                        $childCategory->save();
+                    }
                 }
             }
             return redirect()->back()->with('success', 'Categories archived successfully');
         } else {
             return redirect()->back()->with('error', 'No categories selected');
         }
+
     }
 
     public function unarchiveCategoryGroup(Request $request)
     {
-        $categoryIds = $request->input('categoryIds');
+        $categoryIds = $request->input('archiveIds');
         if ($categoryIds) {
-            foreach ($categoryIds as $categoryId) {
+
+            $subcategoryArray = explode(",", $categoryIds);
+            foreach ($subcategoryArray as $categoryId) {
                 $category = Category::findOrFail($categoryId);
                 $category->is_active = true;
                 $category->save();

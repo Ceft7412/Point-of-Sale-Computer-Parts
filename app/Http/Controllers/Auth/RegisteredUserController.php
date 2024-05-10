@@ -38,12 +38,11 @@ class RegisteredUserController extends Controller
         if ($search) {
             $users = User::where('type', 2)->where('is_active', 0)->where('user_id', 'like', '%' . $search . '%')->get();
             return view('admin.archive.archive-employee')->with('users', $users);
-        }
-        else{
+        } else {
             $users = User::where('type', 2)->where('is_active', 0)->get();
             return view('admin.archive.archive-employee')->with('users', $users);
         }
-      ;
+        ;
     }
 
 
@@ -112,10 +111,9 @@ class RegisteredUserController extends Controller
         // Save the updated  user
         $user->save();
 
-        if($request->type == 1){
+        if ($request->type == 1) {
             return redirect()->back()->with('success', 'Admin updated successfully');
-        }
-        else{
+        } else {
             return redirect()->back()->with('success', 'Employee updated successfully');
         }
     }
@@ -125,40 +123,39 @@ class RegisteredUserController extends Controller
         $user->is_active = false;
         $user->save();
 
-        if($user->type == 1){
+        if ($user->type == 1) {
             return redirect()->back()->with('success', 'Admin archived successfully');
-        }
-        else{
+        } else {
             return redirect()->back()->with('success', 'Employee archived successfully');
         }
-        
+
     }
     public function unarchive($id)
     {
         $user = User::findOrFail($id);
         $user->is_active = true;
         $user->save();
-        if($user->type == 1){
+        if ($user->type == 1) {
             return redirect()->back()->with('success', 'Admin unarchived successfully');
-        }
-        else{
+        } else {
             return redirect()->back()->with('success', 'Employee unarchived successfully');
         }
     }
     public function archiveGroup(Request $request)
     {
-        $userIds = $request->input('userIds');
-
+        $userIds = $request->input('archiveIds');
         if ($userIds) {
-            foreach ($userIds as $userId) {
+            $userIdsArray = explode(',', $userIds);
+            foreach ($userIdsArray as $userId) {
                 $user = User::find($userId);
-                $user->is_active = false;
-                $user->save();
+                if ($user) {
+                    $user->is_active = false;
+                    $user->save();
+                }
             }
-            if($user->type == 1){
+            if (isset($user) && $user->type == 1) {
                 return redirect()->back()->with('success', 'Admin archived successfully');
-            }
-            else{
+            } else {
                 return redirect()->back()->with('success', 'Employee archived successfully');
             }
         } else {
@@ -168,18 +165,18 @@ class RegisteredUserController extends Controller
 
     public function unarchiveGroup(Request $request)
     {
-        $userIds = $request->input('userIds');
+        $userIds = $request->input('archiveIds');
 
         if ($userIds) {
-            foreach ($userIds as $userId) {
+            $userArray = explode(',' ,$userIds);
+            foreach ($userArray as $userId) {
                 $user = User::find($userId);
                 $user->is_active = true;
                 $user->save();
             }
-            if($user->type == 1){
+            if ($user->type == 1) {
                 return redirect()->back()->with('success', 'Admin unarchived successfully');
-            }
-            else{
+            } else {
                 return redirect()->back()->with('success', 'Employee unarchived successfully');
             }
         } else {
@@ -187,5 +184,5 @@ class RegisteredUserController extends Controller
         }
     }
 
-    
+
 }

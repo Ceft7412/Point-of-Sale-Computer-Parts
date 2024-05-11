@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Item;
 use Illuminate\Support\Facades\Log;
+use App\Models\Member;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Storage;
@@ -28,7 +29,10 @@ class OrderController extends Controller
 
         $search = request()->query('search');
         if ($search) {
-            $products = Product::where('is_active', 1)->where('product_id', 'like', '%' . $search . '%')->get();
+            $products = Product::where('is_active', 1)->where(function($query) use ($search){
+                $query->where('product_id', 'like', '%' . $search . '%')
+                ->orWhere('product_name', 'like', '%' . $search . '%');
+            })->get();
             $categories = Category::where('is_active', 1)->get();
             $subcategories = Subcategory::where('is_active', 1)->get();
             return view('employee.order')
@@ -50,23 +54,36 @@ class OrderController extends Controller
 
     public function storeOrder(Request $request)
     {
-        try {
+ 
             $customer   = new Customer();
             $customer->customer_id = $this->generateCustomerID();
             $customer->save();
     
             $orderItems = $request->input('order');
+            $amount_rendered = $request->input('amount_rendered');	
             
             $order_total = $request->order_total;
             $order_total = preg_replace('/[^0-9.]/', '', $order_total); // Remove non-numeric characters
             $order_total = intval($order_total); // Convert to integer
+
             $order = new Order();
             $order->order_id = $this->generateOrderID();
             $order->customer_id = $customer->id;
             
             $order->user_id = Auth::id();
-            $order->order_change = $request->order_change;
+            
+            if($request->membership_card_number) {
+                $member = Member::where('is_active', 1)->where('membership_card_number', $request->membership_card_number)->first();
+                if($member) {
+                    $discount = $member->membership_discount / 100;
+                    $order_total = $order_total - ($order_total * $discount);
+                    $customer->membership_id = $member->id;
+                    $customer->save();
+                }
+            }
+    
             $order->order_total = $order_total;
+            $order->order_change = $amount_rendered - $order_total;
             $order->save();
     
             foreach ($orderItems as $item) {
@@ -82,11 +99,7 @@ class OrderController extends Controller
             }
           
             return redirect()->back()->with('success', 'Order completed.');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-    
-            return redirect()->back()->with('error', 'There was a problem processing your order.');
-        }
+       
     }
 
     

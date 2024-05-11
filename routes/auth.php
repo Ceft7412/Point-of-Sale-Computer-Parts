@@ -16,6 +16,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\AdminMembershipController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'verified', 'employee'])->group(function(){
 
     Route::get('order/products/{id}', [OrderController::class, 'getProduct'])->name('getProduct');
     Route::get('order/all-products', [OrderController::class, 'allProducts'])->name('allProducts');
+    Route::get('order/category/{id}/getProducts', [OrderController::class, 'getCategoryProducts'])->name('getCategoryProducts');
     Route::get('order/subcategory/products/{id}', [OrderController::class, 'getSubcategoryProduct'])->name('getSubcategoryProduct');
     Route::post('order/store', [OrderController::class, 'storeOrder'])->name('storeOrder');
     Route::post('product/item/{id}', [OrderController::class, 'getItem'])->name('getItem');
@@ -122,7 +124,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
    
     Route::get('admin/admin', [AdminController::class, 'redirectAdmin'])->name('admin');
 
-
+    // * transaction
+    Route::get('admin/transaction', [TransactionController::class, 'redirectTransaction'])->name('transaction');
     
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 

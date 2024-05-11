@@ -63,7 +63,7 @@
                     display: flex;
 
 
-                    span {
+                    .c-mc {
                         font-size: 16px;
                         color: orange;
                         text-decoration: underline;
@@ -425,9 +425,7 @@
                 justify-content: center;
                 color: white;
 
-                span {
-
-
+                .txt-h {
                     font-size: 1.125rem;
                     font-weight: bold;
                 }

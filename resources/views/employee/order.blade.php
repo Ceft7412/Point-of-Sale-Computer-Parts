@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="numbers">
                                     <div class="input">
-                                        <input type="text" disabled id="input_numbers">
+                                        <input type="text" name="amount_rendered" readonly id="input_numbers">
                                         <div class="backspace confirm-money">
                                             <span class="">OK</span>
                                         </div>
@@ -221,7 +221,26 @@
 
                                 </div>
                                 <div class="membership">
-                                    <span class="" id="av-mem-card">Membership Card</span>
+                                    <span class="c-mc" id="av-mem-card">Membership Card</span>
+                                    <div class="membership-modal-wrapper">
+
+                                        <div class="membership-modal">
+                                                <div class="membership-modal-flex">
+                                                 
+                                                    <div class="heading">
+                                                        <span class="txt-h">Apply Membership Card</span>
+                                                    </div>
+                                                    <div class="body">
+                                                        <label for="#">Enter membership card number.:</label>
+                                                        <input type="number" name="membership_card_number" class="input-id">
+                                                    </div>
+                                                    <div class="footer">
+                                                        <button type="button" class="cancel-button-membership">Cancel</button>
+                                                        <button type="button" class="apply-button">Apply</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 
 
@@ -247,25 +266,7 @@
 
                 </div>
             </form>
-            <div class="membership-modal-wrapper">
 
-                <div class="membership-modal">
-                        <form method="POST" class="membership-modal-flex">
-                            @csrf
-                            <div class="heading">
-                                <span class="">Apply Membership Card</span>
-                            </div>
-                            <div class="body">
-                                <label for="#">Enter membership card ID:</label>
-                                <input type="number" name="membership_id" class="input-id">
-                            </div>
-                            <div class="footer">
-                                <button type="button" class="cancel-button-membership">Cancel</button>
-                                <button type="submit" class="apply-button">Apply</button>
-                            </div>
-                        </form>
-                </div>
-            </div>
 
             <div class="rightbar-footer">
                 <div class="rightbar-flex-footer">
@@ -329,13 +330,13 @@
                         @forelse ($categories as $category)
 
                             <div class="item-category category-group" data-category-id="{{ $category->id }}">
-                                <img src="{{ Storage::url($category->category_image) }}"
+                                <img src="{{ Storage::url('public/category_images/'.$category->category_image) }}"
                                     alt="{{ $category->category_name }}">
                                 <span class="label">{{ $category->category_name }}</span>
                             </div>
 
 
-                            <div class="item-subcategory subcategory-group" id="subcategory-order-{{ $category->id }}">
+                            <div class="item-subcategory subcategory-group"  id="subcategory-order-{{ $category->id }}">
                                 <div class="back" id="back_category">
                                     <i class="bi bi-chevron-left"></i>
                                     <span class="text-back">Back</span>
@@ -344,7 +345,7 @@
                                     @if ($subcategory->category_id == $category->id)
                                         <div class="single-item" id="subcategory-order-{{ $subcategory->category_id }}"
                                             data-subcategory-id="{{ $subcategory->id }}">
-                                            <img src="{{ Storage::url($subcategory->subcategory_image) }}"
+                                            <img src="{{ Storage::url('public/subcategory_images/'.$subcategory->subcategory_image) }}"
                                                 alt="{{ $subcategory->subcategory_name }}">
                                             <span class="label">{{ $subcategory->subcategory_name }}</span>
                                         </div>
@@ -368,14 +369,14 @@
 
                 <div class="o-flex-body">
                     @foreach ($products as $product)
-                        <form action="/product/item/{{ $product->id }}" method="POST" class="product-item"
+                        <form action="/product/item/{{ $product->id }}" method="POST" data-subcategory-id="{{ $product->subcategory_id }}" data-category-id="{{$product->category_id}}"  class="product-item"
                             data-product-id="{{ $product->id }}">
                             @csrf
                             <div class="header-product">
                                 <span class="price-product" id="price_product">₱{{ $product->product_price }}</span>
                             </div>
                             <div class="body-product">
-                                <img src="{{ Storage::url($product->product_image) }}"
+                                <img src="{{ Storage::url('public/product_images/'.$product->product_image) }}"
                                     alt="{{ $product->product_name }}" class="">
 
                             </div>

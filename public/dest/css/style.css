@@ -3235,7 +3235,7 @@ a, a:visited, a:hover {
   border-radius: 5px;
   display: flex;
 }
-.o-modal-wrapper .o-modal .o-flex-modal .body .membership span {
+.o-modal-wrapper .o-modal .o-flex-modal .body .membership .c-mc {
   font-size: 16px;
   color: orange;
   text-decoration: underline;
@@ -3518,7 +3518,7 @@ a, a:visited, a:hover {
   justify-content: center;
   color: white;
 }
-.membership-modal-wrapper .membership-modal .membership-modal-flex .heading span {
+.membership-modal-wrapper .membership-modal .membership-modal-flex .heading .txt-h {
   font-size: 1.125rem;
   font-weight: bold;
 }

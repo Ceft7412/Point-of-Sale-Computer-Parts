@@ -1,26 +1,27 @@
     $('.item-all').on('click', function () {
-        $.get('/order/all-products', function (data) {
-            const oFlexBody = $('.o-flex-body');
-            oFlexBody.empty();
+        $('.product-item').show();
+        // $.get('/order/all-products', function (data) {
+        //     const oFlexBody = $('.o-flex-body');
+        //     oFlexBody.empty();
 
-            data.forEach(product => {
-                const productItem = `
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱${product.product_price}</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="${product.product_image}" alt="${product.product_name}" class="">
-                        </div>
-                        <div class="footer-product">
-                            <span class="prod">${product.product_name}</span>
-                        </div>
-                    </div>
-                `;
+        //     data.forEach(product => {
+        //         const productItem = `
+        //             <div class="product-item">
+        //                 <div class="header-product">
+        //                     <span class="price-product">₱${product.product_price}</span>
+        //                 </div>
+        //                 <div class="body-product">
+        //                     <img src="${product.product_image}" alt="${product.product_name}" class="">
+        //                 </div>
+        //                 <div class="footer-product">
+        //                     <span class="prod">${product.product_name}</span>
+        //                 </div>
+        //             </div>
+        //         `;
 
-                oFlexBody.append(productItem);
-            });
-        });
+        //         oFlexBody.append(productItem);
+        //     });
+        // });
     });
 
 
@@ -29,64 +30,77 @@
         $('.category-group, .item-all').hide();
 
         const categoryId = $(this).data('category-id');
+
         $(`#subcategory-order-${categoryId}`).css('display', 'flex');
 
-        //the data parameter is an array containing objects(my products)
-        //to get the data, first we should set the route in order to get the json data and passing it into the parameter to hold
-        //since the data array contains many objects(products) we must perform for loop
-        //to show all the products specfied by our category_id in the column of product
-        // to visualize the loop, in Laravel, it will look like this: foreach (data as product)
-        // as to why the foreach looks like this in jquery, because why not? to make it complicated.
-        // developers like complicated things haha!
-        $.get(('/order/products/' + categoryId), function (data) {
-            const oFlexBody = $('.o-flex-body');
-            oFlexBody.empty();
+        $('.product-item').hide(); // Hide all products
+        $('.product-item[data-category-id="' + categoryId + '"]').show();
+    }); // Show products for clicked category
 
-            data.forEach(product => {
-                const productItem = `
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱${product.product_price}</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="${product.product_image}" alt="${product.product_name}" class="">
-                        </div>
-                        <div class="footer-product">
-                            <span class="prod">${product.product_name}</span>
-                        </div>
-                    </div>
-                `;
 
-                oFlexBody.append(productItem);
-            });
-        });
-    });
+    //the data parameter is an array containing objects(my products)
+    //to get the data, first we should set the route in order to get the json data and passing it into the parameter to hold
+    //since the data array contains many objects(products) we must perform for loop
+    //to show all the products specfied by our category_id in the column of product
+    // to visualize the loop, in Laravel, it will look like this: foreach (data as product)
+    // as to why the foreach looks like this in jquery, because why not? to make it complicated.
+    // developers like complicated things haha!
+
+    // $.get(('/order/products/' + categoryId), function (data) {
+    //     const oFlexBody = $('.o-flex-body');
+    //     oFlexBody.empty();
+
+    //     data.forEach(product => {
+    //         const productImageUrl = '/storage/product_images/' + product.product_image;
+    //         const productItem = `
+    //             <div class="product-item">
+    //                 <div class="header-product">
+    //                     <span class="price-product">₱${product.product_price}</span>
+    //                 </div>
+    //                 <div class="body-product">
+    //                     <img src="${productImageUrl}" alt="${product.product_name}" class="">
+    //                 </div>
+    //                 <div class="footer-product">
+    //                     <span class="prod">${product.product_name}</span>
+    //                 </div>
+    //             </div>
+    //         `;
+
+    //         oFlexBody.append(productItem);
+    //     });
+    // });
+
 
 
     $('.single-item').on('click', function () {
-        const productId = $(this).data('subcategory-id');
-        $.get(('/order/subcategory/products/' + productId), function (data) {
-            const oFlexBody = $('.o-flex-body');
-            oFlexBody.empty();
 
-            data.forEach(product => {
-                const productItem = `
-                    <div class="product-item">
-                        <div class="header-product">
-                            <span class="price-product">₱${product.product_price}</span>
-                        </div>
-                        <div class="body-product">
-                            <img src="${product.product_image}" alt="${product.product_name}" class="">
-                        </div>
-                        <div class="footer-product">
-                            <span class="prod">${product.product_name}</span>
-                        </div>
-                    </div>
-                `;
+        const subcategoryId = $(this).data('subcategory-id');
+        $('.product-item').hide(); // Hide all products
+        $('.product-item[data-subcategory-id="' + subcategoryId + '"]').show();
+        // const productId = $(this).data('subcategory-id');
+        // $.get(('/order/subcategory/products/' + productId), function (data) {
+        //     const oFlexBody = $('.o-flex-body');
+        //     oFlexBody.empty();
 
-                oFlexBody.append(productItem);
-            });
-        });
+        //     data.forEach(product => {
+        //         const productImageUrl = '/storage/app/public/product_images/' + product.product_image;
+        //         const productItem = `
+        //             <div class="product-item">
+        //                 <div class="header-product">
+        //                     <span class="price-product">₱${product.product_price}</span>
+        //                 </div>
+        //                 <div class="body-product">
+        //                     <img src="${productImageUrl}" alt="${product.product_name}" class="">
+        //                 </div>
+        //                 <div class="footer-product">
+        //                     <span class="prod">${product.product_name}</span>
+        //                 </div>
+        //             </div>
+        //         `;
+
+        //         oFlexBody.append(productItem);
+        //     });
+        // });
 
     });
 
@@ -133,30 +147,31 @@
 
     });
 
-    $('#av-mem-card').on('click', function(){
+    $('#av-mem-card').on('click', function () {
         $('.membership-modal-wrapper').css('display', 'flex');
     })
 
-    $('.cancel-button-membership').on('click', function(){
+    $('.cancel-button-membership').on('click', function () {
         $('.membership-modal-wrapper').hide();
     });
 
-    
 
-    $('.rightbar-body').on('submit', function(e){
+
+    $('.rightbar-body').on('submit', function (e) {
         var inputNumbers = $('#input_numbers').val();
         var total = calculateTotal();
-        if (!inputNumbers) {    
+        if (!inputNumbers) {
             e.preventDefault();
-            $('.er-val-red').show(); 
+            $('.er-val-red').show();
         }
 
-        if(inputNumbers < total){
+        if (inputNumbers < total) {
             e.preventDefault();
             $('.er-val-red').text('Insufficient money.');
-            $('.er-val-red').show(); 
+            $('.er-val-red').show();
         }
     });
+
     function updateSubtotalPrice() {
         let subtotalPrice = 0;
         selectedProducts.forEach(product => {
@@ -227,7 +242,7 @@
             $('.change-value').val(`Insufficient`);
             $('#change_value').val(Math.abs(change));
         }
-        
+
     }
 
     $('.product-item').on('click', function (e) {
@@ -350,6 +365,7 @@
         updateSubtotalPrice();
         calculateTotal();
     });
+
     function updateClock() {
         var now = new Date();
         var formattedTime = now.toLocaleString('en-US', {
@@ -372,44 +388,44 @@
 
     // =====membership page========
 
-    $('.submit-button-application').on('click', function(){
+    $('.submit-button-application').on('click', function () {
         var name = $('#applicant_name').val();
         var email = $('#applicant_email').val();
         var phone = $('#applicant_phone').val();
-        if(name === ""){
+        if (name === "") {
             $('#applicant_name').css('borderColor', 'red');
             $('#applicant_name').siblings('.err-empty').show();
-        } else{
+        } else {
             $('#applicant_name').css('borderColor', 'rgb(180, 180, 180)');
             $('#applicant_name').siblings('.err-empty').hide();
         }
-        
-        if(email === ""){
+
+        if (email === "") {
             $('#applicant_email').css('borderColor', 'red');
             $('#applicant_email').siblings('.err-empty').show();
-        } else{
+        } else {
             $('#applicant_email').css('borderColor', 'rgb(180, 180, 180)');
             $('#applicant_email').siblings('.err-empty').hide();
         }
-        
-        if(phone === ""){
+
+        if (phone === "") {
             $('#applicant_phone').css('borderColor', 'red');
             $('#applicant_phone').siblings('.err-empty').show();
-        } else{
+        } else {
             $('#applicant_phone').css('borderColor', 'rgb(180, 180, 180)');
             $('#applicant_phone').siblings('.err-empty').hide();
         }
-        if(name !== "" && email !== "" && phone !== ""){
+        if (name !== "" && email !== "" && phone !== "") {
             $('.confirm-pass-wrapper').css('display', 'flex');
         }
 
 
-        
+
     });
 
-    $('.submit-button-cancel').on('click', function(){
+    $('.submit-button-cancel').on('click', function () {
         $('.confirm-pass-wrapper').hide();
     })
-    setTimeout(function() {
+    setTimeout(function () {
         $('#errorModal').slideUp();
     }, 3000);

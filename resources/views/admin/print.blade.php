@@ -225,106 +225,30 @@
     <!-- CONTENT -->
 
     <div class="c-wrapper">
-        <div class="c-heading-wrapper category">
-            <div class="ct-title">
-                <span class="title">Transaction Records</span>
-                <span class="description">Track your POS transactions</span>
-            </div>
+        <div class="t-pr">
 
-        </div>
-        <div class="ct-body">
-            <div class="ct-body-flex">
-                <div class="ct-body-heading">
-                    <div class="ct-heading-r">
-                        <form action="/admin/transaction/export" class="exprt-csv">
-                            <button type="submit" class="submit-export-csv">
-                                Export CSV
-                            </button>
-                        </form>
-                        <form method="GET" action="{{ route('transaction') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input" placeholder="Search for transactions..."
-                                value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <div class="ct-body-content">
-                    <div class="table-wrapper">
-                        <div class="table">
-                            <div class="transaction-header">
-                                <div class="table-row">
-                                    <div class="table-cell">
-                                        Transaction No.
-                                    </div>
-                                    <div class="table-cell category-cell">
-                                        <span>Date</span>
-                                    </div>
-                                    <div class="table-cell">Item/s</div>
-                                    <div class="table-cell">Employee</div>
-                                    <div class="table-cell">Quantity</div>
-                                    <div class="table-cell">Price</div>
-                                    <div class="table-cell">Sub-total</div>
-                                    <div class="table-cell">Total</div>
-                                    <div class="table-cell">Action</div>
-                                </div>
-                            </div>
-                            <div class="transaction-body">
-                                @foreach ($transactions as $transaction)
-                                <div class="table-row">
+            <div class="t-pr-card">
+                <div class="t-pr-card-fl">
+                    <div class="f-part">
+                        <span class="">
+                            EasyTech POS
+                        </span>
+                        <span>Computer Parts</span>
+                        <span class="">Address:</span>
+                        <span class="">Phone:</span>
+                        <span class="">Email:</span>
+                        <span class="">Employee:</span>
+                        <span>Date/Time:</span>
+                        <span>Customer:</span>
+                        <span>Membership ID:</span>
 
-                                    <div class="table-cell">
-                                        {{$transaction->order_id}}
-                                    </div>
-                                    <div class="table-cell date">
-                                        <span>{{$transaction->created_at->toDateString()}}</span>
-                                        <span>{{$transaction->created_at->toTimeString()}}</span>
-                                    </div>
-                                   
-                                    <div class="table-cell">
-                                        @foreach ($transaction->items as $productName)
-                                        <span>- {{$productName->product_name}}</span>
-                                        @endforeach
-
-                                    </div>
-                                    <div class="table-cell">{{$transaction->user->name}}</div>
-                                    <div class="table-cell flx-col-i">
-                                        @foreach($transaction->items as $quantity)
-                                        <span>{{$quantity->quantity}}</span>
-                                        @endforeach
-
-                                    </div>
-                                    <div class="table-cell flx-col-i">
-                                        @foreach($transaction->items as $price)
-                                        <span>₱{{$price->price}}</span>
-                                        @endforeach
-
-                                    </div>
-                                    <div class="table-cell flx-col-i">
-                                        @foreach($transaction->items as $subTotal)
-                                        <span>₱{{$subTotal->subtotal}}</span>
-                                        @endforeach
-                                    </div>
-                                    <div class="table-cell date" style="display: flex;">
-                                        <span class="">₱{{$transaction->order_total}}</span>
-                                    </div>
-                                    <div class="table-cell action">
-
-                                        <div class="action-p archive-w">
-                                            <span class="material-symbols-outlined">
-                                                visibility
-                                            </span>
-                                            <span class="">View</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 @endsection
 @section('js')

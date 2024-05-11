@@ -16,6 +16,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\AdminMembershipController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -120,13 +121,15 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
 
     Route::get('admin/overview', [AdminController::class, 'redirectOverview'])->name('overview');
-  
+    // *print route
+
+    Route::get('admin/print', [PrintController::class, 'print'])->name('print');
    
     Route::get('admin/admin', [AdminController::class, 'redirectAdmin'])->name('admin');
 
     // * transaction
     Route::get('admin/transaction', [TransactionController::class, 'redirectTransaction'])->name('transaction');
-    
+    Route::get('admin/transaction/export', [TransactionController::class, 'exportTransaction'])->name('exportTransaction');
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 
 

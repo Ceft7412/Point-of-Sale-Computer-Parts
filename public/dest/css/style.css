@@ -520,6 +520,16 @@ a, a:visited, a:hover {
   justify-content: space-between;
   gap: 10px;
 }
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-heading .ct-heading-r .exprt-csv .submit-export-csv {
+  border: 1px solid rgb(210, 137, 0);
+  padding: 8px 8px;
+  border-radius: 3px;
+  background-color: orange;
+  cursor: pointer;
+}
+.parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-heading .ct-heading-r .exprt-csv .submit-export-csv:hover {
+  background-color: rgb(240, 156, 0);
+}
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-heading .ct-heading-r .fl-per-pg .archive_select_group {
   width: 140px;
   height: 30px;
@@ -3328,6 +3338,34 @@ a, a:visited, a:hover {
 .m-ct-wr .bd-ct .tbl .tbdy .tbdy-rw .tbl-cell:last-child .a-m-wrapper .a-modal .a-modal-f .ftr .btn-yes:hover {
   background-color: #2e338e;
   border-color: #2e338e;
+}
+
+.c-wrapper .t-pr {
+  position: fixed;
+  padding-top: 150px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.c-wrapper .t-pr .t-pr-card {
+  margin: auto;
+  background-color: white;
+  border: 1px solid grey;
+  width: 400px;
+}
+.c-wrapper .t-pr .t-pr-card .t-pr-card-fl {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Times New Roman", Times, serif;
+}
+.c-wrapper .t-pr .t-pr-card .t-pr-card-fl .f-part {
+  display: flex;
+  flex-direction: column;
 }
 
 .o-modal-wrapper {

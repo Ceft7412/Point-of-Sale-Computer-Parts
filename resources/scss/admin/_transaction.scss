@@ -1,0 +1,165 @@
+.table{
+    .transaction-header{
+        background-color: rgb(59, 60, 86);
+        min-width: fit-content;
+        padding:10px 0;
+        .table-row {
+            color:white;
+            gap:20px;
+            width:100%;
+            display: flex;
+            align-items: center;
+            padding:0 10px;
+            .table-cell{
+                font-family:'Inter Semibold';
+            }
+            .table-cell:nth-child(1) {
+                width: 15%;
+                min-width: 170px;
+            }
+
+            .table-cell:nth-child(2) {
+                width: 10%;
+                min-width: 100px;
+                
+            }
+
+            .table-cell:nth-child(3) {
+                width: 20%;
+                min-width: 170px;
+            }
+
+            .table-cell:nth-child(4) {
+                width: 10%;
+                min-width: 130px;
+            }
+
+            .table-cell:nth-child(5) {
+                width: 15%;
+                min-width: 63px;
+                
+            }
+
+            .table-cell:nth-child(6) {
+                width: 15%;
+                min-width: 75px;
+            }
+
+            .table-cell:nth-child(7) {
+                width: 15%;
+                min-width: 75px;
+            }
+            .table-cell:nth-child(8) {
+                width: 15%;
+                min-width: 100px;
+            }
+            .table-cell:nth-child(9) {
+                width: 15%;
+                min-width: 100px;
+            }
+            
+
+        }
+    }
+    .transaction-body {
+        display:flex;
+        flex-direction: column;
+        min-width: fit-content;
+        .table-row {
+            background-color: white;
+            width:100%;
+            display: flex;
+            align-items: center;
+            padding:10px 10px;
+            gap:20px;
+            .table-cell{
+                span{
+                    word-wrap: break-word;
+                }
+            }
+            .table-cell:nth-child(1){
+                width: 15%;
+                min-width: 170px;
+            }
+            .table-cell:nth-child(2){
+                display: flex;
+               
+                flex-direction: column;
+                gap: 10px;
+                width: 10%;
+                min-width: 100px;
+              
+                span:nth-child(2){
+                   color:grey;
+                }
+            }
+            .table-cell:nth-child(3) {
+                width: 20%;
+                min-width: 170px;
+                display:flex;
+                flex-direction: column;
+                gap:5px;
+            }
+
+            .table-cell:nth-child(4) {
+                width: 10%;
+                min-width: 130px;
+            }
+
+            .table-cell:nth-child(5) {
+                width: 15%;
+                min-width: 65px;
+                display:flex;
+                flex-direction: column;
+                gap:5px;
+            }
+
+            .table-cell:nth-child(6) {
+                width: 15%;
+                min-width: 75px;
+                display:flex;
+                flex-direction: column;
+                gap:5px;
+                
+            }
+
+            .table-cell:nth-child(7) {
+                width: 15%;
+                min-width: 75px;
+                display:flex;
+                flex-direction: column;
+                gap:5px;
+            }
+            .table-cell:nth-child(8) {
+                width: 15%;
+                min-width: 100px;
+            }
+            .table-cell:nth-child(9) {
+                width: 15%;
+                min-width: 100px;
+                display:flex;
+                flex-direction: column;
+                gap:15px;
+                .action-p{
+                    display: flex;
+                    align-items: center;
+                    gap:5px;
+                    padding:5px 10px;
+                    width: fit-content;
+                    border-radius: 5px;
+                    color:white;
+                    span{
+                        font-size:0.9rem;
+                    }
+                }
+                .action-p.archive-w{
+                    background-color: #393fae;
+                }
+                .action-p.archive-w:hover{
+                    background-color: #2229ae;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use League\Csv\Writer;
+use Illuminate\Support\Facades\Log;
 class TransactionController extends Controller
 {
     public function redirectTransaction(){
@@ -18,6 +19,13 @@ class TransactionController extends Controller
             $transactions = Order::all();
             return view("admin.transaction")->with('transactions', $transactions); 
         }
+    }
+
+    public function receipt($id){
+        $transaction = Order::findOrfail($id);
+        Log::info($transaction);
+        return view("admin.receipt")->with('transaction', $transaction);
+
     }
     public function exportTransaction(){
         $transactions = Order::all();

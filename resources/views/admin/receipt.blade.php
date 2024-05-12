@@ -2,7 +2,7 @@
 
 @section('title', 'Transaction')
 @section('css')
-    <link rel="stylesheet" href="../dest/css/style.css">
+    <link rel="stylesheet" href="/dest/css/style.css">
 @endsection
 @section('content')
     {{-- TOPBAR --}}
@@ -252,6 +252,6 @@
     </div>
 @endsection
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
 <script src="../js/script.js"></script>
 @endsection

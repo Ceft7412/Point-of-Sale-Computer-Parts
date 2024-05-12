@@ -14,13 +14,7 @@ class AdminController extends Controller
     //
 
 
-    public function redirectOverview()
-    {
-
-        $currentDate = now()->format('l, M d, Y');
-
-        return view('admin.overview')->with('currentDate', $currentDate);
-    }
+   
 
     public function redirectAdmin()
     {

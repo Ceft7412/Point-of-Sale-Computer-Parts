@@ -266,7 +266,7 @@
                                     <div class="table-cell">Price</div>
                                     <div class="table-cell">Sub-total</div>
                                     <div class="table-cell">Total</div>
-                                    <div class="table-cell">Action</div>
+                                    
                                 </div>
                             </div>
                             <div class="transaction-body">
@@ -308,15 +308,7 @@
                                     <div class="table-cell date" style="display: flex;">
                                         <span class="">₱{{$transaction->order_total}}</span>
                                     </div>
-                                    <div class="table-cell action">
-
-                                        <div class="action-p archive-w">
-                                            <span class="material-symbols-outlined">
-                                                visibility
-                                            </span>
-                                            <span class="">View</span>
-                                        </div>
-                                    </div>
+                                  
                                 </div>
                                 @endforeach
                             </div>
@@ -328,6 +320,6 @@
     </div>
 @endsection
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
 <script src="../js/script.js"></script>
 @endsection

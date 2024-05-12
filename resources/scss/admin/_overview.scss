@@ -1,8 +1,8 @@
 // =============================== DASHBOARD ===============================
 .parent-wrapper {
-    
+
     .c-wrapper {
-        
+
 
 
         //  CONTENT HEADING
@@ -13,19 +13,20 @@
 
             .dashboard {
                 font-size: 1.5rem;
-                
+
             }
-            .h-date-now{
-         
+
+            .h-date-now {
+
                 font-size: 0.89rem;
-                color:#696969;
+                color: #696969;
             }
         }
 
         .c-flex-wrapper {
             display: flex;
             padding: 10px 30px;
-            gap:10px;
+            gap: 10px;
             width: 100%;
 
 
@@ -40,21 +41,24 @@
                 .cards-wrapper {
                     display: flex;
 
-                    
+
 
                     .t-card {
                         display: flex;
                         flex: 1;
-                        .card.orange{
-                            border-top:3px solid orange;
+
+                        .card.orange {
+                            border-top: 3px solid orange;
                         }
-                            .card {
+
+                        .card {
                             padding: 10px;
                             flex: 1;
                             height: 120px;
                             border-radius: 5px;
                             background-color: #F8F8FF;
-                            
+                            display: flex;
+                            flex-direction: column;
                             white-space: nowrap;
                             margin: 10px 5px;
 
@@ -63,54 +67,187 @@
                             -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
                             -o-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
                             box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
-                            .card-heading{
-                                .text-heading{
-                                    
+
+                            .card-heading {
+                                display: flex;
+                                gap: 10px;
+                                justify-content: space-between;
+                                position: relative;
+                                .show-slct{
+                                    cursor:pointer;
+                                }
+                                .text-heading {
+
                                     font-size: 0.875rem;
                                 }
+
+                                .date-sales {
+                                    position: absolute;
+                                    background-color: white;
+                                    border: 1px solid rgb(213, 213, 213);
+                                    top: 20px;
+                                    right: 0;
+                                    display: none;
+
+                                    .sales-fl {
+                                        display: flex;
+                                        flex-direction: column;
+                                        padding: 10px;
+                                        gap: 5px;
+
+                                        span {
+                                            font-size: 0.9rem;
+                                            cursor: pointer;
+
+                                            &:hover {
+                                                text-decoration: underline;
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            .card-body {
+                                flex-grow: 1;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 2.5rem;
+
+                                .ch {
+                                    display: none;
+                                }
+
                             }
                         }
                     }
                 }
-                .r-orders{
+
+                .r-orders {
                     border-radius: 5px;
-                    height: 300px;
+                    height: 100%;
                     padding: 10px;
-                  
-                    
+
+
+                    overflow-y: auto;
                     white-space: nowrap;
                     margin: 10px 5px;
                     padding: 10px;
-                    .r-orders-flex{
-                        display:flex;
+
+                    .r-orders-flex {
+                        display: flex;
                         flex-direction: column;
-                        .r-heading{
-                            display:flex;
-                            justify-content:space-between;
-                            border-bottom:1px solid rgb(202, 202, 202);
-                            padding:10px 0;
-                            .r-title{
-                                
-                                font-size:1.3rem;
+
+                        .r-heading {
+                            display: flex;
+                            justify-content: space-between;
+                            border-bottom: 1px solid rgb(202, 202, 202);
+                            padding: 10px 0;
+
+                            .r-title {
+
+                                font-size: 1.3rem;
                             }
                         }
-                        
-                        .r-body{
-                            display:flex;
+
+                        .r-body {
+                            display: flex;
                             flex-direction: column;
-                            margin-top:10px;
-                            .r-body-h{
-                                display:flex;
-                                justify-content:space-between;
-                                span{
-                 
-                                    font-size:1rem;
+                            margin-top: 10px;
+                            width: 100%;
+                            overflow-x: auto;
+
+                            .r-body-h {
+                                display: flex;
+                                padding: 0 10px;
+                                justify-content: space-between;
+                                font-family: "Inter Semibold";
+
+                                .cell {
+                                    width: 170px;
+                                    min-width: 170px;
                                 }
-                            
+
+                                .cell:first-child {
+                                    width: 100px;
+                                    min-width: 100px;
+                                }
+
+                                .mrgn {
+                                    margin-right: 10px;
+                                }
+
+                                .name {
+                                    width: 200px;
+                                    min-width: 200px;
+                                }
+
+                                .qty {
+                                    width: 100px;
+                                    min-width: 100px;
+                                }
+
+                                span {
+
+                                    font-size: 1rem;
+                                }
+
+                            }
+
+                            .r-body-c {
+                                min-width: fit-content;
+                                display: flex;
+                                flex-direction: column;
+                                margin-top: 10px;
+                                gap: 15px;
+
+                                .r-body-c-row {
+                                    padding: 10px 10px;
+                                    display: flex;
+                                    background-color: white;
+                                    justify-content: space-between;
+                                    border-radius: 5px;
+                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                    align-items: center;
+
+                                    .cell {
+                                        width: 170px;
+                                        min-width: 170px;
+                                    }
+
+                                    .cell:first-child {
+                                        width: 100px;
+                                        min-width: 100px;
+                                    }
+
+                                    .mrgn {
+                                        margin-right: 10px;
+                                    }
+
+                                    .name {
+                                        width: 200px;
+                                        min-width: 200px;
+                                        display: flex;
+                                        overflow-x: auto;
+                                        flex-direction: column;
+
+                                        span {
+                                            word-wrap: break-word;
+                                        }
+                                    }
+
+                                    .qty {
+                                        width: 100px;
+                                        min-width: 100px;
+                                    }
+
+                                }
                             }
                         }
                     }
-                
+
                 }
             }
 
@@ -120,46 +257,138 @@
                 width: 25%;
                 display: flex;
                 flex-direction: column;
-                
+                gap: 15px;
+
                 .card-product {
-                 
-                    height: 300px;
+                    display: flex;
+                    flex-direction: column;
+                    height: 50%;
                     padding: 10px;
                     white-space: nowrap;
-                    margin: 10px 5px;
+
                     padding: 10px;
-                    border-bottom:1px solid rgb(202, 202, 202);
-                    .card-heading{
-                        .text-heading{
-                         
-                            font-size:1.3rem;
-                        }
-                        .r-n-heading{
-                            display:flex;
-                            gap:15px;
-                            margin-top:8px;
-                            span{
-                                
-                                font-size:0.9rem;
-                            
+                    border-radius: 5px;
+                    padding: 10px;
+                    background-color: white;
+
+                    .card-heading {
+                        .text-heading {
+                            display: flex;
+                            gap: 10px;
+                            justify-content: space-between;
+                            align-items: center;
+                            font-size: 1.3rem;
+
+                            .small {
+                                font-size: 1rem;
                             }
                         }
-                    
+
+                        .r-n-heading {
+
+                            gap: 15px;
+                            margin-top: 8px;
+                            display: flex;
+                            gap: 10px;
+                            justify-content: space-between;
+                            font-family: "Inter Semibold";
+                            margin-bottom: 10px;
+
+                            span:nth-child(1) {
+                                width: 20%;
+                            }
+
+                            span:nth-child(2) {
+                                width: 80%;
+                            }
+                        }
+
+                    }
+
+                    .card-body {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        overflow: auto;
+                        gap: 10px;
+                        font-size: 1.0625rem;
+
+                        .b-row {
+                            display: flex;
+                            gap: 10px;
+                            width: 100%;
+
+                            span:nth-child(1) {
+                                width: 20%;
+                            }
+
+                            span:nth-child(2) {
+                                width: 80%;
+                            }
+                        }
                     }
                 }
-                .card-no-stock{
+
+                .card-no-stock {
                     border-radius: 5px;
-                    height: 170px;
+                    height: 50%;
                     padding: 10px;
                     white-space: nowrap;
-                    margin: 10px 5px;
+                    background: white;
+
+
+
                     padding: 10px;
-                    .card-heading{
-                        .text-heading{
-                       
-                            font-size:1.3rem;
+
+                    .card-heading {
+                        display: flex;
+                        gap: 10px;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .text-heading {
+
+                            font-size: 1.3rem;
                         }
-                    
+
+                        .r-n-heading {
+                            .rank-heading {
+                                width: 50px;
+                                min-width: 50px;
+                            }
+                        }
+
+
+                    }
+
+                    .card-body {
+                        display: flex;
+                        flex-direction: column;
+
+                        font-size: .9375rem;
+                        margin-top: 10px;
+                        overflow-y: auto;
+                        gap: 10px;
+
+                        .b-row {
+
+                            padding: 10px;
+                            height: 40px;
+                            border-radius: 5px;
+                            background-color: rgba(255, 0, 0, 0.4);
+
+                            .rank-heading {
+                                width: 50px;
+                                min-width: 50px;
+                            }
+
+
+                        }
+
+                        .b-row:last-child {
+                            border-bottom: none;
+                        }
                     }
                 }
             }
@@ -184,10 +413,8 @@
                         flex-direction: column;
 
                         .t-card {
-                            
-                            .card {
-                                
-                            }
+
+                            .card {}
                         }
                     }
                 }
@@ -195,6 +422,7 @@
         }
     }
 }
+
 @media (max-width: 767px) {
     .parent-wrapper {
         .c-wrapper {
@@ -206,10 +434,11 @@
                     width: 100%;
 
                     .cards-wrapper {
-                        
+
 
                         .t-card {
                             flex-wrap: wrap;
+
                             .card {
                                 flex-basis: 50%;
                             }
@@ -220,13 +449,14 @@
         }
     }
 }
-@media (max-width:900px){
+
+@media (max-width:900px) {
     .parent-wrapper {
         .c-wrapper {
-            margin-left:0;
+            margin-left: 0;
             transition: all 0.5s ease-in-out;
+        }
     }
-}
 }
 
 
@@ -246,9 +476,11 @@
                         .card {}
                     }
                 }
+
                 .c-right-content {
                     width: 100%;
-                    .card-product{
+
+                    .card-product {
                         height: 250px;
                     }
                 }
@@ -259,14 +491,15 @@
 
 @media (min-width: 2000px) {
     .parent-wrapper {
-        display:flex;
+        display: flex;
         align-items: center;
         justify-content: center;
-        width:100%;
+        width: 100%;
+
         .c-wrapper {
-            
+
             max-width: 1700px;
-            width:70%;
+            width: 70%;
         }
     }
 }

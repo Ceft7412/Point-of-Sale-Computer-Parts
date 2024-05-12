@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\OrderController;
@@ -120,7 +121,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
 
 
-    Route::get('admin/overview', [AdminController::class, 'redirectOverview'])->name('overview');
+    Route::get('admin/overview', [DashboardController::class, 'redirectOverview'])->name('overview');
     // *print route
 
     Route::get('admin/print', [PrintController::class, 'print'])->name('print');
@@ -130,6 +131,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     // * transaction
     Route::get('admin/transaction', [TransactionController::class, 'redirectTransaction'])->name('transaction');
     Route::get('admin/transaction/export', [TransactionController::class, 'exportTransaction'])->name('exportTransaction');
+    Route::post('admin/transaction/receipt/{id}', [TransactionController::class, 'receipt'])->name('receipt');
+    
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 
 

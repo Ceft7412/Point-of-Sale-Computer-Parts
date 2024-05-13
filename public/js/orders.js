@@ -1,31 +1,10 @@
+    
+//* filtering   
     $('.item-all').on('click', function () {
         $('.product-item').show();
-        // $.get('/order/all-products', function (data) {
-        //     const oFlexBody = $('.o-flex-body');
-        //     oFlexBody.empty();
-
-        //     data.forEach(product => {
-        //         const productItem = `
-        //             <div class="product-item">
-        //                 <div class="header-product">
-        //                     <span class="price-product">₱${product.product_price}</span>
-        //                 </div>
-        //                 <div class="body-product">
-        //                     <img src="${product.product_image}" alt="${product.product_name}" class="">
-        //                 </div>
-        //                 <div class="footer-product">
-        //                     <span class="prod">${product.product_name}</span>
-        //                 </div>
-        //             </div>
-        //         `;
-
-        //         oFlexBody.append(productItem);
-        //     });
-        // });
+        
     });
 
-
-    //Hide category and show subcategory
     $('.item-category').on('click', function () {
         $('.category-group, .item-all').hide();
 
@@ -33,88 +12,21 @@
 
         $(`#subcategory-order-${categoryId}`).css('display', 'flex');
 
-        $('.product-item').hide(); // Hide all products
+        $('.product-item').hide();
         $('.product-item[data-category-id="' + categoryId + '"]').show();
-    }); // Show products for clicked category
-
-
-    //the data parameter is an array containing objects(my products)
-    //to get the data, first we should set the route in order to get the json data and passing it into the parameter to hold
-    //since the data array contains many objects(products) we must perform for loop
-    //to show all the products specfied by our category_id in the column of product
-    // to visualize the loop, in Laravel, it will look like this: foreach (data as product)
-    // as to why the foreach looks like this in jquery, because why not? to make it complicated.
-    // developers like complicated things haha!
-
-    // $.get(('/order/products/' + categoryId), function (data) {
-    //     const oFlexBody = $('.o-flex-body');
-    //     oFlexBody.empty();
-
-    //     data.forEach(product => {
-    //         const productImageUrl = '/storage/product_images/' + product.product_image;
-    //         const productItem = `
-    //             <div class="product-item">
-    //                 <div class="header-product">
-    //                     <span class="price-product">₱${product.product_price}</span>
-    //                 </div>
-    //                 <div class="body-product">
-    //                     <img src="${productImageUrl}" alt="${product.product_name}" class="">
-    //                 </div>
-    //                 <div class="footer-product">
-    //                     <span class="prod">${product.product_name}</span>
-    //                 </div>
-    //             </div>
-    //         `;
-
-    //         oFlexBody.append(productItem);
-    //     });
-    // });
-
-
+    }); 
 
     $('.single-item').on('click', function () {
-
         const subcategoryId = $(this).data('subcategory-id');
-        $('.product-item').hide(); // Hide all products
+        $('.product-item').hide(); 
         $('.product-item[data-subcategory-id="' + subcategoryId + '"]').show();
-        // const productId = $(this).data('subcategory-id');
-        // $.get(('/order/subcategory/products/' + productId), function (data) {
-        //     const oFlexBody = $('.o-flex-body');
-        //     oFlexBody.empty();
-
-        //     data.forEach(product => {
-        //         const productImageUrl = '/storage/app/public/product_images/' + product.product_image;
-        //         const productItem = `
-        //             <div class="product-item">
-        //                 <div class="header-product">
-        //                     <span class="price-product">₱${product.product_price}</span>
-        //                 </div>
-        //                 <div class="body-product">
-        //                     <img src="${productImageUrl}" alt="${product.product_name}" class="">
-        //                 </div>
-        //                 <div class="footer-product">
-        //                     <span class="prod">${product.product_name}</span>
-        //                 </div>
-        //             </div>
-        //         `;
-
-        //         oFlexBody.append(productItem);
-        //     });
-        // });
-
     });
 
     $('.back').on('click', function () {
         $('.subcategory-group').hide();
         $('.category-group, .item-all').css('display', 'flex');
     });
-
-
-
-
-
-
-
+ //* end of filtering 
 
     $(".num .item ").click(function () {
         var num = $(this).children().first().text();
@@ -122,15 +34,10 @@
         $("#input_numbers").val(inputVal + num);
     });
 
-
-
     $(".del").click(function () {
         var inputVal = $("#input_numbers").val();
         $("#input_numbers").val(inputVal.slice(0, -1));
     });
-
-
-
 
     let selectedProducts = [];
     $('.proceed-button').on('click', function () {
@@ -143,8 +50,6 @@
         } else {
             $('.o-modal-wrapper').show();
         }
-
-
     });
 
     $('#av-mem-card').on('click', function () {
@@ -155,8 +60,6 @@
         $('.membership-modal-wrapper').hide();
     });
 
-
-
     $('.rightbar-body').on('submit', function (e) {
         var inputNumbers = $('#input_numbers').val();
         var total = calculateTotal();
@@ -166,7 +69,7 @@
         }
 
         if (inputNumbers < total) {
-            e.preventDefault();
+            e.preventDefault(); 
             $('.er-val-red').text('Insufficient money.');
             $('.er-val-red').show();
         }
@@ -199,34 +102,19 @@
         calculateChange();
     });
 
-    // Event listener for the input field
     $('#input_numbers').on('input', function (event) {
-        // Get the current input value
         let inputVal = $(this).val();
-
-        // Ensure the input is valid: allows only numbers and one dot (.)
         inputVal = inputVal.replace(/[^0-9.]/g, '');
-
-        // Remove any extra dots, allowing only one dot
         if (inputVal.indexOf('.') !== -1) {
-            inputVal = inputVal.replace(/(\..*)\./g, '$1'); // Allow only one dot
+            inputVal = inputVal.replace(/(\..*)\./g, '$1');
         }
-
-        // Set the sanitized value back to the input field
         $(this).val(inputVal);
     });
 
     function calculateChange() {
-        // Calculate the total amount
         const total = calculateTotal();
-
-        // Get the cash paid by the customer from the input field
         const cashPaid = parseFloat($('#input_numbers').val());
-
-        // Calculate the change
         const change = cashPaid - total;
-
-        // Format the change and display it
         if (change >= 0) {
             const formattedChange = change.toLocaleString('en-PH', {
                 style: 'currency',
@@ -242,12 +130,10 @@
             $('.change-value').val(`Insufficient`);
             $('#change_value').val(Math.abs(change));
         }
-
     }
 
     $('.product-item').on('click', function (e) {
         const form = $(this);
-
         $.ajax({
             type: form.attr('method'),
             url: form.attr('action'),
@@ -286,8 +172,8 @@
                         product.item_quantity++;
                         quantityInput.val(product.item_quantity);
                     } else {
-                        $('.error-modal-wrapper').slideDown(50); // Show the error modal
-                        $('#error-message').text(`Error notification: Maximum quantity for product ${response.product_name} has been reached.`); // Set the error message
+                        $('.error-modal-wrapper').slideDown(50);
+                        $('#error-message').text(`Error notification: Maximum quantity for product ${response.product_name} has been reached.`); 
                         setTimeout(function () {
                             $('.error-modal-wrapper').slideUp(70);
                         }, 5000);
@@ -301,9 +187,7 @@
         });
     });
     $('.cancel').click(function () {
-
-        $('.error-modal-wrapper').hide(); // Hide the error modal
-
+        $('.error-modal-wrapper').hide(); 
     });
 
     $('.cancel-button').click(function () {
@@ -312,8 +196,6 @@
     $('.ok').click(function () {
         $('.success-modal').hide();
     });
-
-
     $('.rightbar-body').on('click', '.increase-quantity', function () {
         const productItem = $(this).closest('.rightbar-body-item');
         const productId = productItem.data('product-id');
@@ -326,12 +208,8 @@
             product.item_quantity = newQuantity;
             updateSubtotalPrice();
             calculateTotal();
-        } else {
-            alert(`Maximum quantity for product ${product.product_name} has been reached.`);
         }
     });
-
-
 
     $('.rightbar-body').on('click', '.decrease-quantity', function () {
         const productItem = $(this).closest('.rightbar-body-item');
@@ -344,9 +222,7 @@
             quantityInput.val(newQuantity);
             product.item_quantity = newQuantity;
             calculateTotal();
-        } else {
-            alert('Quantity cannot be less than 1.');
-        }
+        } 
     });
     $('.rightbar-body').on('input', '.num-product-input', function () {
         const max = parseInt($(this).attr('max'));
@@ -382,50 +258,3 @@
     }
 
     setInterval(updateClock, 1000);
-
-
-
-
-    // =====membership page========
-
-    $('.submit-button-application').on('click', function () {
-        var name = $('#applicant_name').val();
-        var email = $('#applicant_email').val();
-        var phone = $('#applicant_phone').val();
-        if (name === "") {
-            $('#applicant_name').css('borderColor', 'red');
-            $('#applicant_name').siblings('.err-empty').show();
-        } else {
-            $('#applicant_name').css('borderColor', 'rgb(180, 180, 180)');
-            $('#applicant_name').siblings('.err-empty').hide();
-        }
-
-        if (email === "") {
-            $('#applicant_email').css('borderColor', 'red');
-            $('#applicant_email').siblings('.err-empty').show();
-        } else {
-            $('#applicant_email').css('borderColor', 'rgb(180, 180, 180)');
-            $('#applicant_email').siblings('.err-empty').hide();
-        }
-
-        if (phone === "") {
-            $('#applicant_phone').css('borderColor', 'red');
-            $('#applicant_phone').siblings('.err-empty').show();
-        } else {
-            $('#applicant_phone').css('borderColor', 'rgb(180, 180, 180)');
-            $('#applicant_phone').siblings('.err-empty').hide();
-        }
-        if (name !== "" && email !== "" && phone !== "") {
-            $('.confirm-pass-wrapper').css('display', 'flex');
-        }
-
-
-
-    });
-
-    $('.submit-button-cancel').on('click', function () {
-        $('.confirm-pass-wrapper').hide();
-    })
-    setTimeout(function () {
-        $('#errorModal').slideUp();
-    }, 3000);

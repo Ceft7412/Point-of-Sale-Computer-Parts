@@ -238,7 +238,7 @@
                             <div class="card-heading">
                                 <span class="text-heading">Total Sales</span>
                                 <i class="bi bi-three-dots show-slct " id="show-slct-sales"></i>
-                                <div class="date-sales" id="date-sales">
+                                <div class="date-card" id="date-sales">
                                     <div class="sales-fl">
                                         <span class="t-slct" id="sales-t">Today</span>
                                         <span class="w-slct" id="sales-w">This Week</span>
@@ -248,7 +248,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales" id="default-sales">₱ {{ number_format($totalSales['total'], 2) }}</span>
+                                <span class="default-sales default-item" id="default-sales">₱ {{ number_format($totalSales['total'], 2) }}</span>
                                 <span class="ch first-item" id="today-sales">₱ {{ number_format($totalSales['today'], 2) }}</span>
                                 <span class="ch second-item" id="week-sales">₱ {{ number_format( $totalSales['thisWeek'], 2) }}</span>
                                 <span class="ch third-item" id="month-sales">₱ {{ number_format($totalSales['thisMonth'], 2) }}</span>
@@ -259,7 +259,7 @@
                             <div class="card-heading">
                                 <span class="text-heading">Total Orders</span>
                                 <i class="bi bi-three-dots show-slct" id="show-slct-orders"></i>
-                                <div class="date-sales" id="date-orders">
+                                <div class="date-card" id="date-orders">
                                     <div class="sales-fl">
                                         <span class="t-slct" id="orders-t">Today</span>
                                         <span class="w-slct" id="orders-w">This Week</span>
@@ -269,7 +269,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales" id="default-orders">{{$totalOrders['total']}}</span>
+                                <span class="default-sales default-item" id="default-orders">{{$totalOrders['total']}}</span>
                                 <span class="ch first-item" id="today-orders">{{$totalOrders['today']}}</span>
                                 <span class="ch second-item" id="week-orders">{{$totalOrders['thisWeek']}}</span>
                                 <span class="ch third-item" id="month-orders">{{$totalOrders['thisMonth']}}</span>
@@ -282,7 +282,7 @@
                             <div class="card-heading">
                                 <span class="text-heading">Product Sold</span>
                                 <i class="bi bi-three-dots show-slct" id="show-slct-products"></i>
-                                <div class="date-sales" id="date-products">
+                                <div class="date-card" id="date-products">
                                     <div class="sales-fl">
                                         <span class="t-slct" id="products-t">Today</span>
                                         <span class="w-slct" id="products-w">This Week</span>
@@ -292,7 +292,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales" id="default-products">{{$totalProductsSold['total']}}</span>
+                                <span class="default-sales default-item" id="default-products">{{$totalProductsSold['total']}}</span>
                                 <span class="ch first-item" id="today-products">{{$totalProductsSold['today']}}</span>
                                 <span class="ch second-item" id="week-products">{{$totalProductsSold['thisWeek']}}</span>
                                 <span class="ch third-item" id="month-products">{{$totalProductsSold['thisMonth']}}</span>
@@ -303,7 +303,7 @@
                             <div class="card-heading">
                                 <span class="text-heading">Customer</span>
                                 <i class="bi bi-three-dots show-slct" id="show-slct-customers"></i>
-                                <div class="date-sales" id="date-customers">
+                                <div class="date-card" id="date-customers">
                                     <div class="sales-fl">
                                         <span class="t-slct" id="customers-t">Today</span>
                                         <span class="w-slct" id="customers-w">This Week</span>
@@ -313,7 +313,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales" id="default-customers">{{$totalCustomers['total']}}</span>
+                                <span class="default-sales default-item" id="default-customers">{{$totalCustomers['total']}}</span>
                                 <span class="ch first-item" id="today-customers">{{$totalCustomers['today']}}</span>
                                 <span class="ch second-item" id="week-customers">{{$totalCustomers['thisWeek']}}</span>
                                 <span class="ch third-item" id="month-customers">{{$totalCustomers['thisMonth']}}</span>

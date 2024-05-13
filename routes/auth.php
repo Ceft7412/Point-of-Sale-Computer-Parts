@@ -22,26 +22,19 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-
-
-    Route::get('/', [AuthenticatedSessionController::class, 'create'])
-        ->name('login');
-
+    // *These functions are provided by Laravel Breeze
+    //login route
+    Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
+    //login functionality
     Route::post('auth/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
-
-    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-        ->name('password.request');
-
-    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->name('password.email');
-
-    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-        ->name('password.reset');
-
-    Route::post('reset-password', [NewPasswordController::class, 'store'])
-        ->name('password.store');
-
-
+    //forgot password route
+    Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+    //forgot password - email functionality
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+    //reset password route
+    Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+    //reset password functionality
+    Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 });
 
 // EMPLOYEE ROUTES

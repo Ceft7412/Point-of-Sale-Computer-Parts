@@ -1,6 +1,6 @@
 @extends('layouts.employee-layout')
 
-@section('title', 'Order')
+@section('title', 'Request Membership')
 @section('css')
     <link rel="stylesheet" href="../dest/css/style.css">
 @endsection
@@ -125,7 +125,7 @@
 
 @section('js')
     <script src="../js/jquery-3.7.1.min.js"></script>
-    <script src="../js/orders.js"></script>
+    <script src="../js/membership.js"></script>
 @endsection
 
 @endsection

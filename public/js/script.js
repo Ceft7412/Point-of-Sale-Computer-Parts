@@ -97,15 +97,6 @@ $('.cc').click(function () {
 
 
 
-$('#toggle-password').click(function () {
-    $(this).find('i').toggleClass('bi-eye-slash-fill bi-eye-fill');
-    var input = $('#password');
-    if (input.attr('type') == 'password') {
-        input.attr('type', 'text');
-    } else {
-        input.attr('type', 'password');
-    }
-});
 
 
 
@@ -470,118 +461,30 @@ $('.view-more').on('click', function(){
     $(`#view_receipt_${transactId}`).submit();
 });
 
+
+
 // *dashboard
-
-$('#show-slct-sales').on('click', function(){
-    $('#date-sales').toggle()
-
+$('.show-slct').on('click', function(){
+    $(this).siblings('.date-card').toggle();
 });
 
-$('#sales-t').on('click', function(){
-    $('#default-sales').hide();
-    $('#date-sales').hide();
-    $('#today-sales').siblings().hide();
-    $('#today-sales').show();
-
+$('.t-slct').on('click', function(){
+    $(this).closest('.date-card').toggle();
+    $(this).closest('.card-heading').siblings('.card-body').children('.default-item').hide();
+    $(this).closest('.card-heading').siblings('.card-body').children('.first-item').siblings().hide();
+    $(this).closest('.card-heading').siblings('.card-body').children('.first-item').show();
 });
 
-$('#sales-w').on('click', function(){
-    $('#default-sales').hide();
-    $('#date-sales').hide();
-    $('#week-sales').siblings().hide();
-    $('#week-sales').show();
-
+$('.w-slct').on('click', function(){    
+    $(this).closest('.date-card').toggle();
+    $(this).closest('.card-heading').siblings('.card-body').children('.default-item').hide();
+    $(this).closest('.card-heading').siblings('.card-body').children('.second-item').siblings().hide();
+    $(this).closest('.card-heading').siblings('.card-body').children('.second-item').show();
 });
 
-$('#sales-m').on('click', function(){
-  
-    $('#date-sales').hide();
-    $('#month-sales').siblings().hide();
-    $('#month-sales').show();
-
-});
-
-$('#show-slct-orders').on('click', function(){
-    $('#date-orders').toggle()
-});
-
-$('#orders-t').on('click', function(){
-    $('#default-orders').hide();
-    $('#date-orders').hide();
-    $('#today-orders').siblings().hide();
-    $('#today-orders').show();
-
-});
-
-$('#orders-w').on('click', function(){
-    $('#default-orders').hide();
-    $('#date-orders').hide();
-    $('#week-orders').siblings().hide();
-    $('#week-orders').show();
-
-});
-
-$('#orders-m').on('click', function(){
-  
-    $('#date-orders').hide();
-    $('#month-orders').siblings().hide();
-    $('#month-orders').show();
-
-});
-
-
-$('#show-slct-products').on('click', function(){
-    $('#date-products').toggle()
-});
-
-$('#products-t').on('click', function(){
-    $('#default-products').hide();
-    $('#date-products').hide();
-    $('#today-products').siblings().hide();
-    $('#today-products').show();
-
-});
-
-$('#products-w').on('click', function(){
-    $('#default-products').hide();
-    $('#date-products').hide();
-    $('#week-products').siblings().hide();
-    $('#week-products').show();
-
-});
-
-$('#products-m').on('click', function(){
-  
-    $('#date-products').hide();
-    $('#month-products').siblings().hide();
-    $('#month-products').show();
-
-});
-
-$('#show-slct-customers').on('click', function(){
-    $('#date-customers').toggle()
-});
-
-$('#customers-t').on('click', function(){
-    $('#default-customers').hide();
-    $('#date-customers').hide();
-    $('#today-customers').siblings().hide();
-    $('#today-customers').show();
-
-});
-
-$('#customers-w').on('click', function(){
-    $('#default-customers').hide();
-    $('#date-customers').hide();
-    $('#week-customers').siblings().hide();
-    $('#week-customers').show();
-
-});
-
-$('#customers-m').on('click', function(){
-  
-    $('#date-customers').hide();
-    $('#month-customers').siblings().hide();
-    $('#month-customers').show();
-
+$('.m-slct').on('click', function(){
+    $(this).closest('.date-card').toggle();
+    $(this).closest('.card-heading').siblings('.card-body').children('.default-item').hide();
+    $(this).closest('.card-heading').siblings('.card-body').children('.third-item').siblings().hide();
+    $(this).closest('.card-heading').siblings('.card-body').children('.third-item').show();
 });

@@ -1784,7 +1784,7 @@ a, a:visited, a:hover {
 .parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .text-heading {
   font-size: 0.875rem;
 }
-.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-sales {
+.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-card {
   position: absolute;
   background-color: white;
   border: 1px solid rgb(213, 213, 213);
@@ -1792,17 +1792,17 @@ a, a:visited, a:hover {
   right: 0;
   display: none;
 }
-.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-sales .sales-fl {
+.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-card .sales-fl {
   display: flex;
   flex-direction: column;
   padding: 10px;
   gap: 5px;
 }
-.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-sales .sales-fl span {
+.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-card .sales-fl span {
   font-size: 0.9rem;
   cursor: pointer;
 }
-.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-sales .sales-fl span:hover {
+.parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-heading .date-card .sales-fl span:hover {
   text-decoration: underline;
 }
 .parent-wrapper .c-wrapper .c-flex-wrapper .c-left-content .cards-wrapper .t-card .card .card-body {
@@ -4878,6 +4878,9 @@ a, a:visited, a:hover {
 }
 .wrapper .l-wrapper .l-flex .l-form-wrapper .l-footer .l-forgot {
   font-size: 0.875rem;
+  color: blue;
+  font-family: "Inter Light";
+  align-self: flex-start;
 }
 .wrapper .l-wrapper .l-flex .l-form-wrapper .l-footer .l-signin {
   background-color: orange;
@@ -4888,7 +4891,7 @@ a, a:visited, a:hover {
   align-self: flex-end;
   font-size: 1rem;
   color: white;
-  border: 1px solid rgb(164, 107, 0);
+  border: 1px solid rgb(214, 139, 0);
 }
 .wrapper .l-wrapper .l-flex .l-form-wrapper .l-footer .l-signin:hover {
   background-color: rgb(241, 157, 0);
@@ -4999,6 +5002,10 @@ a, a:visited, a:hover {
   flex-direction: column;
   gap: 5px;
   width: 100%;
+}
+.wrapper .f-w .f-w-card .f-w-card-fl .card-fl-bd .error {
+  color: red;
+  font-size: 0.9375rem;
 }
 .wrapper .f-w .f-w-card .f-w-card-fl .card-fl-bd .success-message-wrapper .success {
   color: green;

@@ -54,6 +54,11 @@
                         <span class="">Enter the email address associated with your account and we'll send you a link to reset your password.</span>
                     </div>
                     <div class="card-fl-bd">
+                        @if (session('status'))
+                        <div class="success-message-wrapper">
+                            <span class="success">{{ session('status') }}</span>
+                        </div>
+                         @endif
                         <label for="email">Email</label>
                         <input id="email" name="email" type="email">
                     </div>

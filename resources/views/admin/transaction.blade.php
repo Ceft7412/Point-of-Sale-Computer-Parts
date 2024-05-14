@@ -222,7 +222,6 @@
 
     </div>
 
-    <!-- CONTENT -->
 
     <div class="c-wrapper">
         <div class="c-heading-wrapper category">
@@ -314,7 +313,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="">{{ $transactions->links() }}</div>
+                    <div>{{ $transactions->links() }}</div>
                     
                 </div>
             </div>

@@ -2229,6 +2229,21 @@ a, a:visited, a:hover {
   cursor: pointer;
 }
 
+.pagination {
+  justify-content: flex-end;
+}
+.pagination .page-link {
+  color: black;
+}
+.pagination .page-link:hover {
+  color: white;
+  background-color: #393fae;
+}
+.pagination .page-item.active .page-link {
+  background-color: #393fae;
+  color: white;
+}
+
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content {
   padding-top: 15px;
 }

@@ -163,3 +163,25 @@
         }
     }
 }
+
+.pagination  {
+    justify-content:flex-end;
+    
+    .page-link{
+        color: black;
+       
+        &:hover{
+            color: white;
+            background-color: #393fae;  
+        }
+    }
+    
+    .page-item.active .page-link{
+        background-color: #393fae;
+        color: white;
+    }
+    
+    
+    
+}
+

@@ -3593,7 +3593,6 @@ a, a:visited, a:hover {
   height: 100%;
 }
 .o-modal-wrapper .o-modal .o-flex-modal .body .membership {
-  cursor: pointer;
   border-radius: 5px;
   display: flex;
 }
@@ -3601,6 +3600,7 @@ a, a:visited, a:hover {
   font-size: 16px;
   color: orange;
   text-decoration: underline;
+  cursor: pointer;
 }
 .o-modal-wrapper .o-modal .o-flex-modal .body .labels {
   margin-top: 15px;
@@ -3843,6 +3843,85 @@ a, a:visited, a:hover {
   color: grey;
 }
 
+.customer-modal-wrapper {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  margin: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.customer-modal-wrapper .customer-modal {
+  background-color: #fefefe;
+  margin: auto;
+  animation: slideDown 0.3s ease-out;
+  width: 450px;
+  height: 300px;
+  border-radius: 8px;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-header {
+  height: 10%;
+  background-color: orange;
+  display: flex;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-body {
+  height: 70%;
+  flex: 1;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-body .item {
+  display: flex;
+  flex-direction: column;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-body .item input {
+  border: 1px solid rgb(161, 161, 161);
+  padding: 0 10px;
+  font-size: 1.0625rem;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-footer {
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  border-top: 1px solid rgb(211, 211, 211);
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-footer .item {
+  display: flex;
+  gap: 10px;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-footer .item button:nth-child(2) {
+  background-color: orange;
+  color: white;
+}
+.customer-modal-wrapper .customer-modal .customer-modal-flex .customer-modal-footer .item button:nth-child(2):hover {
+  background-color: #ff8c00;
+}
+
 .membership-modal-wrapper {
   position: fixed;
   display: none;
@@ -3893,17 +3972,45 @@ a, a:visited, a:hover {
   width: 100%;
   justify-content: center;
 }
-.membership-modal-wrapper .membership-modal .membership-modal-flex .body .input-id::-webkit-inner-spin-button,
-.membership-modal-wrapper .membership-modal .membership-modal-flex .body .input-id::-webkit-outer-spin-button {
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .membership_card_number_success {
+  color: green;
+  font-size: 0.9375rem;
+}
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .membership_card_number_error {
+  color: red;
+  font-size: 0.9375rem;
+}
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .fl-row-mem-card {
+  display: flex;
+}
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .fl-row-mem-card .input-id::-webkit-inner-spin-button,
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .fl-row-mem-card .input-id::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.membership-modal-wrapper .membership-modal .membership-modal-flex .body .input-id {
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .fl-row-mem-card .input-id {
+  flex: 1;
+  width: 100%;
   border: 1px solid rgb(161, 161, 161);
   padding: 0 10px;
   font-size: 1.0625rem;
   height: 40px;
   border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  outline: none;
+}
+.membership-modal-wrapper .membership-modal .membership-modal-flex .body .fl-row-mem-card button {
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top: 1px solid rgb(161, 161, 161);
+  border-bottom: 1px solid rgb(161, 161, 161);
+  border-right: 1px solid rgb(161, 161, 161);
+  border-left: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  height: 40px;
 }
 .membership-modal-wrapper .membership-modal .membership-modal-flex .footer {
   padding: 10px;
@@ -4744,6 +4851,138 @@ a, a:visited, a:hover {
     width: 85%;
   }
 }
+.o-content .card-receipt-wrapper {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.o-content .card-receipt-wrapper .g-back {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+}
+.o-content .card-receipt-wrapper .g-back:hover {
+  background-color: #dadada;
+}
+.o-content .card-receipt-wrapper .g-back span {
+  font-size: 1.125rem;
+}
+.o-content .card-receipt-wrapper .card-receipt {
+  background-color: white;
+  width: 450px;
+  margin: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-heading {
+  width: 100%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-heading .item:last-child {
+  margin-bottom: 20px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-bottom: 5px solid black;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:first-child .child-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-bottom: 5px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) .child-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) .child-item .flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) .child-item .flex-col span {
+  align-self: flex-end;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) .child-item:first-child {
+  font-family: "Inter Bold";
+  display: grid;
+  grid-template-columns: minmax(150px, 2fr) minmax(50px, 2fr) minmax(80px, 1fr);
+  gap: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) .child-item:not(:first-child):not(:last-child) {
+  display: grid;
+  grid-template-columns: minmax(150px, 2fr) minmax(50px, 2fr) minmax(80px, 1fr);
+  word-wrap: break-word;
+  gap: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:nth-child(2) .child-item:not(:first-child):not(:last-child) .gr-child-item {
+  padding-right: 10px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:last-child {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:last-child .child-item {
+  display: grid;
+  grid-template-columns: minmax(100px, 2fr) minmax(100px, 1fr);
+  gap: 5px;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:last-child .child-item .gr-child-item {
+  word-break: break-word;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:last-child .child-item:nth-last-child(2) {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 3px dashed black;
+  display: flex;
+  justify-content: space-between;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-body .item:last-child .child-item:last-child {
+  font-weight: bold;
+  font-size: 1.0625rem;
+  display: flex;
+  justify-content: space-between;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-footer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.o-content .card-receipt-wrapper .card-receipt .card-receipt-fl .card-receipt-footer .item:last-child {
+  margin-top: 20px;
+  font-family: "Inter Bold";
+}
+
 .wrapper {
   height: 100svh;
 }

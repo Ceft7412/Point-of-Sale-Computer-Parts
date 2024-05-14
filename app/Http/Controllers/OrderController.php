@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Item;
-use Illuminate\Support\Facades\Log;
 use App\Models\Member;
 use App\Models\Category;
 use App\Models\Subcategory;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -20,36 +18,32 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user && $user->type == 2) {
-            $employee = $user;
-        } else {
-            $employee = null;
-        }
+        $employee = $user && $user->type == 2 ? $user : null;
 
 
         $search = request()->query('search');
+
+        $categories = Category::where('is_active', 1)->get();
+        $subcategories = Subcategory::where('is_active', 1)->get();
+        $productsQuery = Product::where('is_active', 1);
+
         if ($search) {
-            $products = Product::where('is_active', 1)->where(function ($query) use ($search) {
+            $productsQuery->where(function ($query) use ($search) {
                 $query->where('product_id', 'like', '%' . $search . '%')
                     ->orWhere('product_name', 'like', '%' . $search . '%');
-            })->get();
-            $categories = Category::where('is_active', 1)->get();
-            $subcategories = Subcategory::where('is_active', 1)->get();
-            return view('employee.order')
-                ->with('products', $products)
-                ->with('categories', $categories)
-                ->with('subcategories', $subcategories)
-                ->with('employee', $employee);
+            });
         } else {
-            $categories = Category::where('is_active', 1)->get();
-            $subcategories = Subcategory::where('is_active', 1)->get();
-            $products = Product::where('is_active', 1)->where('product_quantity', '!=', 0)->get();
-            return view('employee.order')
-                ->with('products', $products)
-                ->with('categories', $categories)
-                ->with('subcategories', $subcategories)
-                ->with('employee', $employee);
+            $productsQuery->where('product_quantity', '!=', 0);
         }
+
+        $products = $productsQuery->get();
+
+        return view('employee.order', [
+            'products' => $products,
+            'categories' => $categories,
+            'subcategories' => $subcategories,
+            'employee' => $employee
+        ]);
     }
 
     public function storeOrder(Request $request)
@@ -57,6 +51,9 @@ class OrderController extends Controller
 
         $customer = new Customer();
         $customer->customer_id = $this->generateCustomerID();
+        $customer->customer_name = $request->customer_name;
+        $customer->customer_email = $request->customer_email;
+        $customer->customer_phone = $request->customer_contact;
         $customer->save();
 
         $orderItems = $request->input('order');
@@ -86,6 +83,7 @@ class OrderController extends Controller
         }
 
         $order->order_total = $order_total;
+        $order->amount_rendered = $request->amount_rendered;
         $order->order_change = $amount_rendered - $order_total;
         $order->save();
 
@@ -111,10 +109,18 @@ class OrderController extends Controller
 
         return redirect()->route('receipt', ['order_id' => $order->id])->with('success', 'Order completed.');
     }
-
+    public function checkMembershipCardNumber(Request $request)
+    {
+        $member = Member::where('membership_card_number', $request->membership_card_number)->first();
+        if ($member) {
+            return response()->json(['status' => 'success', 'message' => 'Membership card number found.', 'member_name' => $member->membership_name]);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Membership card number not found.']);
+        }
+    }
     public function receipt($order_id)
     {
-        $order = Order::findOrFail($order_id); 
+        $order = Order::findOrFail($order_id);
         $employee = Auth::user();
         return view('employee.receipt', compact('order', 'employee'));
     }
@@ -122,7 +128,7 @@ class OrderController extends Controller
     {
         $product = Product::find($id);
         return response()->json($product);
-    }
+    }   
 
     public function generateCustomerID()
     {
@@ -152,36 +158,5 @@ class OrderController extends Controller
             return $order_item_id;
         }
     }
-
-
-
-    public function getProduct($id)
-    {
-        $products = Product::where('category_id', $id)->where('is_active', 1)->get();
-        $products->each(function ($product) {
-            $product->product_image = Storage::url($product->product_image);
-        });
-        return response()->json($products);
-    }
-
-    public function getSubcategoryProduct($id)
-    {
-        $products = Product::where('subcategory_id', $id)->where('is_active', 1)->get();
-        $products->each(function ($product) {
-            $product->product_image = Storage::url($product->product_image);
-        });
-        return response()->json($products);
-    }
-
-    public function allProducts()
-    {
-        $products = Product::where('is_active', 1)->get();
-        $products->each(function ($product) {
-            $product->product_image = Storage::url($product->product_image);
-        });
-        return response()->json($products);
-    }
-
-
 
 }

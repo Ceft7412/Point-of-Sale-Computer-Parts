@@ -6,28 +6,30 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use League\Csv\Writer;
 use Illuminate\Support\Facades\Log;
+
 class TransactionController extends Controller
 {
-    public function redirectTransaction(){
-
-
+    public function redirectTransaction()
+    {
         $search = request()->query('search');
+
         if ($search) {
-            $transactions = Order::where('order_id', 'like', '%'.$search.'%')->get();
-            return view("admin.transaction")->with('transactions', $transactions);    
+            $transactions = Order::where('order_id', 'like', '%' . $search . '%')->paginate(5);
         } else {
-            $transactions = Order::all();
-            return view("admin.transaction")->with('transactions', $transactions); 
+            $transactions = Order::paginate(5);
         }
+        return view("admin.transaction")->with('transactions', $transactions);
     }
 
-    public function receipt($id){
+    public function receipt($id)
+    {
         $transaction = Order::findOrfail($id);
         Log::info($transaction);
         return view("admin.receipt")->with('transaction', $transaction);
 
     }
-    public function exportTransaction(){
+    public function exportTransaction()
+    {
         $transactions = Order::all();
 
         // composer require league/csv  - this requires the installation of the league/csv package
@@ -61,4 +63,4 @@ class TransactionController extends Controller
             'Content-Disposition' => 'attachment; filename="transactions.csv"',
         ]);
     }
-}   
+}

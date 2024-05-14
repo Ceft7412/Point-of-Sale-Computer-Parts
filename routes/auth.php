@@ -42,13 +42,9 @@ Route::middleware(['auth', 'verified', 'employee'])->group(function(){
 
     Route::get('order', [OrderController::class, 'index'])->name('order');
     Route::get('order/membership', [MembershipController::class, 'membership'])->name('membership');
-
-    Route::get('order/products/{id}', [OrderController::class, 'getProduct'])->name('getProduct');
-    Route::get('order/all-products', [OrderController::class, 'allProducts'])->name('allProducts');
-    Route::get('order/category/{id}/getProducts', [OrderController::class, 'getCategoryProducts'])->name('getCategoryProducts');
-    Route::get('order/subcategory/products/{id}', [OrderController::class, 'getSubcategoryProduct'])->name('getSubcategoryProduct');
     Route::post('order/store', [OrderController::class, 'storeOrder'])->name('storeOrder');
     Route::get('order/receipt/{order_id}', [OrderController::class, 'receipt'])->name('receipt');
+    Route::post('order/membership_card_number', [OrderController::class, 'checkMembershipCardNumber'])->name('membershipCardNumber');
     Route::post('product/item/{id}', [OrderController::class, 'getItem'])->name('getItem');
     // === request membership ===
     Route::post('request-membership', [MembershipController::class, 'storeMembership'])->name('storeMembership');

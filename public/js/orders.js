@@ -1,8 +1,7 @@
-    
-//* filtering   
+    //* filtering   
     $('.item-all').on('click', function () {
         $('.product-item').show();
-        
+
     });
 
     $('.item-category').on('click', function () {
@@ -14,11 +13,11 @@
 
         $('.product-item').hide();
         $('.product-item[data-category-id="' + categoryId + '"]').show();
-    }); 
+    });
 
     $('.single-item').on('click', function () {
         const subcategoryId = $(this).data('subcategory-id');
-        $('.product-item').hide(); 
+        $('.product-item').hide();
         $('.product-item[data-subcategory-id="' + subcategoryId + '"]').show();
     });
 
@@ -26,7 +25,7 @@
         $('.subcategory-group').hide();
         $('.category-group, .item-all').css('display', 'flex');
     });
- //* end of filtering 
+    //* end of filtering 
 
     $(".num .item ").click(function () {
         var num = $(this).children().first().text();
@@ -54,26 +53,84 @@
 
     $('#av-mem-card').on('click', function () {
         $('.membership-modal-wrapper').css('display', 'flex');
+
     })
 
-    $('.cancel-button-membership').on('click', function () {
-        $('.membership-modal-wrapper').hide();
+    // *check for the card member number using ajax
+
+    $('#check_membership_card_number').on('click', function (e) {
+
+        var membership_card_number = $('#membership_card_number').val();
+
+        $.ajax({
+            url: '/order/membership_card_number',
+            type: 'POST',
+            data: {
+                membership_card_number: membership_card_number,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (data) {
+                if (data.status === 'error') {
+                    $('#membership_card_number_success').text('');
+                    $('#membership_card_number_error').text(data.message);
+                } else if (data.status === 'success') {
+                    $('#membership_card_number_error').text('');
+                    $('#membership_card_number_success').text(`Member: ${data.member_name}`);
+                }
+            }
+        });
     });
 
-    $('.rightbar-body').on('submit', function (e) {
+    $('.cancel-button-membership').on('click', function () {
+        if ($('.membership_card_number_error').text().trim() !== '') {
+            $('#membership_card_number').val('');
+            $('#membership_card_number_success').text('');
+            $('#membership_card_number_error').text('');
+            $('.membership-modal-wrapper').hide();
+        } else if ($('.membership_card_number_success').text().trim() !== '') {
+            $('.membership-modal-wrapper').hide();
+        }
+
+    });
+    $('.apply-button').on('click', function () {
+        if ($('.membership_card_number_success').text().trim() !== '') {
+            $('.membership-modal-wrapper').hide();
+        } else {
+            $('#membership_card_number_error').text('Membership card number is required.');
+        }
+    });
+
+    $('.cancel-button-customer').on('click', function () {
+        $('.customer-modal-wrapper').hide();
+    });
+    $('.pay-button').on('click', function (e) {
         var inputNumbers = $('#input_numbers').val();
         var total = calculateTotal();
         if (!inputNumbers) {
             e.preventDefault();
             $('.er-val-red').show();
         }
+        if (inputNumbers > total) {
+            e.preventDefault();
+            $('.er-val-red').hide();
+        }
 
         if (inputNumbers < total) {
-            e.preventDefault(); 
+            e.preventDefault();
             $('.er-val-red').text('Insufficient money.');
             $('.er-val-red').show();
+        } else if ($('.membership_card_number_success').text().trim() !== '') {
+            $('.rightbar-body').submit();
+        } else if ($('.membership_card_number_error').text().trim() !== '' || $('.membership_card_number_error').text().trim() == '') {
+            $('.customer-modal-wrapper').css('display', 'flex');
         }
+
+
     });
+    $('.apply-button-customer').on('click', function () {
+        $('.rightbar-body').submit();
+    })
+
 
     function updateSubtotalPrice() {
         let subtotalPrice = 0;
@@ -173,7 +230,7 @@
                         quantityInput.val(product.item_quantity);
                     } else {
                         $('.error-modal-wrapper').slideDown(50);
-                        $('#error-message').text(`Error notification: Maximum quantity for product ${response.product_name} has been reached.`); 
+                        $('#error-message').text(`Error notification: Maximum quantity for product ${response.product_name} has been reached.`);
                         setTimeout(function () {
                             $('.error-modal-wrapper').slideUp(70);
                         }, 5000);
@@ -187,7 +244,7 @@
         });
     });
     $('.cancel').click(function () {
-        $('.error-modal-wrapper').hide(); 
+        $('.error-modal-wrapper').hide();
     });
 
     $('.cancel-button').click(function () {
@@ -222,7 +279,7 @@
             quantityInput.val(newQuantity);
             product.item_quantity = newQuantity;
             calculateTotal();
-        } 
+        }
     });
     $('.rightbar-body').on('input', '.num-product-input', function () {
         const max = parseInt($(this).attr('max'));

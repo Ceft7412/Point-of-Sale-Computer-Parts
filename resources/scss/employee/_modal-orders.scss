@@ -55,7 +55,7 @@
                 height: 100%;
 
                 .membership {
-                    cursor: pointer;
+
 
 
                     border-radius: 5px;
@@ -67,6 +67,7 @@
                         font-size: 16px;
                         color: orange;
                         text-decoration: underline;
+                        cursor: pointer;
                     }
                 }
 
@@ -382,6 +383,96 @@
     }
 }
 
+.customer-modal-wrapper {
+    position: fixed;
+    display:none;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    margin: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .customer-modal {
+        background-color: #fefefe;
+        margin: auto;
+        animation: slideDown 0.3s ease-out;
+        width: 450px;
+        height: 300px;
+        border-radius: 8px;
+
+        .customer-modal-flex {
+            height: 100%;
+            display: flex;
+
+            flex-direction: column;
+
+            .customer-modal-header {
+                height: 10%;
+                background-color: orange;
+                display: flex;
+                border-top-left-radius: 8px;
+                border-top-right-radius: 8px;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .customer-modal-body {
+                height: 70%;
+                flex: 1;
+                display: flex;
+                padding: 10px;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+
+                .item {
+                    display: flex;
+                    flex-direction: column;
+
+                    input {
+                        border: 1px solid rgb(161, 161, 161);
+                        padding: 0 10px;
+                        font-size: 1.0625rem;
+                        height: 30px;
+                        border-radius: 5px;
+                        outline: none;
+                    }
+                }
+            }
+
+            .customer-modal-footer {
+                height: 20%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 10px;
+                border-top: 1px solid rgb(211, 211, 211);
+
+                .item {
+                    display: flex;
+                    gap: 10px;
+
+                    button:nth-child(2) {
+                        background-color: orange;
+                        color: white;
+
+                        &:hover {
+                            background-color: #ff8c00;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 .membership-modal-wrapper {
 
@@ -412,7 +503,7 @@
         .membership-modal-flex {
             height: 100%;
             display: flex;
-            
+
             flex-direction: column;
 
             .heading {
@@ -434,57 +525,101 @@
             .body {
                 height: 60%;
                 display: flex;
-                padding:10px;
+                padding: 10px;
                 flex-direction: column;
                 gap: 10px;
                 width: 100%;
+
                 justify-content: center;
 
-                .input-id::-webkit-inner-spin-button,
-                .input-id::-webkit-outer-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
+                .membership_card_number_success {
+
+                    color: green;
+                    font-size: 0.9375rem;
                 }
 
-                .input-id {
-                    border: 1px solid rgb(161, 161, 161);
-                    padding: 0 10px;
-                    font-size: 1.0625rem;
-                    height: 40px;
-                    border-radius: 5px;
+                .membership_card_number_error {
+
+                    color: red;
+                    font-size: 0.9375rem;
                 }
+
+                .fl-row-mem-card {
+                    display: flex;
+
+                    .input-id::-webkit-inner-spin-button,
+                    .input-id::-webkit-outer-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+
+                    .input-id {
+                        flex: 1;
+                        width: 100%;
+                        border: 1px solid rgb(161, 161, 161);
+                        padding: 0 10px;
+                        font-size: 1.0625rem;
+                        height: 40px;
+                        border-radius: 5px;
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                        outline: none;
+
+                    }
+
+                    button {
+                        border-radius: 5px;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-top: 1px solid rgb(161, 161, 161);
+                        border-bottom: 1px solid rgb(161, 161, 161);
+                        border-right: 1px solid rgb(161, 161, 161);
+                        border-left: none;
+                        cursor: pointer;
+                        padding: 5px 10px;
+                        height: 40px;
+
+                    }
+
+                }
+
 
 
             }
 
             .footer {
-                padding:10px;
+                padding: 10px;
                 height: 20%;
                 border-top: 1px solid rgb(211, 211, 211);
-                display:flex;
-                gap:10px;
+                display: flex;
+                gap: 10px;
                 justify-content: flex-end;
-                button{
-                    border-radius:5px;
-                    border:none;
-                    cursor:pointer;
-                    padding:5px 10px;
-                    height:35px;
-                    width:100px;
+
+                button {
+                    border-radius: 5px;
+                    border: none;
+                    cursor: pointer;
+                    padding: 5px 10px;
+                    height: 35px;
+                    width: 100px;
                 }
-                .cancel-button-membership{
-                    background-color:rgb(211, 211, 211);
-                    color:black;
-                    &:hover{
-                        background-color:rgb(191, 191, 191);
+
+                .cancel-button-membership {
+                    background-color: rgb(211, 211, 211);
+                    color: black;
+
+                    &:hover {
+                        background-color: rgb(191, 191, 191);
                     }
                 }
-                .apply-button{
-                    background-color:orange;
-                    color:white;
-                    &:hover{
-                        background-color:#ff8c00;
-                    }   
+
+                .apply-button {
+                    background-color: orange;
+                    color: white;
+
+                    &:hover {
+                        background-color: #ff8c00;
+                    }
                 }
             }
         }

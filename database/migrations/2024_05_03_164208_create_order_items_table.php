@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('product_id');
             $table->string('product_name');
             $table->integer('quantity');
-            $table->integer('price');
-            $table->integer('subtotal');
+            $table->decimal('price', 20, 2);
+            $table->decimal('subtotal', 20, 2);
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();

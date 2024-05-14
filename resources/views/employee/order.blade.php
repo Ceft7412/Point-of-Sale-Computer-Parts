@@ -220,6 +220,7 @@
 
 
                                 </div>
+                                
                                 <div class="membership">
                                     <span class="c-mc" id="av-mem-card">Membership Card</span>
                                     <div class="membership-modal-wrapper">
@@ -231,12 +232,17 @@
                                                         <span class="txt-h">Apply Membership Card</span>
                                                     </div>
                                                     <div class="body">
-                                                        <label for="#">Enter membership card number.:</label>
-                                                        <input type="number" name="membership_card_number" class="input-id">
+                                                        <label for="#">Enter membership card number:</label>
+                                                        <div class="fl-row-mem-card">
+                                                            <input type="number" name="membership_card_number" id="membership_card_number" class="input-id">
+                                                            <button type="button" id="check_membership_card_number">Check</button>
+                                                        </div>
+                                                        <span class="membership_card_number_success" id="membership_card_number_success"></span>
+                                                        <span class="membership_card_number_error" id="membership_card_number_error"></span>
                                                     </div>
                                                     <div class="footer">
                                                         <button type="button" class="cancel-button-membership">Cancel</button>
-                                                        <button type="button" class="apply-button">Apply</button>
+                                                        <button type="button" class="apply-button" id="apply_membership_card_number">Apply</button>
                                                     </div>
                                                 </div>
                                         </div>
@@ -251,7 +257,38 @@
 
                                 <div class="flex-btn">
                                     <button type="button" class="cancel-button">CANCEL</button>
-                                    <button type="submit" class="pay-button">PAY</button>
+                                    <button type="button" class="pay-button">PAY</button>
+                                    <div class="customer-modal-wrapper">
+                                        <div class="customer-modal">
+                                            <div class="customer-modal-flex">
+                                                <div class="customer-modal-header">
+                                                    <span class="">Customer</span>
+                                                </div>
+                                                <div class="customer-modal-body">
+                                                    <div class="item">
+                                                        <label for="customer_name">Name:</label>
+                                                        <input type="text" name="customer_name" id="customer_name" class="input-customer">
+                                                    </div>
+                                                    <div class="item">
+                                                        <label for="customer_name">Email:</label>
+                                                        <input type="text" name="customer_email" id="customer_email" class="input-customer">
+                                                    </div>
+                                                    <div class="item">
+                                                        <label for="customer_contact">Contact:</label>
+                                                        <input type="text" name="customer_contact" id="customer_phone" class="input-customer">
+                                                    </div>
+
+                                                </div>
+                                                <div class="customer-modal-footer">
+                                                    <div class="item">
+                                                        <button type="button" class="cancel-button-customer">Cancel</button>
+                                                        <button type="submit" class="apply-button-customer">Pay Now</button>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>

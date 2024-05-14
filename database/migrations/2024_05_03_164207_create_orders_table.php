@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreignId('customer_id');
             $table->foreignId('user_id');
             $table->string('order_status')->default('paid');
-            $table->integer('order_total');
-            $table->integer('order_change');
+            $table->decimal('order_total', 20, 2); 
+            $table->decimal('amount_rendered', 20, 2);
+            $table->decimal('order_change', 20, 2);
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

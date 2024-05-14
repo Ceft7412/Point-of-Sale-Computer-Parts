@@ -314,6 +314,8 @@
                             </div>
                         </div>
                     </div>
+                    <div class="">{{ $transactions->links() }}</div>
+                    
                 </div>
             </div>
         </div>

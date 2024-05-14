@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified', 'employee'])->group(function(){
     Route::get('order/category/{id}/getProducts', [OrderController::class, 'getCategoryProducts'])->name('getCategoryProducts');
     Route::get('order/subcategory/products/{id}', [OrderController::class, 'getSubcategoryProduct'])->name('getSubcategoryProduct');
     Route::post('order/store', [OrderController::class, 'storeOrder'])->name('storeOrder');
+    Route::get('order/receipt/{order_id}', [OrderController::class, 'receipt'])->name('receipt');
     Route::post('product/item/{id}', [OrderController::class, 'getItem'])->name('getItem');
     // === request membership ===
     Route::post('request-membership', [MembershipController::class, 'storeMembership'])->name('storeMembership');
@@ -55,7 +56,7 @@ Route::middleware(['auth', 'verified', 'employee'])->group(function(){
     // ===getting the membership id===
     Route::post('order/membership/{id}', [OrderController::class, 'getMembership'])->name('getMembership');	
     
-});
+}); 
 
 
 Route::middleware(['auth', 'verified'])->group(function(){
@@ -124,7 +125,6 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     // * transaction
     Route::get('admin/transaction', [TransactionController::class, 'redirectTransaction'])->name('transaction');
     Route::get('admin/transaction/export', [TransactionController::class, 'exportTransaction'])->name('exportTransaction');
-    Route::post('admin/transaction/receipt/{id}', [TransactionController::class, 'receipt'])->name('receipt');
     
     Route::get('admin/category', [CategoryController::class, 'redirectCategory'])->name('category');
 

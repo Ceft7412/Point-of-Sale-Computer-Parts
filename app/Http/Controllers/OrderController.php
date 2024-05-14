@@ -99,7 +99,7 @@ class OrderController extends Controller
             $orderItem->quantity = $item['item_quantity'];
             $orderItem->subtotal = $item['product_price'] * $item['item_quantity'];
             $orderItem->save();
-            
+
             // *we can use the currently iterated item id 
             // *since we have foreign key in our order item to target the product and update the quantity
             $product = Product::find($item['id']);
@@ -108,10 +108,16 @@ class OrderController extends Controller
                 $product->save();
             }
         }
-        return redirect()->back()->with('success', 'Order completed.');
+
+        return redirect()->route('receipt', ['order_id' => $order->id])->with('success', 'Order completed.');
     }
 
-
+    public function receipt($order_id)
+    {
+        $order = Order::findOrFail($order_id); 
+        $employee = Auth::user();
+        return view('employee.receipt', compact('order', 'employee'));
+    }
     public function getItem($id)
     {
         $product = Product::find($id);

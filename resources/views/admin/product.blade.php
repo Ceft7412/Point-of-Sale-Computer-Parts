@@ -231,9 +231,7 @@
                 <div class="modal-header">
                     <div class="item-1">
                         <span class="new-title">New Product</span>
-                        <span class="material-symbols-outlined" id="close-modal">
-                            close
-                        </span>
+                        <i class="bi bi-x-lg" id="close-modal"></i>
                     </div>
                 </div>
                 <form action="{{ route('product-store') }}" method="POST" enctype="multipart/form-data"
@@ -360,9 +358,7 @@
             </div>
             <div class="ct-add" id="add-button-modal">
                 <div class="ct-add-flex">
-                    <span class="material-symbols-outlined">
-                        add
-                    </span>
+                    <i class="bi bi-plus-lg"></i>
                     <span class="product">Product</span>
                 </div>
             </div>

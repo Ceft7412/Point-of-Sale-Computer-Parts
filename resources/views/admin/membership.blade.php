@@ -161,7 +161,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a class="sidebar-menu-item">
+                    <a href="{{ url('admin/admin') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-person-gear"></i>
                             <span class="">Admin
@@ -223,9 +223,7 @@
                 <div class="modal-header">
                     <div class="item-1">
                         <span class="new-title">New Member</span>
-                        <span class="material-symbols-outlined" id="close-modal">
-                            close
-                        </span>
+                        <i class="bi bi-x-lg" id="close-modal"></i>
                     </div>
                 </div>
                 <form action="{{ route('application-membership') }}" class="form-wrapper" method="POST">
@@ -338,9 +336,7 @@
             </div>
             <div class="ct-add" id="add-button-modal">
                 <div class="ct-add-flex">
-                    <span class="material-symbols-outlined">
-                        add
-                    </span>
+                    <i class="bi bi-plus-lg"></i>
                     <span class="employee">Member</span>
                 </div>
             </div>

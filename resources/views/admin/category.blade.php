@@ -11,10 +11,10 @@
         <div class="topbar-flex-wrapper">
             <div class="topbar-left">
                 <div class="topbar-logo">
-                    <a href="dashboard.html" class="bigtext-wrapper">
+                    <div class="bigtext-wrapper">
                         <span class="bigtext-easy">EASY</span>
                         <span class="bigtext-tech">TECH</span>
-                    </a>
+                    </div>
                     <span class="smalltext-wrapper">COMPUTER PARTS</span>
                 </div>
             </div>
@@ -230,9 +230,7 @@
                 <div class="modal-header category-header">
                     <div class="item-1">
                         <span class="new-title">New Category</span>
-                        <span class="material-symbols-outlined" id="close-modal">
-                            close
-                        </span>
+                        <i class="bi bi-x-lg" id="close-modal"></i>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('category-store') }}" enctype="multipart/form-data"
@@ -345,9 +343,7 @@
             </div>
             <div class="ct-add" id="add-button-modal">
                 <div class="ct-add-flex">
-                    <span class="material-symbols-outlined">
-                        add
-                    </span>
+                    <i class="bi bi-plus-lg"></i>
                     <span class="Category">Category</span>
                 </div>
             </div>

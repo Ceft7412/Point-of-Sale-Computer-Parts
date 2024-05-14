@@ -78,7 +78,7 @@
         <div class="sidebar-menu">
             <div class="menu-item ">
                 <div class="r-item ">
-                    <a class="sidebar-menu-item">
+                    <a href="{{route('overview')}}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-columns-gap"></i>
                             <span class="">Overview</span>
@@ -313,7 +313,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>{{ $transactions->links() }}</div>
+                    <div>{{ $transactions->appends(['search' => request()->query('search')])->links() }}</div>
                     
                 </div>
             </div>

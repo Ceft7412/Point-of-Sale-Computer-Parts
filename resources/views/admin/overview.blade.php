@@ -2,7 +2,7 @@
 
 @section('title', 'Overview')
 @section('css')
-    <link rel="stylesheet" href="../dest/css/style.css">
+<link rel="stylesheet" href="../dest/css/style.css">
 @endsection
 @section('content')
     {{-- TOPBAR --}}
@@ -29,44 +29,37 @@
                         <i class="bi bi-columns-gap"></i>
                         <span class="">Overview</span>
                     </a>
-                    <a href="category.php" class="tb-mn-ln-item-a">
+                    <a href="{{route('category')}}" class="tb-mn-ln-item-a">
                         <i class="bi bi-card-checklist"></i>
                         <span class="">Category</span>
                     </a>
-                    <a href="product.html" class="tb-mn-ln-item-a">
+                    <a href="{{route('product')}}" class="tb-mn-ln-item-a">
                         <i class="bi bi-clipboard-check"></i>
                         <span class="">Product</span>
                     </a>
-                    <a href="transaction.php" class="tb-mn-ln-item-a">
+                    <a href="{{route('transaction')}}" class="tb-mn-ln-item-a">
 
                         <i class="bi bi-receipt"></i>
                         <span class="">Transaction</span>
 
                     </a>
-                    <a href="{{ route('employee') }}" class="tb-mn-ln-item-a">
+                    <a href="{{route('employee')}}" class="tb-mn-ln-item-a">
                         <i class="bi bi-people"></i>
                         <span class="">Employee</span>
                     </a>
-                    <a href="{{ route('admin') }}" class="tb-mn-ln-item-a">
+                    <a href="{{route('admin')}}" class="tb-mn-ln-item-a">
                         <i class="bi bi-person-gear"></i>
                         <span class="">Admin</span>
                     </a>
                     <div class="out-wrapper">
-
                         <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+                            @csrf<br>
                             <div class="out-flex-wrapper" onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="bi bi-box-arrow-left"></i>
                                 <span class="text-logout">Logout</span>
-
-
                             </div>
-
-
                         </form>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -89,7 +82,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('/admin/category') }}" class="sidebar-menu-item">
+                    <a href="{{ route('category') }}" class="sidebar-menu-item">
                         <div class="flex-item">
 
                             <i class="bi bi-card-checklist"></i>
@@ -110,7 +103,7 @@
 
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('/admin/product') }}" class="sidebar-menu-item">
+                    <a href="{{ route('product') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-clipboard-check"></i>
                             <span class="">Product</span>
@@ -122,15 +115,15 @@
                         <i class="less bi bi-chevron-up" id="expand-less-product"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-product">
+                <a href="{{route('archive-product')}}" class="archive-show" id="archive-expand-product">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
 
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('/admin/transaction') }}" class="sidebar-menu-item">
+                    <a href="{{route('transaction') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-receipt"></i>
                             <span class="">Transaction</span>
@@ -141,7 +134,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('/admin/employee') }}" class="sidebar-menu-item">
+                    <a href="{{ route('employee') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-people"></i>
                             <span class="">Employee
@@ -154,10 +147,10 @@
                         <i class="less bi bi-chevron-up" id="expand-less-employee"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-employee">
+                <a href="{{route('archive-employee')}}"class="archive-show" id="archive-expand-employee">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
             <div class="menu-item">
                 <div class="r-item">
@@ -174,10 +167,10 @@
                         <i class="less bi bi-chevron-up" id="expand-less-admin"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-admin">
+                <a href="{{route('archive-admin')}}"class="archive-show" id="archive-expand-admin">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
             <div class="menu-item">
                 <div class="r-item">
@@ -186,7 +179,6 @@
                             <i class="bi bi-people"></i>
                             <span class="">Membership
                             </span>
-
                         </div>
                     </a>
                     <div class="chevrons-action">
@@ -196,42 +188,26 @@
                 </div>
                 <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
                     <span class="">Archive</span>
-
                 </a>
             </div>
         </div>
-
         <div class="out-wrapper">
-
             <form method="POST" action="{{ route('logout') }}">
-                @csrf
+                @csrf<br>
                 <div class="out-flex-wrapper" onclick="event.preventDefault(); this.closest('form').submit();">
                     <i class="bi bi-box-arrow-left"></i>
                     <span class="text-logout">Logout</span>
-
-
                 </div>
-
-
             </form>
-
         </div>
-
-
-
-
     </div>
-
-    <!-- CONTENT -->
-
     <div class="c-wrapper">
         <div class="c-heading-wrapper">
             <span class="dashboard">Overview</span>
             <span class="h-date-now">{{ $currentDate }}</span>
         </div>
         <div class="c-flex-wrapper">
-            <!-- ITEM 1 - LEFT -->
-            <div class="c-left-content">
+                <div class="c-left-content">
                 <div class="cards-wrapper">
                     <div class="t-card">
                         <div class="card orange">
@@ -337,7 +313,6 @@
                                 <span class="cell name qty">Quantity</span>
                                 <span class="cell employee">Employee</span>
                                 <span class="cell date">Date</span>
-
                             </div>
                             <div class="r-body-c">
                                 @forelse ($recentOrders as $recentOrder)
@@ -363,10 +338,7 @@
                         <div class="r-footer"></div>
                     </div>
                 </div>
-
-
             </div>
-            <!-- ITEM 2 - RIGHT -->
             <div class="c-right-content">
                 <div class="card-product">
                     <div class="card-heading">
@@ -382,17 +354,12 @@
                     <div class="card-body">
                         @foreach ($popularProducts as $product)
                             <div class="b-row">
-
                                 <span class="product-rank">{{ $loop->iteration }}</span>
                                 <span>{{ $product->product_name }}</span>
-
-
                             </div>
                         @endforeach
                     </div>
-
                 </div>
-
                 <div class="card-no-stock">
                     <div class="card-heading">
                         <span class="text-heading">Out of Stock</span>
@@ -409,11 +376,9 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 @endsection
 @section('js')
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <script src="../js/script.js"></script>
+<script src="../js/jquery-3.7.1.min.js"></script>
+<script src="../js/script.js"></script>
 @endsection

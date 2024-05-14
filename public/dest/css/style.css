@@ -2230,18 +2230,41 @@ a, a:visited, a:hover {
 }
 
 .pagination {
+  display: flex;
   justify-content: flex-end;
+  padding: 1em 0;
 }
+
+/* Style the pagination links */
 .pagination .page-link {
-  color: black;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #ddd;
 }
 .pagination .page-link:hover {
-  color: white;
-  background-color: #393fae;
+  background-color: #f1f1f1;
 }
+
+/* Style the active pagination link */
 .pagination .page-item.active .page-link {
-  background-color: #393fae;
-  color: white;
+  color: #fff;
+  background-color: rgb(59, 60, 86);
+  border-color: rgb(59, 60, 86);
+}
+
+/* Style the disabled pagination links */
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+/* Remove bullet points from li elements */
+.pagination li {
+  list-style-type: none;
 }
 
 .parent-wrapper .c-wrapper .ct-body .ct-body-flex .ct-body-content {

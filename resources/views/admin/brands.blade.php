@@ -348,23 +348,55 @@
                             <span class="">Categories</span>
                         </a>
 
-                        <div  class="itm-ct hd-pending-itm  active">
+                        <div class="itm-ct hd-pending-itm  active">
                             <span class="">Brands</span>
                         </div>
                     </div>
                     <div class="ct-heading-r">
-                        <form class="fl-per-pg" method="POST" id="archiveGroup"
-                            action="{{ route('archiveSubcategoryGroup') }}">
-                            @csrf
-                            <button type="submit" class="archive_select_group" id="archive_select_group">Set to inactive</button>
-                        </form>
                         <form method="GET" action="{{ route('brands') }}" class="ct-heading-search">
 
                             <input type="text" name="search" class="ct-heading-search-input"
                                 placeholder="Search for brands..." value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
-                    </div>  
+                        <form class="fl-per-pg" method="POST" id="archiveGroup"
+                            action="{{ route('archiveSubcategoryGroup') }}">
+                            @csrf
+                            <button type="button" class="archive_select_group" id="archive_select_group">Set to
+                                inactive</button>
+                            <div class="archive-modal-wrapper">
+                                <div class="modal-card-wrapper" id="modal-card">
+                                    <div class="heading">
+
+                                        <span class="text-left">
+                                            Set to Inactive
+                                        </span>
+                                        <span class="cancel-archive">
+                                            <i class="bi bi-x-lg"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="body">
+                                        <div class="text">
+                                            Archiving this group will remove the brands from the active list and will
+                                            remain
+                                            inactive. Are you sure you
+                                            want to
+                                            proceed?
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+
+                                        <button type="button" class="cancel-archive">No, keep this active</button>
+                                        <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
 
                 <div class="ct-body-content">
@@ -397,20 +429,21 @@
 
                                 <div class="tbl-cell">
                                     <span class="txt-cell">Action</span>
-                                  </div>
+                                </div>
                             </div>
                             <div class="tbdy">
                                 @forelse($subcategories as $subcategory)
                                     <div class="tbdy-rw">
                                         <div class="tbl-cell">
-                                            <input type="checkbox" class="userCheckbox" data-category-active="{{ $subcategory->category->is_active }}" name="archiveIds[]"
-                                                value="{{ $subcategory->id }}">
+                                            <input type="checkbox" class="userCheckbox"
+                                                data-category-active="{{ $subcategory->category->is_active }}"
+                                                name="archiveIds[]" value="{{ $subcategory->id }}">
                                         </div>
                                         <div class="tbl-cell">
                                             <span class="txt-cell">{{ $subcategory->subcategory_id }}</span>
                                         </div>
                                         <div class="tbl-cell w-img">
-                                            <img src="{{ Storage::url('public/subcategory_images/' . $subcategory->subcategory_image) }}"
+                                            <img src="{{ asset('storage/subcategory_images/' . $subcategory->subcategory_image) }}"
                                                 alt="{{ $subcategory->subcategory_name }}" class="picture">
                                             <span class="txt-cell">{{ $subcategory->subcategory_name }}</span>
 
@@ -419,7 +452,7 @@
                                             <span class="txt-cell">{{ $subcategory->subcategory_description }}</span>
                                         </div>
                                         <div class="tbl-cell products">
-                                            <span class="txt-cell">{{ $subcategory->products->count()}}</span>
+                                            <span class="txt-cell">{{ $subcategory->products->count() }}</span>
                                         </div>
                                         <div class="tbl-cell">
                                             <span class="txt-cell">{{ $subcategory->created_at }}</span>
@@ -441,10 +474,7 @@
                                                             <div class="item-1">
                                                                 <span class="new-title">Update
                                                                     Subcategory</span>
-                                                                <span class="material-symbols-outlined"
-                                                                    id="close-update-modal">
-                                                                    close
-                                                                </span>
+                                                                <i class="bi bi-x-lg"></i>
                                                             </div>
                                                         </div>
                                                         <form action="/admin/subcategory/update/{{ $subcategory->id }}"
@@ -487,7 +517,7 @@
                                                                     </div>
                                                                     <div class="picture-wrapper">
                                                                         <img id="update_subcategory_image"
-                                                                            src="{{ Storage::url('public/subcategory_images/' . $subcategory->subcategory_image) }}"
+                                                                            src="{{ asset('storage/subcategory_images/' . $subcategory->subcategory_image) }}"
                                                                             class="image-place" alt="Subcategory Image">
                                                                     </div>
 
@@ -554,7 +584,8 @@
                                                 data-id="{{ $subcategory->id }}"><i
                                                     class="bi bi-archive"></i>Archive</button>
 
-                                            <div class="archiveSubcategory-modal-wrapper" id="archive_{{$subcategory->id}}">
+                                            <div class="archiveSubcategory-modal-wrapper"
+                                                id="archive_{{ $subcategory->id }}">
                                                 <div class="modal-card-wrapper" id="modal-card">
                                                     <div class="heading">
 
@@ -576,8 +607,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="footer">
-                                                        <form method="POST" action="/category/brands/archive/{{$subcategory->id}}" id="archiveSubcategoryForm"
-                                                            id="subcategory_archive" class="fl">
+                                                        <form method="POST"
+                                                            action="/category/brands/archive/{{ $subcategory->id }}"
+                                                            id="archiveSubcategoryForm" id="subcategory_archive"
+                                                            class="fl">
                                                             @csrf
                                                             <button type="button" class="cancel-archive">No, keep this
                                                                 active</button>
@@ -590,16 +623,27 @@
                                             </div>
 
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                 @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
+                                        </div>
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
+                                        </div>
+                                    @endif
                                 @endforelse
 
                             </div>
 
                         </div>
                     </div>
+                    <div>{{ $subcategories->appends(['search' => request()->query('search')])->links() }}</div>
 
                 </div>
             </div>

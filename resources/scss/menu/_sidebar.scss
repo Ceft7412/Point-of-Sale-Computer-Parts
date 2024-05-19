@@ -7,44 +7,48 @@
     left: 0;
     bottom: 0;
     display: flex;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     flex-direction: column;
     justify-content: space-between;
     z-index: 100;
     background-color: white;
     transition: 0.5s;
-    overflow: hidden;
+
 
     .sidebar-menu {
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
         gap: 5px;
-   
+
 
 
         .menu-item {
             display: flex;
             flex-direction: column;
-            
-           
+
+
             .r-item {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding-right:5px;
-                margin:10px 10px 0 10px;
+                padding-right: 5px;
+                margin: 10px 10px 0 10px;
                 border-top-right-radius: 5px;
-                    border-bottom-right-radius: 5px;
-                 &.active {
-                border-left: 3px solid orange;
-               
-                
-            }       
+                border-bottom-right-radius: 5px;
+
+                &.active {
+                    border-left: 3px solid orange;
+
+
+                }
+
                 &:hover:not(.active) {
                     background-color: #ebebf6;
                     color: black;
                     border-radius: 5px;
                 }
+
                 .sidebar-menu-item {
                     display: flex;
                     flex-direction: column;
@@ -55,13 +59,14 @@
                         align-items: center;
                         padding: 10px 0 10px 10px;
                         gap: 10px;
-                       
+
                         color: black;
                         font-size: 1.1rem;
                         text-decoration: none;
                         border-radius: 5px;
-                        .bi{
-                        font-size:1.35rem;
+
+                        .bi {
+                            font-size: 1.35rem;
                         }
                     }
 
@@ -77,23 +82,25 @@
                     color: black;
                     text-decoration: none;
 
-                    
+
 
                     .less {
                         display: none;
 
 
                     }
+
                     .bi {
-                        padding:5px;
-                        font-size:14px;
+                        padding: 5px;
+                        font-size: 14px;
                         -webkit-text-stroke: 1px;
+
                         &:hover:not(.active) {
                             background-color: #d4d4d4;
-                            border-radius:5px;
+                            border-radius: 5px;
                             color: black;
                         }
-                    }   
+                    }
 
                 }
             }
@@ -101,19 +108,20 @@
 
         .archive-show {
             display: none;
-            height:40px;   
-            padding-top:10px;
-            color:black;
-            
+            height: 40px;
+            padding-top: 10px;
+            color: black;
+
             span {
-                
+
                 padding-left: 60px;
             }
         }
+
         .archive-show.active {
-          
-                background-color: rgba(59, 60, 86, 0.218);
-            
+
+            background-color: rgba(59, 60, 86, 0.218);
+
         }
 
 
@@ -126,9 +134,11 @@
         height: 80px;
         align-items: center;
         padding: 10px;
-        color:black;
-        form{
-            width:100%;
+        color: black;
+
+        form {
+            width: 100%;
+
             .out-flex-wrapper {
                 padding: 10px;
                 display: flex;
@@ -138,20 +148,20 @@
                 height: 65%;
                 border-radius: 5px;
                 flex-grow: 1;
-    
+
                 &:hover {
                     background-color: #ebebf6;
                     color: black;
                     cursor: pointer;
                 }
-    
+
                 i {
                     font-size: 1.3rem;
                     font-weight: bold;
                 }
             }
         }
-        
+
 
     }
 

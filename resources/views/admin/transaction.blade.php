@@ -47,7 +47,7 @@
                         <i class="bi bi-people"></i>
                         <span class="">Employee</span>
                     </a>
-                    <a href="{{ route('admin') }}"  class="tb-mn-ln-item-a">
+                    <a href="{{ route('admin') }}" class="tb-mn-ln-item-a">
                         <i class="bi bi-person-gear"></i>
                         <span class="">Admin</span>
                     </a>
@@ -78,7 +78,7 @@
         <div class="sidebar-menu">
             <div class="menu-item ">
                 <div class="r-item ">
-                    <a href="{{route('overview')}}" class="sidebar-menu-item">
+                    <a href="{{ route('overview') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-columns-gap"></i>
                             <span class="">Overview</span>
@@ -89,7 +89,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a  href="{{ url('/admin/category') }}"  class="sidebar-menu-item">
+                    <a href="{{ url('/admin/category') }}" class="sidebar-menu-item">
                         <div class="flex-item">
 
                             <i class="bi bi-card-checklist"></i>
@@ -102,7 +102,7 @@
                         <i class="less bi bi-chevron-up" id="expand-less-category"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-category')}}" class="archive-show" id="archive-expand-category">
+                <a href="{{ route('archive-category') }}" class="archive-show" id="archive-expand-category">
                     <span class="">Archive</span>
 
                 </a>
@@ -110,9 +110,9 @@
 
             <div class="menu-item">
                 <div class="r-item">
-                    <a  href="{{ url('/admin/product') }}"  class="sidebar-menu-item">
+                    <a href="{{ url('/admin/product') }}" class="sidebar-menu-item">
                         <div class="flex-item">
-                            <i class="bi bi-clipboard-check"></i> 
+                            <i class="bi bi-clipboard-check"></i>
                             <span class="">Product</span>
 
                         </div>
@@ -122,15 +122,14 @@
                         <i class="less bi bi-chevron-up" id="expand-less-product"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-product">
+                <a href="{{ route('archive-product') }}" class="archive-show" id="archive-expand-product">
                     <span class="">Archive</span>
-
-                </div>
+                </a>
             </div>
 
             <div class="menu-item active">
                 <div class="r-item active">
-                    <a href="{{ url('/admin/transaction') }}" class="sidebar-menu-item">
+                    <a class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-receipt"></i>
                             <span class="">Transaction</span>
@@ -141,7 +140,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a  href="{{ url('/admin/employee') }}"  class="sidebar-menu-item">
+                    <a href="{{ url('/admin/employee') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-people"></i>
                             <span class="">Employee
@@ -154,10 +153,10 @@
                         <i class="less bi bi-chevron-up" id="expand-less-employee"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-employee">
+                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
             <div class="menu-item">
                 <div class="r-item">
@@ -174,27 +173,28 @@
                         <i class="less bi bi-chevron-up" id="expand-less-admin"></i>
                     </div>
                 </div>
-                <div class="archive-show" id="archive-expand-admin">
+                <a href="{{ route('archive-admin') }}" class="archive-show" id="archive-expand-admin">
                     <span class="">Archive</span>
 
-                </div>
+                </a>
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                    <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
                         <div class="flex-item">
-                            <i class="bi bi-people"></i>
+                            <i class="bi bi-person-vcard"></i>
                             <span class="">Membership
                             </span>
 
                         </div>
                     </a>
                     <div class="chevrons-action">
-                        <i class="more bi bi-chevron-down" id=""></i>
-                        <i class="less bi bi-chevron-up" id=""></i>
+                        <i class="more bi bi-chevron-down" id="expand-more-member"></i>
+                        <i class="less bi bi-chevron-up" id="expand-less-member"></i>
                     </div>
+
                 </div>
-                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                <a href="{{ route('archive-member') }}" class="archive-show" id="archive-expand-member">
                     <span class="">Archive</span>
 
                 </a>
@@ -235,17 +235,18 @@
             <div class="ct-body-flex">
                 <div class="ct-body-heading">
                     <div class="ct-heading-r">
+                        <form method="GET" action="{{ route('transaction') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Search for transactions..." value="{{ request()->query('search') }}">
+                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                        </form>
                         <form action="/admin/transaction/export" class="exprt-csv">
                             <button type="submit" class="submit-export-csv">
                                 Export CSV
                             </button>
                         </form>
-                        <form method="GET" action="{{ route('transaction') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input" placeholder="Search for transactions..."
-                                value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
                 <div class="ct-body-content">
@@ -265,62 +266,73 @@
                                     <div class="table-cell">Price</div>
                                     <div class="table-cell">Sub-total</div>
                                     <div class="table-cell">Total</div>
-                                    
+
                                 </div>
                             </div>
                             <div class="transaction-body">
-                                @foreach ($transactions as $transaction)
-                                <div class="table-row">
+                                @forelse ($transactions as $transaction)
+                                    <div class="table-row">
 
-                                    <div class="table-cell">
-                                        {{$transaction->order_id}}
-                                    </div>
-                                    <div class="table-cell date">
-                                        <span>{{$transaction->created_at->toDateString()}}</span>
-                                        <span>{{$transaction->created_at->toTimeString()}}</span>
-                                    </div>
-                                   
-                                    <div class="table-cell">
-                                        @foreach ($transaction->items as $productName)
-                                        <span>- {{$productName->product_name}}</span>
-                                        @endforeach
+                                        <div class="table-cell">
+                                            {{ $transaction->order_id }}
+                                        </div>
+                                        <div class="table-cell date">
+                                            <span>{{ $transaction->created_at->toDateString() }}</span>
+                                            <span>{{ $transaction->created_at->toTimeString() }}</span>
+                                        </div>
+
+                                        <div class="table-cell">
+                                            @foreach ($transaction->items as $productName)
+                                                <span>- {{ $productName->product_name }}</span>
+                                            @endforeach
+
+                                        </div>
+                                        <div class="table-cell">{{ $transaction->user->name }}</div>
+                                        <div class="table-cell flx-col-i">
+                                            @foreach ($transaction->items as $quantity)
+                                                <span>{{ $quantity->quantity }}</span>
+                                            @endforeach
+
+                                        </div>
+                                        <div class="table-cell flx-col-i">
+                                            @foreach ($transaction->items as $price)
+                                                <span>₱{{ $price->price }}</span>
+                                            @endforeach
+
+                                        </div>
+                                        <div class="table-cell flx-col-i">
+                                            @foreach ($transaction->items as $subTotal)
+                                                <span>₱{{ $subTotal->subtotal }}</span>
+                                            @endforeach
+                                        </div>
+                                        <div class="table-cell date" style="display: flex;">
+                                            <span class="">₱{{ $transaction->order_total }}</span>
+                                        </div>
 
                                     </div>
-                                    <div class="table-cell">{{$transaction->user->name}}</div>
-                                    <div class="table-cell flx-col-i">
-                                        @foreach($transaction->items as $quantity)
-                                        <span>{{$quantity->quantity}}</span>
-                                        @endforeach
-
-                                    </div>
-                                    <div class="table-cell flx-col-i">
-                                        @foreach($transaction->items as $price)
-                                        <span>₱{{$price->price}}</span>
-                                        @endforeach
-
-                                    </div>
-                                    <div class="table-cell flx-col-i">
-                                        @foreach($transaction->items as $subTotal)
-                                        <span>₱{{$subTotal->subtotal}}</span>
-                                        @endforeach
-                                    </div>
-                                    <div class="table-cell date" style="display: flex;">
-                                        <span class="">₱{{$transaction->order_total}}</span>
-                                    </div>
-                                  
-                                </div>
-                                @endforeach
+                                @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
+                                        </div>
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
+                                        </div>
+                                    @endif
+                                @endforelse
                             </div>
                         </div>
                     </div>
                     <div>{{ $transactions->appends(['search' => request()->query('search')])->links() }}</div>
-                    
+
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @section('js')
-<script src="../js/jquery-3.7.1.min.js"></script>
-<script src="../js/script.js"></script>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/script.js"></script>
 @endsection

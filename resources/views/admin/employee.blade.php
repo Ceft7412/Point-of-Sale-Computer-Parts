@@ -190,20 +190,21 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                    <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
                         <div class="flex-item">
-                            <i class="bi bi-people"></i>
+                            <i class="bi bi-person-vcard"></i>
                             <span class="">Membership
                             </span>
 
                         </div>
                     </a>
                     <div class="chevrons-action">
-                        <i class="more bi bi-chevron-down" id=""></i>
-                        <i class="less bi bi-chevron-up" id=""></i>
+                        <i class="more bi bi-chevron-down" id="expand-more-member"></i>
+                        <i class="less bi bi-chevron-up" id="expand-less-member"></i>
                     </div>
+
                 </div>
-                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                <a href="{{ route('archive-member') }}" class="archive-show" id="archive-expand-member">
                     <span class="">Archive</span>
 
                 </a>
@@ -253,9 +254,6 @@
                             <div class="flex-column">
                                 <label for="">Username:</label>
                                 <input type="text" name="username" class="input" required>
-                                @error('username')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
 
@@ -282,7 +280,7 @@
                             <div class="flex-column">
                                 <label for="">Confirm Password:</label>
                                 <input id="confirm-password" type="password" class="input" required>
-
+                                <div class="error" id="confirm-error"></div>
                             </div>
                         </div>
 
@@ -379,6 +377,12 @@
                 <div class="ct-body-heading">
                     <span class="ct-heading-l">Active Employee</span>
                     <div class="ct-heading-r">
+                        <form method="GET" action="{{ route('employee') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Search for employees..." value="{{ request()->query('search') }}">
+                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                        </form>
                         <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('archiveGroup') }}">
                             @csrf
                             <button type="button" class="archive_select_group" id="archive_select_group">Set to
@@ -413,12 +417,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form method="GET" action="{{ route('employee') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input"
-                                placeholder="Search for employees..." value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
 
@@ -490,10 +489,7 @@
                                                         <div class="modal-header">
                                                             <div class="item-1">
                                                                 <span class="new-title">Update Employee</span>
-                                                                <span class="material-symbols-outlined"
-                                                                    id="close-update-modal">
-                                                                    close
-                                                                </span>
+                                                                <i class="bi bi-x-lg"></i>
                                                             </div>
                                                         </div>
                                                         <form action="/admin/user/update/{{ $user->id }}"
@@ -509,18 +505,14 @@
                                                                     <div class="flex-column">
                                                                         <label for="">Name:</label>
                                                                         <input type="text" value="{{ $user->name }}"
-                                                                            name="update-name"class="input" required>
+                                                                            name="name"class="input" required>
 
                                                                     </div>
                                                                     <div class="flex-column">
                                                                         <label for="">Username:</label>
                                                                         <input type="text"
-                                                                            value="{{ $user->username }}"
-                                                                            name="update-username" class="input"
-                                                                            required>
-                                                                        @error('username')
-                                                                            <div class="error">{{ $message }}</div>
-                                                                        @enderror
+                                                                            value="{{ $user->username }}" name="username"
+                                                                            class="input" required>
                                                                     </div>
                                                                 </div>
 
@@ -529,15 +521,16 @@
                                                                     <div class="flex-column">
                                                                         <label for="">Email:</label>
                                                                         <input type="email"
-                                                                            value="{{ $user->email }}"name="update-email"
+                                                                            value="{{ $user->email }}"name="email"
                                                                             class="input" required>
                                                                         <div class="error"></div>
                                                                     </div>
                                                                     <div class="flex-column">
                                                                         <label for="">Contact No:
-                                                                            (Optional)</label>
+                                                                            (Optional)
+                                                                        </label>
                                                                         <input type="tel"value="{{ $user->contact }}"
-                                                                            name="update-contact" class="input">
+                                                                            name="contact" class="input">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -616,6 +609,7 @@
                             </div>
                         </div>
                     </div>
+                    <div>{{ $users->appends(['search' => request()->query('search')])->links() }}</div>
                 </div>
 
 

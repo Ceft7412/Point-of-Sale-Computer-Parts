@@ -196,7 +196,7 @@
                                 <i class="bi bi-people"></i>
                                 <span class="">Membership
                                 </span>
-    
+
                             </div>
                         </a>
                         <div class="chevrons-action">
@@ -206,7 +206,7 @@
                     </div>
                     <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
                         <span class="">Archive</span>
-    
+
                     </a>
                 </div>
             </div>
@@ -361,6 +361,12 @@
                             </a>
                         </div>
                         <div class="ct-heading-r">
+                            <form method="GET" action="{{ route('archive-admin') }}"class="ct-heading-search">
+
+                                <input type="text" name="search" class="ct-heading-search-input"
+                                    placeholder="Admin ID" value="{{ request()->query('search') }}">
+                                <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                            </form>
                             <form class="fl-per-pg" method="POST" id="archiveGroup"
                                 action="{{ route('unarchiveGroup') }}">
                                 @csrf
@@ -398,12 +404,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <form method="GET" action="{{ route('archive-admin') }}"class="ct-heading-search">
 
-                                <input type="text" name="search" class="ct-heading-search-input"
-                                    placeholder="Admin ID" value="{{ request()->query('search') }}">
-                                <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                            </form>
                         </div>
                     </div>
 
@@ -470,13 +471,13 @@
                                                         <i class="bi bi-box-arrow-up"></i>
                                                         <span class="">Active</span>
                                                     </button>
-    
-    
+
+
                                                 </div>
                                                 <div class="archive-modal-wrapper" id="unarchive_{{ $user->id }}">
                                                     <div class="modal-card-wrapper" id="modal-card">
                                                         <div class="heading">
-    
+
                                                             <span class="text-left">
                                                                 Set to Active
                                                             </span>
@@ -484,10 +485,11 @@
                                                                 <i class="bi bi-x-lg"></i>
                                                             </span>
                                                         </div>
-    
+
                                                         <div class="body">
                                                             <div class="text">
-                                                                Unarchiving this row will remove the user from the unactive list
+                                                                Unarchiving this row will remove the user from the unactive
+                                                                list
                                                                 and will remain active. Are you sure
                                                                 you
                                                                 want to
@@ -498,13 +500,15 @@
                                                             <form method="POST" action="/admin/user/{{ $user->id }}"
                                                                 id="unarchiveForm">
                                                                 @csrf
-                                                                <button type="button" class="cancel-archive">No, keep this
+                                                                <button type="button" class="cancel-archive">No, keep
+                                                                    this
                                                                     inactive</button>
-                                                                <button type="submit" class="confirm-archive">Yes, make this
+                                                                <button type="submit" class="confirm-archive">Yes, make
+                                                                    this
                                                                     active</button>
                                                             </form>
                                                         </div>
-    
+
                                                     </div>
                                                 </div>
 

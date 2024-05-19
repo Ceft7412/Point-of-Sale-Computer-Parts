@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
             $table->string('customer_phone')->nullable();
-            $table->foreignId('membership_id')->nullable();
+            $table->unsignedBigInteger('membership_id')->nullable();
             $table->foreign('membership_id')->references('id')->on('members');
             $table->timestamps();
         });

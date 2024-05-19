@@ -16,7 +16,8 @@ class ProductController extends Controller
 
         $search = request()->query('search');
         if ($search) {
-            $products = Product::where('product_id', 'like', '%' . $search . '%')->get();
+            $products = Product::where('product_id', 'like', '%' . $search . '%')
+                ->orWhere('product_name', 'like', '%' . $search . '%')->paginate(5);
             $subcategories = Subcategory::all();
             $imageFiles = $this->getProductImages();
             return view('admin.product')
@@ -24,7 +25,7 @@ class ProductController extends Controller
                 ->with('subcategories', $subcategories)
                 ->with('imageFiles', $imageFiles);
         } else {
-            $products = Product::where('is_active', 1)->get();
+            $products = Product::where('is_active', 1)->paginate(5);
             $subcategories = Subcategory::all();
             $imageFiles = $this->getProductImages();
             return view('admin.product')
@@ -41,11 +42,12 @@ class ProductController extends Controller
 
         $search = request()->query('search');
         if ($search) {
-            $products = Product::where('is_active', 0)->where('product_id', 'like', '%' . $search . '%')->get();
+            $products = Product::where('is_active', 0)->where('product_id', 'like', '%' . $search . '%')
+                ->orWhere('product_name', 'like', '%' . $search . '%')->paginate(5);
             $subcategories = Subcategory::where('is_active', 1)->get();
             $imageFiles = $this->getProductImages();
             return view('admin.archive.archive-product')
-                ->with('products', $products)   
+                ->with('products', $products)
                 ->with('subcategories', $subcategories)
                 ->with('imageFiles', $imageFiles);
         } else {
@@ -67,7 +69,6 @@ class ProductController extends Controller
 
     public function storeProduct(Request $request)
     {
-
         $request->validate([
             'subcategory_id' => 'required',
             'product_name' => 'required|unique:products|max:50',
@@ -75,9 +76,11 @@ class ProductController extends Controller
             'product_price' => 'required',
             'product_quantity' => 'required|numeric|min:0',
         ]);
+
         do {
             $product_id = rand(10000, 99999);
         } while (Product::where('product_id', $product_id)->exists());
+
         $product = new Product();
         $product->product_id = $product_id;
         $product->subcategory_id = $request->subcategory_id;
@@ -85,25 +88,33 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->product_price = $request->product_price;
         $product->product_quantity = $request->product_quantity;
+
         if ($request->hasFile('product_image')) {
             $image = $request->file('product_image');
-            $imagePath = $image->store('public/product_images');
-            $product->product_image = basename($imagePath);
+            $uniqueId = uniqid();
+            $extension = $image->getClientOriginalExtension();
+            $filename = $uniqueId . '.' . $extension;
+            $image->move(public_path('storage/product_images'), $filename);
+            $product->product_image = $filename;
         }
+
         $product->save();
+
         return redirect()->back()->with('success', 'Product added successfully');
-        ;
 
     }
 
     public function updateProduct(Request $request, $id)
     {
+
         $request->validate([
             'subcategory_id' => 'required',
-            'product_name' => 'required',
+            'product_name' => 'required|unique:products',
             'product_price' => 'required',
             'product_quantity' => 'required',
+            'product_image' => 'image|mimes:jpeg,png,jpg,jfif|max:20048',
         ]);
+
         $product = Product::findOrFail($id);
         $product->subcategory_id = $request->subcategory_id;
         $product->category_id = Subcategory::find($request->subcategory_id)->category_id;
@@ -111,19 +122,20 @@ class ProductController extends Controller
         $product->product_price = $request->product_price;
         $product->product_quantity = $request->product_quantity;
 
-
-
-        if ($request->filled('selected_image')) {   
+        if ($request->filled('selected_image')) {
             $imageName = basename($request->selected_image);
             $product->product_image = $imageName;
         } elseif ($request->hasFile('product_image')) {
-
             $image = $request->file('product_image');
-            $imagePath = $image->store('public/product_images');
-            $product->product_image = basename($imagePath);
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/product_images'), $filename);
+            $product->product_image = $filename;
         }
+
         $product->save();
+
         return redirect()->back()->with('success', 'Product updated successfully');
+
     }
 
 
@@ -140,7 +152,10 @@ class ProductController extends Controller
             'subcategory_id' => 'required'
         ]);
         $product = Product::findOrFail($id);
+        $subcategory = Subcategory::findOrFail($request->subcategory_id);
+
         $product->subcategory_id = $request->subcategory_id;
+        $product->category_id = $subcategory->category_id;
         $product->is_active = true;
         $product->save();
         return redirect()->back()->with('success', 'Product unarchived successfully');
@@ -174,11 +189,13 @@ class ProductController extends Controller
         $subcategoryId = $request->input('subcategory_id');
         $product_ids = $request->input('archiveIds');
         if ($product_ids) {
+            $subcategory = Subcategory::findOrFail($subcategoryId);
             $productArray = explode(",", $product_ids);
             foreach ($productArray as $product_id) {
 
                 $product = Product::findOrFail($product_id);
                 $product->subcategory_id = $subcategoryId;
+                $product->category_id = $subcategory->category_id;
                 $product->is_active = true;
                 $product->save();
             }
@@ -191,9 +208,11 @@ class ProductController extends Controller
     }
     public function getProductImages()
     {
-        $imagePaths = Storage::disk('public')->files('product_images');
+        $imagePaths = glob(public_path('storage/product_images/*'));
         $imageFiles = array_map(function ($path) {
-            return asset('storage/' . $path);
+            $relativePath = str_replace(public_path(), '', $path);
+            $relativePath = str_replace('\\', '/', $relativePath); // Replace backslashes with forward slashes
+            return asset($relativePath);
         }, $imagePaths);
 
         return $imageFiles;

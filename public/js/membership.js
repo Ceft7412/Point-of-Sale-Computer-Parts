@@ -39,6 +39,11 @@ $('.submit-button-cancel').on('click', function () {
 setTimeout(function () {
     $('#errorModal').slideUp();
 }, 3000);
+
+$('.ok').click(function () {
+    $('.success-modal').hide();
+});
+
 function updateClock() {
     var now = new Date();
     var formattedTime = now.toLocaleString('en-US', {

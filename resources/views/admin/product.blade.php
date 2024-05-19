@@ -113,7 +113,7 @@
 
             <div class="menu-item active">
                 <div class="r-item active">
-                    <a href="{{ route('product') }}"" class="sidebar-menu-item">
+                    <a class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-clipboard-check"></i>
                             <span class="">Product</span>
@@ -184,20 +184,21 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                    <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
                         <div class="flex-item">
-                            <i class="bi bi-people"></i>
+                            <i class="bi bi-person-vcard"></i>
                             <span class="">Membership
                             </span>
 
                         </div>
                     </a>
                     <div class="chevrons-action">
-                        <i class="more bi bi-chevron-down" id=""></i>
-                        <i class="less bi bi-chevron-up" id=""></i>
+                        <i class="more bi bi-chevron-down" id="expand-more-member"></i>
+                        <i class="less bi bi-chevron-up" id="expand-less-member"></i>
                     </div>
+
                 </div>
-                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                <a href="{{ route('archive-member') }}" class="archive-show" id="archive-expand-member">
                     <span class="">Archive</span>
 
                 </a>
@@ -253,7 +254,7 @@
                         <div class="input-wrapper flex-row">
                             <div class="flex-column">
                                 <label for="">Picture:</label>
-                                <input type="file" name="product_image" class="" required>
+                                <input type="file" accept="image/*" name="product_image" class="" required>
                             </div>
                             <span clas="picture-wrapper"></span>
                         </div>
@@ -368,17 +369,48 @@
                 <div class="ct-body-heading">
 
                     <div class="ct-heading-r">
-                        <form action="{{ route('archiveProductGroup') }}" class="fl-per-pg" id="archiveGroup"
-                            method="POST">
-                            @csrf
-                            <button type="submit" class="archive_select_group" id="archive_select_group">Set to inactive</button>
-                        </form>
                         <form method="GET" action="{{ route('product') }}"class="ct-heading-search">
 
                             <input type="text" name="search" class="ct-heading-search-input"
                                 placeholder="Search for products..." value="{{ request()->query('search') }}">
                             <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
                         </form>
+                        <form action="{{ route('archiveProductGroup') }}" class="fl-per-pg" id="archiveGroup"
+                            method="POST">
+                            @csrf
+                            <button type="button" class="archive_select_group" id="archive_select_group">Set to
+                                inactive</button>
+                            <div class="archive-modal-wrapper">
+                                <div class="modal-card-wrapper" id="modal-card">
+                                    <div class="heading">
+
+                                        <span class="text-left">
+                                            Set to Inactive
+                                        </span>
+                                        <span class="cancel-archive">
+                                            <i class="bi bi-x-lg"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="body">
+                                        <div class="text">
+                                            Archiving this grou p will remove the users from the active list and will remain
+                                            unactive. Are you sure you
+                                            want to
+                                            proceed?
+                                        </div>
+                                    </div>
+                                    <div class="footer">
+
+                                        <button type="button" class="cancel-archive">No, keep this active</button>
+                                        <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 
@@ -399,7 +431,7 @@
                                     <div class="table-cell">Brands</div>
                                     <div class="table-cell">Price</div>
                                     <div class="table-cell">Quantity</div>
-                                    <div class="table-cell">Purchase</div>
+                                    <div class="table-cell"></div>
                                     <div class="table-cell">Inserted Date</div>
                                     <div class="table-cell">Modified Date</div>
                                     <div class="table-cell">Action</div>
@@ -417,7 +449,7 @@
                                         </div>
                                         <div class="table-cell">P{{ $product->product_id }}</div>
                                         <div class="table-cell">
-                                            <img src="{{ Storage::url('public/product_images/' . $product->product_image) }}"
+                                            <img src="{{ asset('storage/product_images/' . $product->product_image) }}"
                                                 alt="{{ $product->product_name }}" class="picture">
                                             <span class="item">{{ $product->product_name }}</span>
                                         </div>
@@ -431,7 +463,7 @@
 
                                         </div>
                                         <div class="table-cell" style="display: flex;">
-                                            <span>3</span>
+
 
                                         </div>
                                         <div class="table-cell date">
@@ -458,10 +490,7 @@
                                                             <div class="modal-header">
                                                                 <div class="item-1">
                                                                     <span class="new-title">Update Product</span>
-                                                                    <span class="material-symbols-outlined"
-                                                                        id="close-update-modal">
-                                                                        close
-                                                                    </span>
+                                                                    <i class="bi bi-x-lg"></i>
                                                                 </div>
                                                             </div>
                                                             <form action="/admin/product/update/{{ $product->id }}"
@@ -499,7 +528,8 @@
                                                                         <div class="col-pic">
                                                                             <div class="flex-column">
                                                                                 <label for="product_image">Picture
-                                                                                    (Optional):</label>
+                                                                                    (Optional)
+                                                                                    :</label>
                                                                                 <input type="file" name="product_image"
                                                                                     accept=".jpg, .jpeg, .png"
                                                                                     class="">
@@ -516,7 +546,7 @@
                                                                         </div>
                                                                         <div class="picture-wrapper">
                                                                             <img id="product_image"
-                                                                                src="{{ Storage::url('public/product_images/' . $product->product_image) }}"
+                                                                                src="{{ asset('storage/product_images/' . $product->product_image) }}"
                                                                                 class="image-place" alt="Product Image">
                                                                         </div>
                                                                     </div>
@@ -564,14 +594,17 @@
                                                                 <div class="image-modal">
                                                                     <div class="header">
                                                                         <span class="b-title">Choose a picture...</span>
-                                                                        <span class="s-title"><i class="bi bi-info-circle"></i>Selecting an image will instantly
+                                                                        <span class="s-title"><i
+                                                                                class="bi bi-info-circle"></i>Selecting an
+                                                                            image will instantly
                                                                             update the form.</span>
                                                                     </div>
-                                            
+
                                                                     <div class="image-modal-flex">
                                                                         @foreach ($imageFiles as $imageFile)
                                                                             <div class="img-pro-con" id="image-select">
-                                                                                <img src="{{ asset($imageFile) }}" alt="" id="image-preview">
+                                                                                <img src="{{ asset($imageFile) }}"
+                                                                                    id="image-preview">
                                                                             </div>
                                                                         @endforeach
                                                                     </div>
@@ -593,10 +626,10 @@
                                                     </button>
                                                 </div>
 
-                                                <div class="archive-modal-wrapper" id="archive_{{$product->id}}">
+                                                <div class="archive-modal-wrapper" id="archive_{{ $product->id }}">
                                                     <div class="modal-card-wrapper" id="modal-card">
                                                         <div class="heading">
-                                
+
                                                             <span class="text-left">
                                                                 Set to Inactive
                                                             </span>
@@ -604,23 +637,28 @@
                                                                 <i class="bi bi-x-lg"></i>
                                                             </span>
                                                         </div>
-                                
+
                                                         <div class="body">
                                                             <div class="text">
-                                                                Archiving this row will remove the product from the active list and will remain unactive.
+                                                                Archiving this row will remove the product from the active
+                                                                list and will remain unactive.
                                                                 Are you sure you
                                                                 want to
                                                                 proceed?
                                                             </div>
                                                         </div>
                                                         <div class="footer">
-                                                            <form method="POST" action="/admin/product/archive/{{$product->id}}" id="archiveProductForm" id="product_archive">
+                                                            <form method="POST"
+                                                                action="/admin/product/archive/{{ $product->id }}"
+                                                                id="archiveProductForm" id="product_archive">
                                                                 @csrf
-                                                                <button type="button" class="cancel-archive">No, keep this active</button>
-                                                                <button type="submit" class="confirm-archive">Yes, set this to inactive</button>
+                                                                <button type="button" class="cancel-archive">No, keep
+                                                                    this active</button>
+                                                                <button type="submit" class="confirm-archive">Yes, set
+                                                                    this to inactive</button>
                                                             </form>
                                                         </div>
-                                
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -642,15 +680,16 @@
                             </div>
                         </div>
                     </div>
+                    <div>{{ $products->appends(['search' => request()->query('search')])->links() }}</div>
                 </div>
 
-                
-                
-
-                @endsection
 
 
-                @section('js')
-                    <script src="../js/jquery-3.7.1.min.js"></script>
-                    <script src="../js/script.js"></script>
-                @endsection
+
+            @endsection
+
+
+            @section('js')
+                <script src="../js/jquery-3.7.1.min.js"></script>
+                <script src="../js/script.js"></script>
+            @endsection

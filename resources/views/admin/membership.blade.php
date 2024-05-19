@@ -181,7 +181,7 @@
             </div>
             <div class="menu-item active">
                 <div class="r-item active">
-                    <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
+                    <a class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-person-vcard"></i>
                             <span class="">Membership
@@ -252,7 +252,7 @@
                         <div class="input-password input-wrapper">
                             <div class="flex-column">
                                 <label for="">Contact No:</label>
-                                <input type="num" name="membership_phone" class="input">
+                                <input type="number" name="membership_phone" class="input">
                             </div>
                         </div>
 
@@ -353,6 +353,11 @@
                 </a>
             </div>
             <div class="hd-fl-ct">
+                <form method="GET" action="{{ route('membershipRedirect') }}" class="fl-sr">
+                    <input type="text" name="search" value="{{ request()->query('search') }}"
+                        placeholder="Search for members...">
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
                 <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('archive-members') }}">
                     @csrf
                     <button type="button" class="archive_select_group" id="archive_select_group">Set to
@@ -387,11 +392,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="GET" action="{{ route('membershipRedirect') }}" class="fl-sr">
-                    <input type="text" name="search" value="{{ request()->query('search') }}"
-                        placeholder="Member ID">
-                    <button type="submit"><i class="bi bi-search"></i></button>
-                </form>
+
 
             </div>
 
@@ -399,8 +400,8 @@
                 <div class="tbl">
                     <div class="thdr">
                         <div class="tbl-cell">
-                            @if($activeMembers->count() > 0)
-                            <input type="checkbox" id="selectAllCheckbox">
+                            @if ($activeMembers->count() > 0)
+                                <input type="checkbox" id="selectAllCheckbox">
                             @endif
                         </div>
                         <div class="tbl-cell">
@@ -460,9 +461,7 @@
                                                 <div class="modal-header">
                                                     <div class="item-1">
                                                         <span class="new-title">Update Member</span>
-                                                        <span class="material-symbols-outlined" id="close-update-modal">
-                                                            close
-                                                        </span>
+                                                        <i class="bi bi-x-lg"></i>
                                                     </div>
                                                 </div>
                                                 <form
@@ -478,8 +477,7 @@
                                                         <div class="input-name input-wrapper">
                                                             <div class="flex-column">
                                                                 <label for="">Name:</label>
-                                                                <input type="text"
-                                                                    name="update_membership_name"class="input"
+                                                                <input type="text" name="membership_name"class="input"
                                                                     value="{{ $activeMember->membership_name }}" required>
                                                             </div>
                                                         </div>
@@ -488,7 +486,7 @@
                                                         <div class="input-email input-wrapper">
                                                             <div class="flex-column">
                                                                 <label for="">Email:</label>
-                                                                <input type="email" name="update_membership_email"
+                                                                <input type="email" name="membership_email"
                                                                     class="input"
                                                                     value="{{ $activeMember->membership_email }}"
                                                                     required>
@@ -498,7 +496,7 @@
                                                         <div class="input-email input-wrapper">
                                                             <div class="flex-column">
                                                                 <label for="">Contact No: (Optional)</label>
-                                                                <input type="tel" name="update_membership_phone"
+                                                                <input type="number" name="membership_phone"
                                                                     value="{{ $activeMember->membership_phone }}"
                                                                     class="input">
                                                             </div>
@@ -542,6 +540,16 @@
                                 </div>
                             </div>
                         @empty
+                            @if (request()->query('search'))
+                                <div class="no-data">
+                                    <span>No result found for query
+                                        <strong>{{ request()->query('search') }}</strong></span>
+                                </div>
+                            @else
+                                <div class="no-data">
+                                    <span>No data available</span>
+                                </div>
+                            @endif
                         @endforelse
 
                     </div>
@@ -549,6 +557,7 @@
 
 
                 </div>
+                <div>{{ $activeMembers->appends(['search' => request()->query('search')])->links() }}</div>
             </div>
 
 

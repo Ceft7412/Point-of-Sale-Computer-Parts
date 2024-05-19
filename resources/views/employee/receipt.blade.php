@@ -57,39 +57,39 @@
                         <span class="item">EasyTech Computer Parts</span>
                         <span class="item">University of Mindanao</span>
                         <span class="item">Matina, Davao City</span>
-                        
-                     
+
+
                     </div>
                     <div class="card-receipt-body">
                         <div class="item">
                             <div class="child-item">
                                 <span class="gr-child-item">Order #:</span>
-                                <span class="gr-child-item">{{$order->order_id}}</span>
+                                <span class="gr-child-item">{{ $order->order_id }}</span>
                             </div>
                             <div class="child-item">
                                 <span class="gr-child-item">Sold To:</span>
 
                                 @if ($order->customer->membership_id)
-                                <span class="gr-child-item">
-                                    {{$order->customer->membership->membership_name}}
-                                </span>
+                                    <span class="gr-child-item">
+                                        {{ $order->customer->membership->membership_name }}
+                                    </span>
                                 @else
-                                <span class="gr-child-item">
-                                    {{$order->customer->customer_name}}
-                                </span>
+                                    <span class="gr-child-item">
+                                        {{ $order->customer->customer_name }}
+                                    </span>
                                 @endif
                             </div>
                             <div class="child-item">
                                 <span class="gr-child-item">Order Date:</span>
                                 <span class="gr-child-item">
-                                    {{ $order->created_at->toDateString()}}
-                                    
+                                    {{ $order->created_at->toDateString() }}
+
                                 </span>
                             </div>
                             <div class="child-item">
                                 <span class="gr-child-item">Order Time:</span>
                                 <span class="gr-child-item">
-                                    {{ $order->created_at->toTimeString()}}
+                                    {{ $order->created_at->toTimeString() }}
                                 </span>
                             </div>
                             <div class="child-item">
@@ -104,43 +104,43 @@
                                 <span class="gr-child-item">Name</span>
                                 <span class="gr-child-item flex-col">Quantity</span>
                                 <span class="gr-child-item flex-col">Subtotal</span>
-                               
+
                             </div>
-                            @foreach($order->items as $orderItem)
-                            <div class="child-item">
-                                <span class="gr-child-item">{{$orderItem->product_name}}</span>
-                                <span class="gr-child-item flex-col">x {{$orderItem->quantity}}</span>
-                                <span class="gr-child-item flex-col">
-                        
-                                    ₱ {{$orderItem->subtotal}}
-                                </span>
-                               
-                            </div>
+                            @foreach ($order->items as $orderItem)
+                                <div class="child-item">
+                                    <span class="gr-child-item">{{ $orderItem->product_name }}</span>
+                                    <span class="gr-child-item flex-col">x {{ $orderItem->quantity }}</span>
+                                    <span class="gr-child-item flex-col">
+
+                                        ₱ {{ $orderItem->subtotal }}
+                                    </span>
+
+                                </div>
                             @endforeach
-                            
+
                             <div class="child-item">
-                                
+
                             </div>
                         </div>
                         <div class="item">
-                           
+
                             <div class="child-item">
                                 <span class="gr-child-item">Discount</span>
-                                @if($order->customer->membership_id)
-                                <span class="gr-child-item">10%</span>
+                                @if ($order->customer->membership_id)
+                                    <span class="gr-child-item">10%</span>
                                 @endif
                             </div>
                             <div class="child-item">
                                 <span class="gr-child-item">Total</span>
-                                <span class="gr-child-item">₱ {{$order->order_total}}</span>
+                                <span class="gr-child-item">₱ {{ $order->order_total }}</span>
                             </div>
                             <div class="child-item">
                                 <span class="gr-child-item">Cash Tendered</span>
-                                <span class="gr-child-item">₱{{$order->amount_rendered}}</span>
+                                <span class="gr-child-item">₱{{ $order->amount_rendered }}</span>
                             </div>
                             <div class="child-item">
                                 <span class="gr-child-item">CHANGE DUE</span>
-                                <span class="gr-child-item">₱{{$order->order_change}}</span>
+                                <span class="gr-child-item">₱{{ $order->order_change }}</span>
                             </div>
                         </div>
                     </div>

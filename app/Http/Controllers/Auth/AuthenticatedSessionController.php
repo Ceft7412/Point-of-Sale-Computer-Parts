@@ -24,16 +24,23 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+
+
         $request->authenticate();
 
         $request->session()->regenerate();
         if (Auth::user()->type == 1) {
             return redirect()->intended(route('overview', absolute: false));
         }
-        if (Auth::user()->type == 2) {
+        if (Auth::user()->type == 2 && Auth::user()->is_active == 1) {
             return redirect()->intended(route('order', absolute: false));
+        } elseif (Auth::user()->type == 2 && Auth::user()->is_active == 0) {
+            Auth::logout();
+            return redirect()->intended(route('login', absolute: false));
         }
         return redirect('/');
+
+
 
     }
 

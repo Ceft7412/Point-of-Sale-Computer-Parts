@@ -167,7 +167,7 @@
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a class="sidebar-menu-item">
+                    <a href="{{ url('admin/admin') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-person-gear"></i>
                             <span class="">Admin
@@ -306,6 +306,11 @@
                 <div class=""></div>
             </div>
             <div class="hd-fl-ct">
+                <form method="GET" action="{{ route('archive-member') }}" class="fl-sr">
+                    <input type="text" name="search" value="{{ request()->query('search') }}"
+                        placeholder="Search for applicants...">
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
                 <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('unarchive-members') }}">
                     @csrf
                     <button type="button" class="archive_select_group" id="archive_select_group">Set to active</button>
@@ -339,11 +344,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="GET" action="{{ route('archive-member') }}" class="fl-sr">
-                    <input type="text" name="search" value="{{ request()->query('search') }}"
-                        placeholder="Search for members...">
-                    <button type="submit"><i class="bi bi-search"></i></button>
-                </form>
+
 
             </div>
 
@@ -426,26 +427,14 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    
-
-
                                 </div>
                             </div>
                         @empty
                         @endforelse
-
                     </div>
-
-
-
                 </div>
+                <div>{{ $inactiveMembers->appends(['search' => request()->query('search')])->links() }}</div>
             </div>
-
-
-
-
-
         </div>
     </div>
 @endsection

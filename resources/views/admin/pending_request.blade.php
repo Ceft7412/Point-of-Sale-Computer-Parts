@@ -182,7 +182,7 @@
             <div class="menu-item active">
                 <div class="r-item active">
                     <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
-                        <div class="flex-item"> 
+                        <div class="flex-item">
                             <i class="bi bi-person-vcard"></i>
                             <span class="">Membership
                             </span>
@@ -195,7 +195,7 @@
                     </div>
 
                 </div>
-                <a href="{{ route('archive-member') }}" class="archive-show active" id="archive-expand-member">
+                <a href="{{ route('archive-member') }}" class="archive-show" id="archive-expand-member">
                     <span class="">Archive</span>
 
                 </a>
@@ -238,6 +238,11 @@
                 </div>
             </div>
             <div class="hd-fl-ct">
+                <form method="GET" action="{{ route('pending.request-membership') }}" class="fl-sr">
+                    <input type="text" name="search" value="{{ request()->query('search') }}"
+                        placeholder="Search for applicant names...">
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
                 <form class="fl-per-pg" method="POST" id="archiveGroup" action="{{ route('decline-members') }}">
                     @csrf
                     <button type="button" class="archive_select_group" id="archive_select_group">Decline</button>
@@ -268,11 +273,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="GET" action="{{ route('pending.request-membership') }}" class="fl-sr">
-                    <input type="text" name="search" value="{{ request()->query('search') }}"
-                        placeholder="Search for applicant names...">
-                    <button type="submit"><i class="bi bi-search"></i></button>
-                </form>
+
 
             </div>
 
@@ -362,7 +363,7 @@
                                                     <div class="ftr">
 
                                                         <button type="button" class="btn-no">No</button>
-                                                        <button type="button" class="btn-yes">Yes</button>
+                                                        <button type="submit" class="btn-yes">Yes</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -380,6 +381,7 @@
 
 
                 </div>
+                <div>{{ $pendingMembers->appends(['search' => request()->query('search')])->links() }}</div>
             </div>
 
 

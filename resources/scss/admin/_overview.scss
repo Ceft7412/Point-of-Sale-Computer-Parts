@@ -73,9 +73,11 @@
                                 gap: 10px;
                                 justify-content: space-between;
                                 position: relative;
-                                .show-slct{
-                                    cursor:pointer;
+
+                                .show-slct {
+                                    cursor: pointer;
                                 }
+
                                 .text-heading {
 
                                     font-size: 0.875rem;
@@ -418,6 +420,8 @@
                         }
                     }
                 }
+
+
             }
         }
     }
@@ -443,6 +447,12 @@
                                 flex-basis: 50%;
                             }
                         }
+                    }
+                }
+
+                .c-right-content {
+                    .card-no-stock {
+                        margin-bottom: 50px;
                     }
                 }
             }

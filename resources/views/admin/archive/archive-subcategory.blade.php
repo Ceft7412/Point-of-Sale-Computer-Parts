@@ -337,11 +337,18 @@
                         </div>
                     </div>
                     <div class="ct-heading-r">
+                        <form method="GET" action="{{ route('archive-subcategory') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Search for brands..." value="{{ request()->query('search') }}">
+                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                        </form>
                         <form class="fl-per-pg" method="POST" id="archiveGroup"
                             action="{{ route('unarchiveSubcategoryGroup') }}">
                             @csrf
                             @method('PUT')
-                            <button type="button" class="archive_select_group" id="archive_select_group">Set to active</button>
+                            <button type="button" class="archive_select_group" id="archive_select_group">Set to
+                                active</button>
 
                             <div class="unarchive-modal-wrapper">
                                 <div class="modal-card-wrapper" id="modal-card">
@@ -349,7 +356,8 @@
 
                                         <div class="text-left">
                                             <span class="big">Set to Active</span>
-                                            <span class="small"><i class="bi bi-info-circle"></i>Please choose the category.</span>
+                                            <span class="small"><i class="bi bi-info-circle"></i>Please choose the
+                                                category.</span>
                                         </div>
 
                                         <span class="cancel-archive">
@@ -383,12 +391,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form method="GET" action="{{ route('archive-subcategory') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input"
-                                placeholder="Search for brands..." value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
                 <div class="ct-body-content">
@@ -429,7 +432,7 @@
                                                 S{{ $archivedSubcategory->subcategory_id }}
                                             </div>
                                             <div class="table-cell">
-                                                <img src="{{ Storage::url('public/subcategory_images/' . $archivedSubcategory->subcategory_image) }}"
+                                                <img src="{{ asset('storage/subcategory_images/' . $archivedSubcategory->subcategory_image) }}"
                                                     alt="{{ $archivedSubcategory->subcategory_name }}" class="picture">
                                                 <span>{{ $archivedSubcategory->subcategory_name }}</span>
                                             </div>
@@ -560,9 +563,16 @@
                                         </div>
 
                                     @empty
-                                        <div class="no-data">
-                                            <span>No data available</span>
-                                        </div>
+                                        @if (request()->query('search'))
+                                            <div class="no-data">
+                                                <span>No result found for query
+                                                    <strong>{{ request()->query('search') }}</strong></span>
+                                            </div>
+                                        @else
+                                            <div class="no-data">
+                                                <span>No data available</span>
+                                            </div>
+                                        @endif
                                     @endforelse
 
 

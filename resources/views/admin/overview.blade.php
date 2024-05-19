@@ -2,7 +2,7 @@
 
 @section('title', 'Overview')
 @section('css')
-<link rel="stylesheet" href="../dest/css/style.css">
+    <link rel="stylesheet" href="../dest/css/style.css">
 @endsection
 @section('content')
     {{-- TOPBAR --}}
@@ -29,25 +29,25 @@
                         <i class="bi bi-columns-gap"></i>
                         <span class="">Overview</span>
                     </a>
-                    <a href="{{route('category')}}" class="tb-mn-ln-item-a">
+                    <a href="{{ route('category') }}" class="tb-mn-ln-item-a">
                         <i class="bi bi-card-checklist"></i>
                         <span class="">Category</span>
                     </a>
-                    <a href="{{route('product')}}" class="tb-mn-ln-item-a">
+                    <a href="{{ route('product') }}" class="tb-mn-ln-item-a">
                         <i class="bi bi-clipboard-check"></i>
                         <span class="">Product</span>
                     </a>
-                    <a href="{{route('transaction')}}" class="tb-mn-ln-item-a">
+                    <a href="{{ route('transaction') }}" class="tb-mn-ln-item-a">
 
                         <i class="bi bi-receipt"></i>
                         <span class="">Transaction</span>
 
                     </a>
-                    <a href="{{route('employee')}}" class="tb-mn-ln-item-a">
+                    <a href="{{ route('employee') }}" class="tb-mn-ln-item-a">
                         <i class="bi bi-people"></i>
                         <span class="">Employee</span>
                     </a>
-                    <a href="{{route('admin')}}" class="tb-mn-ln-item-a">
+                    <a href="{{ route('admin') }}" class="tb-mn-ln-item-a">
                         <i class="bi bi-person-gear"></i>
                         <span class="">Admin</span>
                     </a>
@@ -115,7 +115,7 @@
                         <i class="less bi bi-chevron-up" id="expand-less-product"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-product')}}" class="archive-show" id="archive-expand-product">
+                <a href="{{ route('archive-product') }}" class="archive-show" id="archive-expand-product">
                     <span class="">Archive</span>
 
                 </a>
@@ -123,7 +123,7 @@
 
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{route('transaction') }}" class="sidebar-menu-item">
+                    <a href="{{ route('transaction') }}" class="sidebar-menu-item">
                         <div class="flex-item">
                             <i class="bi bi-receipt"></i>
                             <span class="">Transaction</span>
@@ -147,7 +147,7 @@
                         <i class="less bi bi-chevron-up" id="expand-less-employee"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-employee')}}"class="archive-show" id="archive-expand-employee">
+                <a href="{{ route('archive-employee') }}"class="archive-show" id="archive-expand-employee">
                     <span class="">Archive</span>
 
                 </a>
@@ -167,27 +167,30 @@
                         <i class="less bi bi-chevron-up" id="expand-less-admin"></i>
                     </div>
                 </div>
-                <a href="{{route('archive-admin')}}"class="archive-show" id="archive-expand-admin">
+                <a href="{{ route('archive-admin') }}"class="archive-show" id="archive-expand-admin">
                     <span class="">Archive</span>
 
                 </a>
             </div>
             <div class="menu-item">
                 <div class="r-item">
-                    <a href="{{ url('admin/membership') }}"class="sidebar-menu-item">
+                    <a href="{{ url('admin/membership') }}" class="sidebar-menu-item">
                         <div class="flex-item">
-                            <i class="bi bi-people"></i>
+                            <i class="bi bi-person-vcard"></i>
                             <span class="">Membership
                             </span>
+
                         </div>
                     </a>
                     <div class="chevrons-action">
-                        <i class="more bi bi-chevron-down" id=""></i>
-                        <i class="less bi bi-chevron-up" id=""></i>
+                        <i class="more bi bi-chevron-down" id="expand-more-member"></i>
+                        <i class="less bi bi-chevron-up" id="expand-less-member"></i>
                     </div>
+
                 </div>
-                <a href="{{ route('archive-employee') }}" class="archive-show" id="archive-expand-employee">
+                <a href="{{ route('archive-member') }}" class="archive-show" id="archive-expand-member">
                     <span class="">Archive</span>
+
                 </a>
             </div>
         </div>
@@ -207,7 +210,7 @@
             <span class="h-date-now">{{ $currentDate }}</span>
         </div>
         <div class="c-flex-wrapper">
-                <div class="c-left-content">
+            <div class="c-left-content">
                 <div class="cards-wrapper">
                     <div class="t-card">
                         <div class="card orange">
@@ -224,10 +227,14 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales default-item" id="default-sales">₱ {{ number_format($totalSales['total'], 2) }}</span>
-                                <span class="ch first-item" id="today-sales">₱ {{ number_format($totalSales['today'], 2) }}</span>
-                                <span class="ch second-item" id="week-sales">₱ {{ number_format( $totalSales['thisWeek'], 2) }}</span>
-                                <span class="ch third-item" id="month-sales">₱ {{ number_format($totalSales['thisMonth'], 2) }}</span>
+                                <span class="default-sales default-item" id="default-sales">₱
+                                    {{ number_format($totalSales['total'], 2) }}</span>
+                                <span class="ch first-item" id="today-sales">₱
+                                    {{ number_format($totalSales['today'], 2) }}</span>
+                                <span class="ch second-item" id="week-sales">₱
+                                    {{ number_format($totalSales['thisWeek'], 2) }}</span>
+                                <span class="ch third-item" id="month-sales">₱
+                                    {{ number_format($totalSales['thisMonth'], 2) }}</span>
                             </div>
 
                         </div>
@@ -245,10 +252,11 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales default-item" id="default-orders">{{$totalOrders['total']}}</span>
-                                <span class="ch first-item" id="today-orders">{{$totalOrders['today']}}</span>
-                                <span class="ch second-item" id="week-orders">{{$totalOrders['thisWeek']}}</span>
-                                <span class="ch third-item" id="month-orders">{{$totalOrders['thisMonth']}}</span>
+                                <span class="default-sales default-item"
+                                    id="default-orders">{{ $totalOrders['total'] }}</span>
+                                <span class="ch first-item" id="today-orders">{{ $totalOrders['today'] }}</span>
+                                <span class="ch second-item" id="week-orders">{{ $totalOrders['thisWeek'] }}</span>
+                                <span class="ch third-item" id="month-orders">{{ $totalOrders['thisMonth'] }}</span>
                             </div>
 
                         </div>
@@ -268,10 +276,13 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales default-item" id="default-products">{{$totalProductsSold['total']}}</span>
-                                <span class="ch first-item" id="today-products">{{$totalProductsSold['today']}}</span>
-                                <span class="ch second-item" id="week-products">{{$totalProductsSold['thisWeek']}}</span>
-                                <span class="ch third-item" id="month-products">{{$totalProductsSold['thisMonth']}}</span>
+                                <span class="default-sales default-item"
+                                    id="default-products">{{ $totalProductsSold['total'] }}</span>
+                                <span class="ch first-item" id="today-products">{{ $totalProductsSold['today'] }}</span>
+                                <span class="ch second-item"
+                                    id="week-products">{{ $totalProductsSold['thisWeek'] }}</span>
+                                <span class="ch third-item"
+                                    id="month-products">{{ $totalProductsSold['thisMonth'] }}</span>
                             </div>
 
                         </div>
@@ -289,10 +300,12 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <span class="default-sales default-item" id="default-customers">{{$totalCustomers['total']}}</span>
-                                <span class="ch first-item" id="today-customers">{{$totalCustomers['today']}}</span>
-                                <span class="ch second-item" id="week-customers">{{$totalCustomers['thisWeek']}}</span>
-                                <span class="ch third-item" id="month-customers">{{$totalCustomers['thisMonth']}}</span>
+                                <span class="default-sales default-item"
+                                    id="default-customers">{{ $totalCustomers['total'] }}</span>
+                                <span class="ch first-item" id="today-customers">{{ $totalCustomers['today'] }}</span>
+                                <span class="ch second-item" id="week-customers">{{ $totalCustomers['thisWeek'] }}</span>
+                                <span class="ch third-item"
+                                    id="month-customers">{{ $totalCustomers['thisMonth'] }}</span>
                             </div>
                             <div class="card-footer"></div>
                         </div>
@@ -379,6 +392,6 @@
     </div>
 @endsection
 @section('js')
-<script src="../js/jquery-3.7.1.min.js"></script>
-<script src="../js/script.js"></script>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/script.js"></script>
 @endsection

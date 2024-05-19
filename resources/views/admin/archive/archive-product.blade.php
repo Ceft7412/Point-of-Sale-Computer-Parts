@@ -201,7 +201,7 @@
                     <span class="">Archive</span>
 
                 </a>
-            </div>  
+            </div>
         </div>
         <div class="out-wrapper">
 
@@ -282,20 +282,25 @@
                     </div>
 
                     <div class="ct-heading-r">
-                        <form action="{{ route('unarchiveProductGroup') }}" class="" id="archiveGroup" method="POST">
+                        <form method="GET" action="{{ route('archive-product') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Search for products..." value="{{ request()->query('search') }}">
+                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                        </form>
+                        <form action="{{ route('unarchiveProductGroup') }}" class="" id="archiveGroup"
+                            method="POST">
                             @csrf
                             @method('PUT')
                             <button type="button" class="archive_select_group" id="archive_select_group"
-                                style="display: none;">Set to active</button>
-                                <div class="unarchive-modal-wrapper"
-                                >
+                                style="display:none; padding:8px 5px">Set to active</button>
+                            <div class="unarchive-modal-wrapper">
                                 <div class="modal-card-wrapper" id="modal-card">
                                     <div class="heading">
 
                                         <div class="text-left">
                                             <span class="big">Set to Active</span>
-                                            <span class="small"><i
-                                                    class="bi bi-info-circle"></i></span>
+
                                         </div>
 
                                         <span class="cancel-archive">
@@ -304,7 +309,7 @@
                                     </div>
                                     {{-- ACTION: /category/unarchive/{id} --}}
                                     <div class="unarchiveForm">
-                                      
+
                                         <div class="body">
                                             <div class="text">
 
@@ -329,12 +334,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form method="GET" action="{{ route('archive-product') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input"
-                                placeholder="Product ID" value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
 
@@ -355,7 +355,7 @@
                                     <div class="table-cell">Category</div>
                                     <div class="table-cell">Price</div>
                                     <div class="table-cell">Quantity</div>
-                                    <div class="table-cell">Purchase</div>
+                                    <div class="table-cell"></div>
                                     <div class="table-cell">Inserted Date</div>
                                     <div class="table-cell">Modified Date</div>
                                     <div class="table-cell">Action</div>
@@ -371,7 +371,7 @@
                                         </div>
                                         <div class="table-cell">P{{ $product->product_id }}</div>
                                         <div class="table-cell">
-                                            <img src="{{ Storage::url('public/product_images/' . $product->product_image) }}"
+                                            <img src="{{ asset('storage/product_images/' . $product->product_image) }}"
                                                 alt="{{ $product->product_name }}" class="picture">
                                             <span class="item">{{ $product->product_name }}</span>
                                         </div>
@@ -385,7 +385,7 @@
 
                                         </div>
                                         <div class="table-cell" style="display: flex;">
-                                            <span>3</span>
+
 
                                         </div>
                                         <div class="table-cell date">
@@ -413,8 +413,7 @@
 
                                                             <div class="text-left">
                                                                 <span class="big">Set to Active</span>
-                                                                <span class="small"><i
-                                                                        class="bi bi-info-circle"></i></span>
+                                                                <span class="small">
                                                             </div>
 
                                                             <span class="cancel-archive">
@@ -450,42 +449,7 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                                <div class="archive-modal-wrapper" id="unarchive_{{ $product->id }}">
-                                                    <div class="modal-card-wrapper" id="modal-card">
-                                                        <div class="heading">
 
-                                                            <span class="text-left">
-                                                                Set to Active
-                                                            </span>
-                                                            <span class="cancel-archive">
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="body">
-                                                            <div class="text">
-                                                                Unarchiving this row will remove the product from the
-                                                                inactive list and will remain active.
-                                                                Are you sure
-                                                                you
-                                                                want to
-                                                                proceed?
-                                                            </div>
-                                                        </div>
-                                                        <div class="footer">
-                                                            <form method="POST"
-                                                                action="/admin/product/archive/unarchive/{{ $product->id }}"
-                                                                id="unarchiveProductForm">
-                                                                @csrf
-                                                                <button type="button" class="cancel-archive">No, keep
-                                                                    this inactive</button>
-                                                                <button type="submit" class="confirm-archive">Yes, make
-                                                                    this active</button>
-                                                            </form>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

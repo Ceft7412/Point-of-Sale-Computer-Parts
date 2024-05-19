@@ -22,10 +22,11 @@ class RegisteredUserController extends Controller
     {
         $search = request()->query('search');
         if ($search) {
-            $users = User::where('type', 2)->where('is_active', 1)->where('user_id', 'like', '%' . $search . '%')->get();
+            $users = User::where('type', 2)->where('is_active', 1)->where('user_id', 'like', '%' . $search . '%')
+                ->orWhere('name', 'like', '%' . $search . '%')->paginate(5);
             return view('admin.employee')->with('users', $users);
         } else {
-            $users = User::where('type', 2)->where('is_active', 1)->get();
+            $users = User::where('type', 2)->where('is_active', 1)->paginate(5);
             return view('admin.employee')->with('users', $users);
         }
 
@@ -36,7 +37,8 @@ class RegisteredUserController extends Controller
     {
         $search = request()->query('search');
         if ($search) {
-            $users = User::where('type', 2)->where('is_active', 0)->where('user_id', 'like', '%' . $search . '%')->get();
+            $users = User::where('type', 2)->where('is_active', 0)->where('user_id', 'like', '%' . $search . '%')
+                ->orWhere('name', 'like', '%' . $search . '%')->paginate(5);
             return view('admin.archive.archive-employee')->with('users', $users);
         } else {
             $users = User::where('type', 2)->where('is_active', 0)->get();
@@ -63,8 +65,9 @@ class RegisteredUserController extends Controller
         $request->validate([
             'type' => 'required', // 'required|in:admin,employee
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'unique:users', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'contact' => ['nullable', 'string', 'unique:users'],
             'password' => 'required',
         ]);
         do {
@@ -95,20 +98,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'type' => 'required', // 'required|in:admin,employee
-            'update-name' => 'required',
-            'update-username' => 'required',
-            'update-email' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $id],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email,' . $id],
+            'contact' => ['nullable', 'string', 'unique:users,contact,' . $id],
         ]);
 
-        $user = User::findOrFail($id);
-        // Update the user data
-        $user->type = $request->input('type');
-        $user->name = $request->input('update-name');
-        $user->username = $request->input('update-username');
-        $user->email = $request->input('update-email');
-        $user->contact = $request->input('update-contact');
 
-        // Save the updated  user
+        $user = User::findOrFail($id);
+        $user->type = $request->input('type');
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->contact = $request->input('contact');
         $user->save();
 
         if ($request->type == 1) {
@@ -168,7 +170,7 @@ class RegisteredUserController extends Controller
         $userIds = $request->input('archiveIds');
 
         if ($userIds) {
-            $userArray = explode(',' ,$userIds);
+            $userArray = explode(',', $userIds);
             foreach ($userArray as $userId) {
                 $user = User::find($userId);
                 $user->is_active = true;

@@ -62,111 +62,115 @@
 
 
 
-                .cs-select{
-                    margin-top:20px;
+                .cs-select {
+                    margin-top: 20px;
 
-                    .wrap-select{
-                        display:flex;
-                        gap:30px;
-                        .select{
-                            
+                    .wrap-select {
+                        display: flex;
+                        gap: 30px;
+
+                        .select {
+
                             align-items: center;
-                            font-size:.9375rem;
-                            font-family:'Inter Semibold';
-                            padding-bottom:10px;
-                            &:hover:not(.active){
-                                cursor:pointer;
+                            font-size: .9375rem;
+                            font-family: 'Inter Semibold';
+                            padding-bottom: 10px;
+
+                            &:hover:not(.active) {
+                                cursor: pointer;
                             }
                         }
 
-                        .select.active{
-                            color:#393fae;
-                            border-bottom:2px solid #393fae;
-                        
+                        .select.active {
+                            color: #393fae;
+                            border-bottom: 2px solid #393fae;
+
                         }
                     }
-                    
-                    .category-select{
 
-                    }
+                    .category-select {}
                 }
-                #archiveButton{
-                    width:140px;
-                height:30px;
-                border-radius:5px;
-                border:1px solid grey;
-                cursor:pointer;
+
+                #archiveButton {
+                    width: 140px;
+                    height: 30px;
+                    border-radius: 5px;
+                    border: 1px solid grey;
+                    cursor: pointer;
                 }
+
                 .ct-body-heading {
-                    display: flex;  
+                    display: flex;
                     flex-direction: column;
-                        
+
                     justify-content: space-between;
                     gap: 20px;
-                    .pr-dt{
-                        display:flex;
-                        width:150px;
 
-                        
+                    .pr-dt {
+                        display: flex;
+                        width: 150px;
+
+
                     }
-                    .ct-heading-l {
-                            
-                        
 
-                            display: flex;
-                    
-                    
-                    
-                            .hd-active-itm.active {
-                                border-bottom: 3px solid orange;
-                                cursor: default;
-                    
+                    .ct-heading-l {
+
+
+
+                        display: flex;
+
+
+
+                        .hd-active-itm.active {
+                            border-bottom: 3px solid orange;
+                            cursor: default;
+
+                        }
+
+                        .itm-ct:not(.active) {
+                            padding: 10px;
+                            text-align: center;
+                            width: 170px;
+                            cursor: pointer;
+                            color: black;
+
+                            &:hover {
+                                border-bottom: 3px solid grey;
                             }
-                    
-                            .itm-ct:not(.active) {
-                                padding: 10px;
-                                text-align: center;
-                                width: 170px;
-                                cursor: pointer;
-                                color: black;
-                    
-                                &:hover {
-                                    border-bottom: 3px solid grey;
-                                }
+                        }
+
+                        .hd-active-itm {
+                            padding: 10px;
+                            text-align: center;
+                            width: 170px;
+                            cursor: pointer;
+
+                        }
+
+                        .hd-pending-itm.active {
+                            border-bottom: 3px solid orange;
+                            cursor: default;
+                        }
+
+                        .hd-pending-itm:not(.active) {
+                            padding: 10px;
+                            text-align: center;
+                            width: 170px;
+                            cursor: pointer;
+
+                            &:hover {
+                                border-bottom: 3px solid grey;
                             }
-                    
-                            .hd-active-itm {
-                                padding: 10px;
-                                text-align: center;
-                                width: 170px;
-                                cursor: pointer;
-                    
-                            }
-                    
-                            .hd-pending-itm.active {
-                                border-bottom: 3px solid orange;
-                                cursor: default;
-                            }
-                    
-                            .hd-pending-itm:not(.active) {
-                                padding: 10px;
-                                text-align: center;
-                                width: 170px;
-                                cursor: pointer;
-                    
-                                &:hover {
-                                    border-bottom: 3px solid grey;
-                                }
-                            }
-                    
-                            .hd-pending-itm {
-                                padding: 10px;
-                                text-align: center;
-                                width: 170px;
-                                cursor: pointer;
-                    
-                            }
-                        
+                        }
+
+                        .hd-pending-itm {
+                            padding: 10px;
+                            text-align: center;
+                            width: 170px;
+                            cursor: pointer;
+
+                        }
+
                     }
 
                     .ct-heading-r {
@@ -175,95 +179,94 @@
                         justify-content: space-between;
                         gap: 10px;
 
-                        .exprt-csv{
-                            
-                            .submit-export-csv{
-                                border:1px solid rgb(210, 137, 0);
-                                padding:8px 8px;
+                        .exprt-csv {
+
+                            .submit-export-csv {
+                                border: 1px solid rgb(210, 137, 0);
+                                padding: 8px 8px;
                                 border-radius: 3px;
                                 background-color: orange;
                                 cursor: pointer;
-                                &:hover{
+
+                                &:hover {
                                     background-color: rgb(240, 156, 0);
                                 }
-                                
+
                             }
                         }
+
                         .fl-per-pg {
                             .archive_select_group {
-                                width: 140px;
-                                height: 30px;
+                                width: 120px;
+                                height: 35px;
                                 display: none;
-                                
                                 border: 1px solid grey;
                                 cursor: pointer;
-                            }
-                            .unarchive_select_group {
-                                width: 140px;
-                                height: 30px;
-                                display: none;
-                                
-                                border: 1px solid grey;
-                                cursor: pointer;
+
+                                &:hover {
+                                    background-color: #e5e6e9;
+                                }
+
                             }
 
-                            
-                
+                            .unarchive_select_group {
+                                width: 120px;
+                                height: 35px;
+                                display: none;
+                                border: 1px solid grey;
+                                cursor: pointer;
+
+                                &:hover {
+                                    background-color: #e5e6e9;
+                                }
+                            }
+
+
+
                         }
 
                         .ct-heading-search {
                             position: relative;
-                            .ct-heading-search-input{
-                                display: flex;
-                                align-items: center;
-                                gap: 10px;
-                                background-color: white;
-                                padding: 10px 60px 10px 10px;
-                                font-size:1.05rem;
-                                border-radius: 5px;
-                                border: 1px solid #D3D3D3;
+
+                            .ct-heading-search-input {
+                                outline: none;
+                                padding-left: 45px;
+                                padding-right: 10px;
+                                border: 1px solid grey;
+                                height: 35px;
                                 width: 250px;
-                                outline:none;
-                               
-                            }
-                            .search-id {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                height: 100%;
-                                width: 50px;
-                                transition: all 0.2s ease-in-out;
                                 font-size: 1rem;
-                                color: rgb(124, 124, 124);
-                                cursor: pointer;
-                                border: 1px solid #D3D3D3;
-                                border-radius: 5px;
-                                &:hover {
-                                    color: black;
-                                    background-color: #D3D3D3;
-                                }
+
+                            }
+
+                            .search-id {
+                                position: absolute;
+                                left: 0;
+                                height: 100%;
+                                width: 40px;
+                                top: 5;
+
+
                             }
                         }
 
-                       
+
                     }
                 }
-                .ct-flex-select{
-                    display:flex;
+
+                .ct-flex-select {
+                    display: flex;
                     background-color: white;
-                    height:55px;
-                   
-                    .select-all-item{
-                        font-family:'Inter Semibold';
-                        padding:8px;
-                        display:flex;
-                        gap:5px;
+                    height: 55px;
+
+                    .select-all-item {
+                        font-family: 'Inter Semibold';
+                        padding: 8px;
+                        display: flex;
+                        gap: 5px;
                         align-items: center;
-                        font-size:.9375rem;
-                        
+                        font-size: .9375rem;
+
                     }
                 }
             }

@@ -315,17 +315,19 @@
                         </a>
                     </div>
                     <div class="ct-heading-r">
+                        <form method="GET" action="{{ route('archive-category') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Search for categories..." value="{{ request()->query('search') }}">
+                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                        </form>
                         <form class="fl-per-pg" method="POST" id="archiveGroup"
                             action="{{ route('unarchiveCategoryGroup') }}">
                             @csrf
-                            <button type="submit" class="archive_select_group" id="archive_select_group">Set to active</button>
+                            <button type="submit" class="archive_select_group" id="archive_select_group">Set to
+                                active</button>
                         </form>
-                        <form method="GET" action="{{ route('archive-category') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input" placeholder="Search for categories..."
-                                value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
                 <div class="ct-body-content">
@@ -352,98 +354,100 @@
                                 </div>
                             </div>
                             <div class="category-body">
-                                @if ($archivedCategories->count() > 0)
+                                @forelse ($archivedCategories as $archivedCategory)
+                                    <div class="table-group" id="category-group-{{ $archivedCategory->category_id }}">
 
-                                    @foreach ($archivedCategories as $archivedCategory)
-                                        <div class="table-group"
-                                            id="category-group-{{ $archivedCategory->category_id }}">
+                                        <div class="table-row row-category">
 
-                                            <div class="table-row row-category">
+                                            <div class="table-cell">
+                                                <input type="checkbox" class="userCheckbox" name="archiveIds[]"
+                                                    value="{{ $archivedCategory->id }}">
+                                            </div>
+                                            <div class="table-cell">
+                                                C{{ $archivedCategory->category_id }}
+                                            </div>
+                                            <div class="table-cell category-cell">
 
-                                                <div class="table-cell">
-                                                    <input type="checkbox" class="userCheckbox" name="archiveIds[]"
-                                                        value="{{ $archivedCategory->id }}">
-                                                </div>
-                                                <div class="table-cell">
-                                                    C{{ $archivedCategory->category_id }}
-                                                </div>
-                                                <div class="table-cell category-cell">
-
-                                                    <img src="{{ Storage::url('public/category_images/' . $archivedCategory->category_image) }}"
-                                                        alt="{{ $archivedCategory->cateogry_name }}" class="picture">
-                                                    <span>{{ $archivedCategory->category_name }}</span>
-                                                </div>
-                                                <div class="table-cell">
-                                                    {{ $archivedCategory->category_description }}
-                                                </div>
-                                                <div class="table-cell">{{ $archivedCategory->subcategories->count() }}
-                                                </div>
-                                                <div class="table-cell date">
-                                                    <span>{{ $archivedCategory->created_at->toDateString() }}</span>
-                                                    <span>{{ $archivedCategory->created_at->toTimeString() }}</span>
-                                                </div>
-                                                <div class="table-cell date" style="display: flex;">
-                                                    <span>{{ $archivedCategory->updated_at->toDateString() }}</span>
-                                                    <span>{{ $archivedCategory->updated_at->toTimeString() }}</span>
-                                                </div>
-                                                <div class="table-cell action">
-                                                    <div class="flex-col">
-                                                        <div class="action-p archive-w">
-                                                            <button type="button" class="unarchiveParentButton"
-                                                                data-id="{{ $archivedCategory->id }}"
-                                                                >
-                                                                <i class="bi bi-box-arrow-up"></i>
-                                                                <span class="">Active</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="archive-modal-wrapper"
-                                                            id="unarchive_{{ $archivedCategory->id }}">
-                                                            <div class="modal-card-wrapper" id="modal-card">
-                                                                <div class="heading">
-
-                                                                    <span class="text-left">
-                                                                        Set to Active
-                                                                    </span>
-                                                                    <span class="cancel-archive">
-                                                                        <i class="bi bi-x-lg"></i>
-                                                                    </span>
-                                                                </div>
-
-                                                                <div class="body">
-                                                                    <div class="text">
-                                                                        Unarchiving this row will remove the category from
-                                                                        the inactive list and will remain active. Are you
-                                                                        sure
-                                                                        you
-                                                                        want to
-                                                                        proceed?
-                                                                    </div>
-                                                                </div>
-                                                                <div class="footer">
-                                                                    <form method="POST"
-                                                                        action="/admin/category/unarchive/{{ $archivedCategory->id }}">
-                                                                        @csrf
-                                                                        <button type="button" class="cancel-archive">No,
-                                                                            keep this inactive</button>
-                                                                        <button type="submit"
-                                                                            class="confirm-archive">Yes, make this
-                                                                            active</button>
-                                                                    </form>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-
+                                                <img src="{{ asset('storage/category_images/' . $archivedCategory->category_image) }}"
+                                                    alt="{{ $archivedCategory->category_name }}" class="picture">
+                                                <span>{{ $archivedCategory->category_name }}</span>
+                                            </div>
+                                            <div class="table-cell">
+                                                {{ $archivedCategory->category_description }}
+                                            </div>
+                                            <div class="table-cell">{{ $archivedCategory->subcategories->count() }}
+                                            </div>
+                                            <div class="table-cell date">
+                                                <span>{{ $archivedCategory->created_at->toDateString() }}</span>
+                                                <span>{{ $archivedCategory->created_at->toTimeString() }}</span>
+                                            </div>
+                                            <div class="table-cell date" style="display: flex;">
+                                                <span>{{ $archivedCategory->updated_at->toDateString() }}</span>
+                                                <span>{{ $archivedCategory->updated_at->toTimeString() }}</span>
+                                            </div>
+                                            <div class="table-cell action">
+                                                <div class="flex-col">
+                                                    <div class="action-p archive-w">
+                                                        <button type="button" class="unarchiveParentButton"
+                                                            data-id="{{ $archivedCategory->id }}">
+                                                            <i class="bi bi-box-arrow-up"></i>
+                                                            <span class="">Active</span>
+                                                        </button>
                                                     </div>
+                                                    <div class="archive-modal-wrapper"
+                                                        id="unarchive_{{ $archivedCategory->id }}">
+                                                        <div class="modal-card-wrapper" id="modal-card">
+                                                            <div class="heading">
+
+                                                                <span class="text-left">
+                                                                    Set to Active
+                                                                </span>
+                                                                <span class="cancel-archive">
+                                                                    <i class="bi bi-x-lg"></i>
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="body">
+                                                                <div class="text">
+                                                                    Unarchiving this row will remove the category from
+                                                                    the inactive list and will remain active. Are you
+                                                                    sure
+                                                                    you
+                                                                    want to
+                                                                    proceed?
+                                                                </div>
+                                                            </div>
+                                                            <div class="footer">
+                                                                <form method="POST"
+                                                                    action="/admin/category/unarchive/{{ $archivedCategory->id }}">
+                                                                    @csrf
+                                                                    <button type="button" class="cancel-archive">No,
+                                                                        keep this inactive</button>
+                                                                    <button type="submit" class="confirm-archive">Yes,
+                                                                        make this
+                                                                        active</button>
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                @else
-                                    <div class="no-data">
-                                        <span>No data available</span>
                                     </div>
-                                @endif
+                                @empty
+                                    @if (request()->query('search'))
+                                        <div class="no-data">
+                                            <span>No result found for query
+                                                <strong>{{ request()->query('search') }}</strong></span>
+                                        </div>
+                                    @else
+                                        <div class="no-data">
+                                            <span>No data available</span>
+                                        </div>
+                                    @endif
+                                @endforelse
 
                             </div>
 

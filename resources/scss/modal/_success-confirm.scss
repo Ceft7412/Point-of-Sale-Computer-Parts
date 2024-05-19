@@ -176,14 +176,14 @@
             }
 
             .confirm-submit {
-                background-color: #393fae;
+                background-color: rgb(3, 145, 3);
                 color: white;
-                border-color: #393fae;
+                border-color: rgb(3, 145, 3);
 
                 &:hover {
-                    background-color: #2e338e;
+                    background-color: rgb(0, 114, 0);
                     cursor: pointer;
-                    border-color: #2e338e;
+                    border-color: rgb(0, 114, 0);
                 }
             }
         }
@@ -192,41 +192,44 @@
 
 .error-wrapper {
     z-index: 999;
-    position:fixed;
-    top:85px;
-    left:50%;
-    transform: translateX(-50%);
-    padding:20px;
-    width:500px;
+    position: fixed;
+    bottom: 25px;
+    left: 15px;
+
+    padding: 20px;
+    width: 500px;
 
     margin: auto;
     border-left: 5px solid red;
     display: flex;
-    align-items:center;
-   
+    align-items: center;
+
     background-color: #f8d7da;
     color: red;
-  
 
-    .error-modal{
-        width:100%;
-        .body{
-            display:flex;
+
+    .error-modal {
+        width: 100%;
+
+        .body {
+            display: flex;
             justify-content: space-between;
-            gap:10px;
+            gap: 10px;
             align-items: center;
 
 
-            .bi-x-lg{
-                color:black;
-                cursor:pointer;
-                &:hover{
-                    color:red;
+            .bi-x-lg {
+                color: black;
+                cursor: pointer;
+
+                &:hover {
+                    color: red;
                 }
             }
-            .text{
-                span{
-                    display:block;
+
+            .text {
+                span {
+                    display: block;
                 }
             }
         }

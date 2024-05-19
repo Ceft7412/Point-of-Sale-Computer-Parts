@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $currentDate = now()->format('l, M d, Y');
         $recentOrders = Order::latest()->take(5)->get();
         $products = Product::where('is_active', 1)->where('product_quantity', 0)->get();
-        
+
         $totalOrders = $this->getTotalOrders();
         $totalCustomers = $this->getTotalCustomers();
         $totalProductsSold = $this->getTotalProductsSold();

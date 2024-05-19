@@ -18,25 +18,35 @@
             min-width: 180px;
             padding-right: 10px;
         }
-        .tbl-cell.products{
-            min-width:90px;
-            max-width:90px;
+
+        .tbl-cell.products {
+            min-width: 90px;
+            max-width: 90px;
         }
 
         .tbl-cell:nth-child(1) {
             width: 5%;
             min-width: 50px;
         }
-       
-        .tbl-cell:last-child{
-            max-width:120px;
-            min-width:120px;
+
+        .tbl-cell:last-child {
+            max-width: 120px;
+            min-width: 120px;
         }
     }
 
     .tbdy {
         display: flex;
         flex-direction: column;
+
+        .no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.2rem;
+            color: grey;
+        }
 
         .tbdy-rw {
             display: flex;
@@ -52,33 +62,36 @@
                 min-width: 180px;
                 word-wrap: break-word;
                 padding-right: 10px;
-                
+
             }
 
-            .tbl-cell.w-img{
-                display:flex;
+            .tbl-cell.w-img {
+                display: flex;
                 align-items: center;
-                gap:10px;
-                img{
-                    width:50px;
-                    height:50px;
-                    
+                gap: 10px;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+
                 }
             }
-            .tbl-cell.products{
-                min-width:90px;
-                max-width:90px;
+
+            .tbl-cell.products {
+                min-width: 90px;
+                max-width: 90px;
             }
 
             .tbl-cell:nth-child(1) {
                 width: 5%;
                 min-width: 50px;
             }
-            .tbl-cell:last-child{
+
+            .tbl-cell:last-child {
                 display: flex;
                 gap: 5px;
-                max-width:120px;
-                min-width:120px;
+                max-width: 120px;
+                min-width: 120px;
                 flex-direction: column;
 
                 button {
@@ -97,10 +110,11 @@
                         font-size: 0.9rem;
                     }
 
-                    
+
 
 
                 }
+
                 .updateButton {
                     display: flex;
                     align-items: center;
@@ -122,7 +136,8 @@
                         cursor: pointer;
                     }
                 }
-                .archiveButton{
+
+                .archiveButton {
                     display: flex;
                     align-items: center;
                     width: 90px;
@@ -143,7 +158,8 @@
                         cursor: pointer;
                     }
                 }
-                .archiveSubcategory-modal-wrapper{
+
+                .archiveSubcategory-modal-wrapper {
                     display: none;
                     position: fixed;
                     z-index: 1000;
@@ -155,78 +171,89 @@
                     overflow: auto;
                     background-color: rgb(0, 0, 0);
                     background-color: rgba(0, 0, 0, 0.4);
-                    .modal-card-wrapper{
+
+                    .modal-card-wrapper {
                         background-color: #fefefe;
                         margin: auto;
                         animation: slideDown 0.3s ease-out;
-                        width:35%;
+                        width: 35%;
                         border-radius: 8px;
-                        .heading{
-                            display:flex;
+
+                        .heading {
+                            display: flex;
                             justify-content: space-between;
-                            gap:10px;
-                            padding:18px 20px;    
-                            .text-left{
-                                font-size:1.3rem;
-                               
+                            gap: 10px;
+                            padding: 18px 20px;
+
+                            .text-left {
+                                font-size: 1.3rem;
+
                             }
-                            .bi{
-                                font-size:1.3rem;
-                                cursor:pointer; 
-                                &:hover{
-                                    color:grey;
+
+                            .bi {
+                                font-size: 1.3rem;
+                                cursor: pointer;
+
+                                &:hover {
+                                    color: grey;
                                 }
                             }
                         }
-                
-                        .body{
+
+                        .body {
                             background-color: #f1f1f1;
-                            padding:20px;  
-                            border-top:1px solid rgba(171, 170, 170, 0.788); 
-                            border-bottom:1px solid rgba(171, 170, 170, 0.788);
+                            padding: 20px;
+                            border-top: 1px solid rgba(171, 170, 170, 0.788);
+                            border-bottom: 1px solid rgba(171, 170, 170, 0.788);
                         }
-                        .footer{
-                            padding:20px; 
-                            display:flex;
-                            gap:10px;
-                            justify-content:flex-end;
-                            
-                                
-                          
-                            .fl{
-                                display:flex;
-                                gap:10px;
-                                button{
-                                    width:170px;
-                                    height:40px;
-                                    border-radius:5px;
-                                    border:1px solid;
+
+                        .footer {
+                            padding: 20px;
+                            display: flex;
+                            gap: 10px;
+                            justify-content: flex-end;
+
+
+
+                            .fl {
+                                display: flex;
+                                gap: 10px;
+
+                                button {
+                                    width: 170px;
+                                    height: 40px;
+                                    border-radius: 5px;
+                                    border: 1px solid;
                                 }
-                                .cancel-archive{
+
+                                .cancel-archive {
                                     background-color: #f1f1f1;
-                                    border-color:#c1c1c1;
-                                    &:hover{
+                                    border-color: #c1c1c1;
+
+                                    &:hover {
                                         background-color: #dadada;
-                                        cursor:pointer; 
+                                        cursor: pointer;
                                     }
                                 }
-                                .confirm-archive{
-                                    background-color: #393fae;
-                                    color:white;
-                                    border-color:#393fae;
-                                    &:hover{
-                                        background-color: #2e338e;
-                                        cursor:pointer; 
-                                        border-color:#2e338e;
+
+                                .confirm-archive {
+                                    background-color: rgb(13, 183, 13);
+                                    color: white;
+                                    border-color: rgb(13, 183, 13);
+
+                                    &:hover {
+                                        background-color: rgb(3, 173, 3);
+                                        cursor: pointer;
+                                        border-color: rgb(3, 173, 3);
                                     }
                                 }
                             }
-                            
+
                         }
                     }
                 }
 
-               
+
             }
         }
 

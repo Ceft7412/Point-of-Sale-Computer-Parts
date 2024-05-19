@@ -14,7 +14,7 @@ $("#add-button-modal").click(function (event) {
 
 
 $(document).on('click', "#close-update-modal, #cancel-update-modal, .cancel-modal", function (event) {
-    $('.cancel-modal').each(function() {
+    $('.cancel-modal').each(function () {
         $(this).closest('form')[0].reset();
     });
     $(".update-modal-wrapper").hide();
@@ -23,7 +23,7 @@ $(document).on('click', "#close-update-modal, #cancel-update-modal, .cancel-moda
 });
 
 $("#close-modal, #cancel-modal").click(function (event) {
-    $("#modal").hide(); 
+    $("#modal").hide();
     event.preventDefault();
 });
 $(".cancel-image-modal").click(function (event) {
@@ -108,35 +108,35 @@ $(document).on('click', '.archiveButton', function () {
     $(`#archive_${archiveId}`).show();
 
 });
-$(document).on('click', '.unarchiveParentButton', function(){
-    const archiveId = $(this).data('id');   
+$(document).on('click', '.unarchiveParentButton', function () {
+    const archiveId = $(this).data('id');
     $(`#unarchive_${archiveId}`).show();
 })
 
 
 // ? this block will check if there are any parents archived. if there are, 
 // ? we will show a different modal requesting the user to pick a new and active parent
-$(document).on('click', '.unarchiveButton', function(){
+$(document).on('click', '.unarchiveButton', function () {
     const archiveId = $(this).data('id');
     const parentId = $(this).data('parent-id');
 
     $.ajax({
         url: '/admin/archive/brands/check-category/' + parentId,
         method: 'GET',
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             if (response.is_active == 0) {
 
                 $('.small').html(`Since the category ${response.category_name} is archived, we request you to choose a new and active category. `);
                 $(`#unarchiveChoose_${archiveId}`).show();
-               
+
             } else {
-                
+
                 $(`#unarchive_${archiveId}`).show();
             }
-        }   
+        }
     })
-    
+
 });
 
 // ? end
@@ -144,23 +144,23 @@ $(document).on('click', '.unarchiveButton', function(){
 
 // ? this block will check if there are any parents archived. if there are, 
 // ? we will show a different modal requesting the user to pick a new and active parent
-$(document).on('click', '.unarchiveProductButton', function(){
+$(document).on('click', '.unarchiveProductButton', function () {
     const archiveId = $(this).data('id');
     const parentId = $(this).data('parent-id');
     $.ajax({
         url: '/admin/archive/product/check-brands/' + parentId,
         method: 'GET',
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             if (response.is_active == 0) {
                 $('.small').html(`Since the brand ${response.subcategory_name} is archived, we request you to choose a new and active brand. `);
                 $(`#unarchiveChoose_${archiveId}`).show();
-               
+
             } else {
-                
-                $(`#unarchive_${archiveId}`).show();
+
+                $(`#unarchiveChoose_${archiveId}`).show();
             }
-        }   
+        }
     })
 });
 
@@ -193,19 +193,20 @@ $('.cancel-archive').on('click', function (e) {
 });
 // *===start of archiving groups===
 
-$('#archive_select_group').on('click', function(){
+$('#archive_select_group').on('click', function () {
     $(this).siblings('.unarchive-modal-wrapper').show();
-    $(this).siblings('.archive-modal-wrapper').show(); 
+    $(this).siblings('.archive-modal-wrapper').show();
 })
-$(document).ready(function() {
+$(document).ready(function () {
     $('<input>').attr({
         type: 'hidden',
         id: 'memberIdsInput',
         name: 'archiveIds'
     }).appendTo('#archiveGroup');
+
     function updateMemberIdsInput() {
         var checkedMemberIds = [];
-        $('.userCheckbox:checked').each(function() {
+        $('.userCheckbox:checked').each(function () {
             checkedMemberIds.push($(this).val());
         });
         $('#memberIdsInput').val(checkedMemberIds.join(','));
@@ -220,20 +221,20 @@ $(document).ready(function() {
         }
     }
 
-    $('.userCheckbox').on('change', function() {
+    $('.userCheckbox').on('change', function () {
         updateMemberIdsInput();
         updateArchiveButtonVisibility();
         var allChecked = $('.userCheckbox').length === $('.userCheckbox:checked').length;
         $('#selectAllCheckbox').prop('checked', allChecked);
     });
-    $('#selectAllCheckbox').on('change', function() {
+    $('#selectAllCheckbox').on('change', function () {
         var isChecked = $(this).is(':checked');
         $('.userCheckbox').prop('checked', isChecked);
         updateMemberIdsInput();
         updateArchiveButtonVisibility();
     });
     updateArchiveButtonVisibility();
-    
+
 });
 
 // *===end of archiving groups===
@@ -336,7 +337,7 @@ $('.unarchiveSubcategoryButton').click(function () {
 
 $('#category_insert').on('submit', function (e) {
     e.preventDefault();
-   $('.confirm-wrapper').show();
+    $('.confirm-wrapper').show();
 
     $('.confirm-submit').off('click').on('click', function () {
         $('.confirm-wrapper').hide();
@@ -345,13 +346,13 @@ $('#category_insert').on('submit', function (e) {
 
     $('.cancel').click(function () {
         $('.confirm-wrapper').hide();
-        
+
     });
 });
 
 $('#subcategory_insert').on('submit', function (e) {
     e.preventDefault();
-   $('.confirm-wrapper').show();
+    $('.confirm-wrapper').show();
 
     $('.confirm-submit').off('click').on('click', function () {
         $('.confirm-wrapper').hide();
@@ -360,13 +361,13 @@ $('#subcategory_insert').on('submit', function (e) {
 
     $('.cancel').click(function () {
         $('.confirm-wrapper').hide();
-        
+
     });
 });
 
 $('#product_insert').on('submit', function (e) {
     e.preventDefault();
-   $('.confirm-wrapper').show();
+    $('.confirm-wrapper').show();
 
     $('.confirm-submit').off('click').on('click', function () {
         $('.confirm-wrapper').hide();
@@ -375,7 +376,7 @@ $('#product_insert').on('submit', function (e) {
 
     $('.cancel').click(function () {
         $('.confirm-wrapper').hide();
-        
+
     });
 });
 
@@ -383,21 +384,19 @@ $('#register-employee').on('submit', function (e) {
     e.preventDefault();
     if ($('#password').val() != $('#confirm-password').val()) {
         e.preventDefault();
-        alert('Passwords do not match');
-    }
-    else{
+        $('#confirm-error').html('Passwords do not match');
+    } else {
         $('.confirm-wrapper').show();
 
         $('.confirm-submit').off('click').on('click', function () {
             $('.confirm-wrapper').hide();
             e.target.submit();
         });
-    
+
     }
-  
     $('.cancel').click(function () {
         $('.confirm-wrapper').hide();
-        
+
     });
 
 });
@@ -407,26 +406,30 @@ $('.ok').click(function () {
 });
 $('.cancel').click(function () {
     $('.error-wrapper').hide();
-    
+
 });
+
+setTimeout(function () {
+    $('.error-wrapper').slideUp(70);
+}, 3000);
 
 
 // *===members updating===
 
 
 // *===members archiving===
-$('#archiveButton').on('click', function(){
+$('#archiveButton').on('click', function () {
     $('#archiveGroupMembers').submit();
 });
 
-$('.tbl-cell').on('click', '.select_archive_active_member', function(){
+$('.tbl-cell').on('click', '.select_archive_active_member', function () {
     const memberId = $(this).data('member-id');
     $(`#archive_modal_${memberId}`).css('display', 'flex');
-    
+
 });
 
 // *===end of members archiving===
-$('.tbl-cell').on('click', '.select_update_active_member', function(){
+$('.tbl-cell').on('click', '.select_update_active_member', function () {
     const memberId = $(this).data('member-id');
     console.log(memberId);
     $(`#update_modal_${memberId}`).show();
@@ -436,11 +439,11 @@ $('.tbl-cell').on('click', '.select_update_active_member', function(){
 
 // *===membership modal===
 
-$('.tbdy-rw').on('click','#accept_membership', function (e) {
+$('.tbdy-rw').on('click', '#accept_membership', function (e) {
     $('#accept_membership_modal').css('display', 'flex');
 });
 
-$('.tbdy-rw').on('click', '#decline_membership',function (e) {
+$('.tbdy-rw').on('click', '#decline_membership', function (e) {
     $('#decline_membership_modal').css('display', 'flex');
 });
 
@@ -454,7 +457,7 @@ $('.btn-no').on('click', function (e) {
 
 //*transcation, receipt
 
-$('.view-more').on('click', function(){
+$('.view-more').on('click', function () {
 
     const transactId = $(this).data('transaction-id');
 
@@ -464,25 +467,25 @@ $('.view-more').on('click', function(){
 
 
 // *dashboard
-$('.show-slct').on('click', function(){
+$('.show-slct').on('click', function () {
     $(this).siblings('.date-card').toggle();
 });
 
-$('.t-slct').on('click', function(){
+$('.t-slct').on('click', function () {
     $(this).closest('.date-card').toggle();
     $(this).closest('.card-heading').siblings('.card-body').children('.default-item').hide();
     $(this).closest('.card-heading').siblings('.card-body').children('.first-item').siblings().hide();
     $(this).closest('.card-heading').siblings('.card-body').children('.first-item').show();
 });
 
-$('.w-slct').on('click', function(){    
+$('.w-slct').on('click', function () {
     $(this).closest('.date-card').toggle();
     $(this).closest('.card-heading').siblings('.card-body').children('.default-item').hide();
     $(this).closest('.card-heading').siblings('.card-body').children('.second-item').siblings().hide();
     $(this).closest('.card-heading').siblings('.card-body').children('.second-item').show();
 });
 
-$('.m-slct').on('click', function(){
+$('.m-slct').on('click', function () {
     $(this).closest('.date-card').toggle();
     $(this).closest('.card-heading').siblings('.card-body').children('.default-item').hide();
     $(this).closest('.card-heading').siblings('.card-body').children('.third-item').siblings().hide();

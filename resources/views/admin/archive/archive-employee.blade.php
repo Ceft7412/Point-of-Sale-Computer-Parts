@@ -360,6 +360,12 @@
                         </a>
                     </div>
                     <div class="ct-heading-r">
+                        <form method="GET" action="{{ route('archive-employee') }}"class="ct-heading-search">
+
+                            <input type="text" name="search" class="ct-heading-search-input"
+                                placeholder="Employee ID" value="{{ request()->query('search') }}">
+                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
+                        </form>
                         <form class="fl-per-pg" method="POST" id="archiveGroup"
                             action="{{ route('unarchiveGroup') }}">
                             @csrf
@@ -379,7 +385,8 @@
 
                                     <div class="body">
                                         <div class="text">
-                                            Unarchiving this group will remove the users from the inactive list and will remain
+                                            Unarchiving this group will remove the users from the inactive list and will
+                                            remain
                                             active. Are you sure
                                             you
                                             want to
@@ -387,21 +394,16 @@
                                         </div>
                                     </div>
                                     <div class="footer">
-                                       
-                                            <button type="button" class="cancel-archive">No, keep this inactive</button>
-                                            <button type="submit" class="confirm-archive">Yes, make this active</button>
-                                        
+
+                                        <button type="button" class="cancel-archive">No, keep this inactive</button>
+                                        <button type="submit" class="confirm-archive">Yes, make this active</button>
+
                                     </div>
 
                                 </div>
                             </div>
                         </form>
-                        <form method="GET" action="{{ route('archive-employee') }}"class="ct-heading-search">
 
-                            <input type="text" name="search" class="ct-heading-search-input"
-                                placeholder="Employee ID" value="{{ request()->query('search') }}">
-                            <button type="submit" class="search-id"><i class="bi bi-search"></i></button>
-                        </form>
                     </div>
                 </div>
                 <div class="ct-body-content">

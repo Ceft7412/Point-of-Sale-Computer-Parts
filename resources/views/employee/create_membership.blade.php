@@ -47,28 +47,52 @@
 
             </div>
         </div>
-        @if($errors->has('employee_password_err'))
-        <div class="err-modal-wrapper" id="errorModal">
-            <div class="error-modal">
-                <div class="error-modal-body">
-                    <div class="content-text">
-                        <i class="bi bi-exclamation-square-fill"></i>
-                        <span class="error-modal-text" id="error-message">Error notification: {{ $errors->first('employee_password_err') }}</span>
+        @if ($errors->has('employee_password_err'))
+            <div class="err-modal-wrapper" id="errorModal">
+                <div class="error-modal">
+                    <div class="error-modal-body">
+                        <div class="content-text">
+                            <i class="bi bi-exclamation-square-fill"></i>
+                            <span class="error-modal-text" id="error-message">Error notification:
+                                {{ $errors->first('employee_password_err') }}</span>
+                        </div>
+                        <div class="cancel">
+                            <i class="bi bi-x-lg"></i>
+                        </div>
+
                     </div>
-                    <div class="cancel">
-                        <i class="bi bi-x-lg"></i>
-                    </div>
-    
                 </div>
             </div>
-        </div>
         @endif
+
+        {{-- *SUCCESS --}}
+        @if (session('success'))
+            <div class="success-modal">
+                <div class="success-modal">
+                    <div class="body">
+
+                        <i class="bi bi-check-circle-fill"></i>
+                        <i class="bi bi-check"></i>
+
+
+                        <div class="text">
+                            <span class="big">Success</span>
+                            <span class="small">{{ session('success') }}</span>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <button type="button" class="ok">OK</button>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="membership-content">
-            <a href="{{route('order')}}"class="re-back">
+            <a href="{{ route('order') }}"class="re-back">
                 <span class="">Go back</span>
             </a>
             <div class="card">
-                <form action="{{route('storeMembership')}}" class="card-flex" method="POST">
+                <form action="{{ route('storeMembership') }}" class="card-flex" method="POST">
                     @csrf
                     <div class="header">
                         <span class="">Requesting Membership</span>
@@ -77,17 +101,17 @@
                     <div class="body">
                         <div class="input-group">
                             <label for="" class="">Name:</label>
-                            <input type="text" name="name" id="applicant_name" class="input" required>
+                            <input type="text" name="membership_name" id="applicant_name" class="input" required>
                             <span class="err-empty">This field is required.</span>
                         </div>
                         <div class="input-group">
                             <label for="" class="">Email:</label>
-                            <input type="email" name="email" id="applicant_email" class="input" required>
+                            <input type="email" name="membership_email" id="applicant_email" class="input" required>
                             <span class="err-empty">This field is required.</span>
                         </div>
                         <div class="input-group">
                             <label for="" class="">Phone:</label>
-                            <input type="text" name="phone" id="applicant_phone" class="input" required>
+                            <input type="text" name="membership_phone" id="applicant_phone" class="input" required>
                             <span class="err-empty">This field is required.</span>
                         </div>
                     </div>
@@ -105,7 +129,8 @@
                                 </div>
 
                                 <div class="body-confirm">
-                                    <label for="" class="">For security, please confirm your password to continue.</label>
+                                    <label for="" class="">For security, please confirm your password to
+                                        continue.</label>
                                     <input type="password" name="employee_password" id="password" class="input" required>
                                 </div>
 

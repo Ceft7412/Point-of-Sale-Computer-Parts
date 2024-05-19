@@ -5,7 +5,8 @@
             .ct-body-flex {
 
                 .ct-body-content {
-                    padding-top:15px;
+                    padding-top: 15px;
+
                     .table-wrapper {
 
                         overflow-x: auto;
@@ -79,7 +80,7 @@
                             }
 
                             .category-body {
-                                .no-data{
+                                .no-data {
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
@@ -87,6 +88,7 @@
                                     font-size: 1.2rem;
                                     color: grey;
                                 }
+
                                 min-width: fit-content;
 
                                 .table-group {
@@ -95,25 +97,28 @@
                                         align-items: center;
                                     }
                                 }
-                                .table-subcategory-group{
-                                    display:none;
-                                    .table-row.row-subcategory{
+
+                                .table-subcategory-group {
+                                    display: none;
+
+                                    .table-row.row-subcategory {
                                         background-color: rgb(227, 227, 227);
 
 
-                                        .whole{
+                                        .whole {
                                             text-align: center;
-                                            height:50px;
+                                            height: 50px;
                                             display: flex;
                                             align-items: center;
                                             justify-content: center;
 
-                                            flex:1;
-                                            .no-subcategory{
+                                            flex: 1;
+
+                                            .no-subcategory {
                                                 font-size: 0.9rem;
-                                                color:grey;
-                                   
-                                            
+                                                color: grey;
+
+
                                             }
                                         }
                                     }
@@ -136,19 +141,19 @@
                                     .table-cell:nth-child(1) {
                                         width: 5%;
                                         min-width: 50px;
-                                        
+
 
 
                                     }
 
                                     .table-cell:nth-child(2) {
-                                       
+
                                         width: 10%;
                                         min-width: 100px;
 
-                                        
 
-                                        
+
+
 
                                     }
 
@@ -157,14 +162,16 @@
                                         align-items: center;
                                         gap: 10px;
                                         width: 20%;
-                                        padding-right:10px;
+                                        padding-right: 10px;
                                         min-width: 190px;
-                                        img {   
+
+                                        img {
                                             width: 50px;
                                             height: 50px;
 
                                         }
-                                        .no-picture{
+
+                                        .no-picture {
                                             width: 50px;
                                             height: 50px;
                                             background-color: orange;
@@ -220,122 +227,138 @@
                                         width: 15%;
                                         min-width: 170px;
                                     }
+
                                     .table-cell:nth-child(8) {
                                         width: 10%;
                                         min-width: 140px;
-                                        display:flex;
+                                        display: flex;
                                         align-items: center;
                                         justify-content: space-between;
+
                                         .action-p {
                                             display: flex;
                                             align-items: center;
                                             width: fit-content;
-                                            
-                                           
-                                            width:90px;
-                                            button{
-                                                display:flex;
+
+
+                                            width: 90px;
+
+                                            button {
+                                                display: flex;
                                                 align-items: center;
-                                                width:90px;
+                                                width: 90px;
                                                 justify-content: center;
-                                                gap:5px;
-                                                height:35px;
+                                                gap: 5px;
+                                                height: 35px;
                                                 border-radius: 5px;
-                                                border:1px solid;
+                                                border: 1px solid;
                                                 background-color: #f1f1f1;
-                                                border-color:#c1c1c1;
+                                                border-color: #c1c1c1;
+
                                                 span {
                                                     font-size: 0.9rem;
                                                 }
-                                                &:hover{
+
+                                                &:hover {
                                                     background-color: #dadada;
-                                                    cursor:pointer; 
+                                                    cursor: pointer;
                                                 }
-        
+
                                             }
-                                            
+
                                         }
-                                        .flex-col{
+
+                                        .flex-col {
                                             display: flex;
                                             flex-direction: column;
                                             gap: 5px;
+
                                             .action-p {
                                                 display: flex;
                                                 align-items: center;
                                                 width: fit-content;
-                                                
-                                               
-                                                width:90px;
-                                                button{
-                                                    display:flex;
+
+
+                                                width: 90px;
+
+                                                button {
+                                                    display: flex;
                                                     align-items: center;
-                                                    width:90px;
+                                                    width: 90px;
                                                     justify-content: center;
-                                                    gap:5px;
-                                                    height:35px;
+                                                    gap: 5px;
+                                                    height: 35px;
                                                     border-radius: 5px;
-                                                    border:1px solid;
+                                                    border: 1px solid;
                                                     background-color: #f1f1f1;
-                                                    border-color:#c1c1c1;
+                                                    border-color: #c1c1c1;
+
                                                     span {
                                                         font-size: 0.9rem;
                                                     }
-                                                    &:hover{
+
+                                                    &:hover {
                                                         background-color: #dadada;
-                                                        cursor:pointer; 
+                                                        cursor: pointer;
                                                     }
-            
+
                                                 }
-                                                
+
                                             }
-                                            
+
                                         }
-                                        .contain-chev-action{
+
+                                        .contain-chev-action {
                                             .chevron-down-category {
-                                         
-                                                padding:10px;
+
+                                                padding: 10px;
+
                                                 &:hover {
                                                     cursor: pointer;
                                                     background-color: rgb(234, 234, 234);
                                                     color: black;
-    
+
                                                 }
                                             }
-    
+
                                             .chevron-up-category {
                                                 display: none;
-                                                padding:10px;
+                                                padding: 10px;
+
                                                 &:hover {
                                                     cursor: pointer;
-    
+
                                                     color: rgb(185, 185, 185);
                                                 }
                                             }
                                         }
-                                        
+
                                     }
-                                    
+
                                 }
                             }
 
-                            .subcategory-body{
+                            .subcategory-body {
                                 min-width: fit-content;
-                                .no-data{
+
+                                .no-data {
                                     display: flex;
                                     justify-content: center;
                                     align-items: center;
                                     height: 200px;
                                     font-size: 1.2rem;
                                     color: grey;
-                                }   
+                                }
+
                                 .table-group {
                                     .row-category {
                                         display: flex;
                                         align-items: center;
                                     }
                                 }
-                                .table-subcategory-group{
-                                    display:none;
+
+                                .table-subcategory-group {
+                                    display: none;
                                 }
 
                                 .table-row {
@@ -352,19 +375,19 @@
                                     .table-cell:nth-child(1) {
                                         width: 5%;
                                         min-width: 50px;
-                                        
+
 
 
                                     }
 
                                     .table-cell:nth-child(2) {
-                                       
+
                                         width: 10%;
                                         min-width: 100px;
 
-                                        
 
-                                        
+
+
 
                                     }
 
@@ -373,8 +396,9 @@
                                         align-items: center;
                                         gap: 10px;
                                         width: 20%;
-                                        padding-right:10px;
+                                        padding-right: 10px;
                                         min-width: 190px;
+
                                         img {
                                             width: 50px;
                                             height: 50px;
@@ -426,100 +450,113 @@
                                         width: 15%;
                                         min-width: 170px;
                                     }
+
                                     .table-cell:nth-child(8) {
                                         width: 10%;
                                         min-width: 140px;
-                                        display:flex;
+                                        display: flex;
                                         align-items: center;
                                         justify-content: space-between;
+
                                         .action-p {
                                             display: flex;
                                             align-items: center;
                                             width: fit-content;
-                                            
-                                           
-                                            width:90px;
-                                            button{
-                                                display:flex;
+
+
+                                            width: 90px;
+
+                                            button {
+                                                display: flex;
                                                 align-items: center;
-                                                width:90px;
+                                                width: 90px;
                                                 justify-content: center;
-                                                gap:5px;
-                                                height:35px;
+                                                gap: 5px;
+                                                height: 35px;
                                                 border-radius: 5px;
-                                                border:1px solid;
+                                                border: 1px solid;
                                                 background-color: #f1f1f1;
-                                                border-color:#c1c1c1;
+                                                border-color: #c1c1c1;
+
                                                 span {
                                                     font-size: 0.9rem;
                                                 }
-                                                &:hover{
+
+                                                &:hover {
                                                     background-color: #dadada;
-                                                    cursor:pointer; 
+                                                    cursor: pointer;
                                                 }
-        
+
                                             }
-                                            
+
                                         }
-                                        .flex-col{
+
+                                        .flex-col {
                                             display: flex;
                                             flex-direction: column;
                                             gap: 5px;
+
                                             .action-p {
                                                 display: flex;
                                                 align-items: center;
                                                 width: fit-content;
-                                                
-                                               
-                                                width:90px;
-                                                button{
-                                                    display:flex;
+
+
+                                                width: 90px;
+
+                                                button {
+                                                    display: flex;
                                                     align-items: center;
-                                                    width:90px;
+                                                    width: 90px;
                                                     justify-content: center;
-                                                    gap:5px;
-                                                    height:35px;
+                                                    gap: 5px;
+                                                    height: 35px;
                                                     border-radius: 5px;
-                                                    border:1px solid;
+                                                    border: 1px solid;
                                                     background-color: #f1f1f1;
-                                                    border-color:#c1c1c1;
+                                                    border-color: #c1c1c1;
+
                                                     span {
                                                         font-size: 0.9rem;
                                                     }
-                                                    &:hover{
+
+                                                    &:hover {
                                                         background-color: #dadada;
-                                                        cursor:pointer; 
+                                                        cursor: pointer;
                                                     }
-            
+
                                                 }
-                                                
+
                                             }
                                         }
-                                        .contain-chev-action{
+
+                                        .contain-chev-action {
                                             .chevron-down-category {
-                                         
-                                                padding:10px;
+
+                                                padding: 10px;
+
                                                 &:hover {
                                                     cursor: pointer;
                                                     background-color: rgb(234, 234, 234);
                                                     color: black;
-    
+
                                                 }
                                             }
-    
+
                                             .chevron-up-category {
                                                 display: none;
-                                                padding:10px;
+                                                padding: 10px;
+
                                                 &:hover {
                                                     cursor: pointer;
-    
+
                                                     color: rgb(185, 185, 185);
                                                 }
                                             }
                                         }
-                                        
+
                                     }
-                                    
+
                                 }
                             }
 

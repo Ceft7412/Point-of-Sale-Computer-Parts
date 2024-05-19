@@ -72,7 +72,7 @@
             .archive_select_group {
                 width: 140px;
                 height: 30px;
-                    
+
 
                 border: 1px solid grey;
                 cursor: pointer;
@@ -90,7 +90,7 @@
 
             button {
                 position: absolute;
-                right: 0;
+                left: 0;
                 height: 100%;
                 width: 40px;
                 top: 5;
@@ -104,8 +104,8 @@
 
             input {
                 outline: none;
-                padding-left: 10px;
-                padding-right: 45px;
+                padding-left: 45px;
+                padding-right: 10px;
                 border: 1px solid grey;
                 height: 35px;
                 width: 250px;
@@ -146,6 +146,15 @@
                 display: flex;
                 flex-direction: column;
 
+                .no-data {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100px;
+                    font-size: 1.2rem;
+                    color: grey;
+                }
+
                 .tbdy-rw {
                     display: flex;
                     align-items: center;
@@ -173,7 +182,7 @@
 
                         flex-direction: column;
 
-                        button {
+                        .select_update_active_member {
                             display: flex;
                             align-items: center;
                             width: 90px;
@@ -184,19 +193,22 @@
                             border: 1px solid;
 
                             border-color: #c1c1c1;
-                            &:hover{
+
+                            &:hover {
                                 cursor: pointer;
                                 background-color: #dadada;
-                                
+
                             }
+
                             span {
                                 font-size: 0.9rem;
                             }
 
-                            
+
 
 
                         }
+
                         .select_update_active_member {
                             display: flex;
                             align-items: center;
@@ -218,7 +230,8 @@
                                 cursor: pointer;
                             }
                         }
-                        .select_archive_active_member{
+
+                        .select_archive_active_member {
                             display: flex;
                             align-items: center;
                             width: 90px;
@@ -291,14 +304,14 @@
                                         justify-content: flex-end;
 
                                         .btn-yes {
+                                            background-color: rgb(13, 183, 13);
                                             color: white;
-                                            background-color: #393fae;
-                                            cursor: pointer;
+                                            border-color: rgb(13, 183, 13);
 
                                             &:hover {
-                                                background-color: #2e338e;
-
-                                                border-color: #2e338e;
+                                                background-color: rgb(3, 173, 3);
+                                                cursor: pointer;
+                                                border-color: rgb(3, 173, 3);
                                             }
                                         }
                                     }
@@ -313,7 +326,3 @@
         }
     }
 }
-
-
-
-

@@ -17,37 +17,44 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        $employee = $user && $user->type == 2 ? $user : null;
+        try {
+            $user = Auth::user();
+            $employee = $user && $user->type == 2 ? $user : null;
 
 
-        $search = request()->query('search');
+            $search = request()->query('search');
 
-        $categories = Category::where('is_active', 1)->get();
-        $subcategories = Subcategory::where('is_active', 1)->get();
-        $productsQuery = Product::where('is_active', 1);
+            $categories = Category::where('is_active', 1)->get();
+            $subcategories = Subcategory::where('is_active', 1)->get();
+            $productsQuery = Product::where('is_active', 1);
 
-        if ($search) {
-            $productsQuery->where(function ($query) use ($search) {
-                $query->where('product_id', 'like', '%' . $search . '%')
-                    ->orWhere('product_name', 'like', '%' . $search . '%');
-            });
-        } else {
-            $productsQuery->where('product_quantity', '!=', 0);
+            if ($search) {
+                $productsQuery->where(function ($query) use ($search) {
+                    $query->where('product_id', 'like', '%' . $search . '%')
+                        ->orWhere('product_name', 'like', '%' . $search . '%');
+                });
+            } else {
+                $productsQuery->where('product_quantity', '!=', 0);
+            }
+
+            $products = $productsQuery->get();
+
+            return view('employee.order', [
+                'products' => $products,
+                'categories' => $categories,
+                'subcategories' => $subcategories,
+                'employee' => $employee
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred. Please try again.');
         }
 
-        $products = $productsQuery->get();
-
-        return view('employee.order', [
-            'products' => $products,
-            'categories' => $categories,
-            'subcategories' => $subcategories,
-            'employee' => $employee
-        ]);
     }
 
     public function storeOrder(Request $request)
     {
+        
+
 
         $customer = new Customer();
         $customer->customer_id = $this->generateCustomerID();
@@ -108,6 +115,7 @@ class OrderController extends Controller
         }
 
         return redirect()->route('receipt', ['order_id' => $order->id])->with('success', 'Order completed.');
+
     }
     public function checkMembershipCardNumber(Request $request)
     {
@@ -128,7 +136,7 @@ class OrderController extends Controller
     {
         $product = Product::find($id);
         return response()->json($product);
-    }   
+    }
 
     public function generateCustomerID()
     {

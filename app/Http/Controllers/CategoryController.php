@@ -15,29 +15,21 @@ class CategoryController extends Controller
     {
         $search = request()->query('search');
         if ($search) {
-            $categories = Category::where('is_active', 1)->where('category_id', 'like', '%' . $search . '%')->withCount('subcategories')->get();
-            $subcategoryController = new SubcategoryController();
-            $subcategoryImages = $subcategoryController->getSubcategoryImages();
-            $subcategories = Subcategory::where('is_active', 1)->withCount('products')->get();
-
+            $categories = Category::where('is_active', 1)->where('category_id', 'like', '%' . $search . '%')
+                ->orWhere('category_name', 'like', '%' . $search . '%')
+                ->paginate(5);
             $imageFiles = $this->getCategoryImages();
             return view('admin.category')
                 ->with('categories', $categories)
-                ->with('subcategories', $subcategories)
-                ->with('imageFiles', $imageFiles)
-                ->with('subcategoryImages', $subcategoryImages);
+                ->with('imageFiles', $imageFiles);
+
         } else {
-            $categories = Category::where('is_active', 1)->withCount('subcategories')->get();
-            $subcategoryController = new SubcategoryController();
-            $subcategoryImages = $subcategoryController->getSubcategoryImages();
-            $subcategories = Subcategory::where('is_active', 1)->get();
-
+            $categories = Category::where('is_active', 1)->paginate(5);
             $imageFiles = $this->getCategoryImages();
             return view('admin.category')
                 ->with('categories', $categories)
-                ->with('subcategories', $subcategories)
-                ->with('imageFiles', $imageFiles)
-                ->with('subcategoryImages', $subcategoryImages);
+                ->with('imageFiles', $imageFiles);
+
         }
 
 
@@ -59,8 +51,9 @@ class CategoryController extends Controller
         $category->category_description = $request->category_description;
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
-            $imagePath = $image->store('public/category_images');
-            $category->category_image = basename($imagePath);
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/category_images'), $filename);
+            $category->category_image = $filename;
         }
         do {
             $category_id = rand(100000, 999999);
@@ -76,21 +69,19 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $request->validate([
-            'category_name' => 'required',
+            'category_name' => 'required|unique:categories',
         ]);
         $category->category_name = $request->category_name;
         $category->category_description = $request->category_description;
 
         if ($request->filled('selected_image')) {
-            // Extract the image name from the full path
             $imageName = basename($request->selected_image);
-
-            // Assign the image name to $category->category_image
             $category->category_image = $imageName;
         } elseif ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
-            $imagePath = $image->store('public/category_images');
-            $category->category_image = basename($imagePath);
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('storage/category_images'), $filename);
+            $category->category_image = $filename;
         }
         $category->save();
 
@@ -133,7 +124,9 @@ class CategoryController extends Controller
     {
         $search = request()->query('search');
         if ($search) {
-            $archivedCategories = Category::where('is_active', 0)->where('category_id', 'like', '%' . $search . '%')->get();
+            $archivedCategories = Category::where('is_active', 0)->where('category_id', 'like', '%' . $search . '%')
+                ->orWhere('category_name', 'like', '%' . $search . '%')
+                ->paginate(5);
             $archivedSubcategories = Subcategory::where('is_active', 0)->get();
             return view('admin.archive.archive-category')
                 ->with('archivedCategories', $archivedCategories)
@@ -147,10 +140,11 @@ class CategoryController extends Controller
         }
 
     }
-    
 
-    
-    public function checkCategory($id){
+
+
+    public function checkCategory($id)
+    {
         $category = Category::findOrFail($id);
         return response()->json($category);
     }
@@ -205,9 +199,11 @@ class CategoryController extends Controller
     }
     public function getCategoryImages()
     {
-        $imagePaths = Storage::disk('public')->files('category_images');
+        $imagePaths = glob(public_path('storage/category_images/*'));
         $imageFiles = array_map(function ($path) {
-            return asset('storage/' . $path);
+            $relativePath = str_replace(public_path(), '', $path);
+            $relativePath = str_replace('\\', '/', $relativePath);
+            return asset($relativePath);
         }, $imagePaths);
 
         return $imageFiles;

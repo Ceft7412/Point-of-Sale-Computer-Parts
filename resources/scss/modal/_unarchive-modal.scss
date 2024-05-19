@@ -1,4 +1,4 @@
-.unarchive-modal-wrapper{
+.unarchive-modal-wrapper {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -10,96 +10,110 @@
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.2);
-    .modal-card-wrapper{
+
+    .modal-card-wrapper {
         background-color: #fefefe;
         margin: auto;
 
         animation: slideDown 0.3s ease-out;
-        width:35%;
+        width: 35%;
         border-radius: 8px;
 
-        .heading{
-            display:flex;
+        .heading {
+            display: flex;
             justify-content: space-between;
-            gap:10px;
-            padding:18px 20px;    
-            .text-left{
-                display:flex;
-                flex-direction: column;
-                font-size:1.3rem;
+            gap: 10px;
+            padding: 18px 20px;
 
-                .small{
-                    display:flex;
-                        
-                    font-size:0.9rem;
-                    color:grey;
-                    .bi{
+            .text-left {
+                display: flex;
+                flex-direction: column;
+                font-size: 1.3rem;
+
+                .small {
+                    display: flex;
+
+                    font-size: 0.9rem;
+                    color: grey;
+
+                    .bi {
                         font-size: 0.8rem;
                         padding-right: 3px;
                     }
                 }
-               
+
             }
-            .bi{
-                font-size:1.3rem;
-                cursor:pointer; 
-                &:hover{
-                    color:grey;
+
+            .bi {
+                font-size: 1.3rem;
+                cursor: pointer;
+
+                &:hover {
+                    color: grey;
                 }
             }
         }
-        .unarchiveForm{
-            .body{
+
+        .unarchiveForm {
+            .body {
                 background-color: #f1f1f1;
-                padding:20px;  
-                border-top:1px solid rgba(171, 170, 170, 0.788); 
-                border-bottom:1px solid rgba(171, 170, 170, 0.788);
-                .text{
-                    display:flex;
-                    select{
-                        border:1px solid #c1c1c1;
-                        border-radius:5px;
-                        padding:5px;
+                padding: 20px;
+                border-top: 1px solid rgba(171, 170, 170, 0.788);
+                border-bottom: 1px solid rgba(171, 170, 170, 0.788);
 
-                        
+                .text {
+                    display: flex;
 
-                        width:100%;
+                    select {
+                        border: 1px solid #c1c1c1;
+                        border-radius: 5px;
+                        padding: 5px;
+
+
+
+                        width: 100%;
                     }
                 }
             }
-            .footer{
-                padding:20px; 
-                display:flex;
-                gap:10px;
-                justify-content:flex-end;
-                button{
-                    width:170px;
-                    height:40px;
-                    border-radius:5px;
-                    border:1px solid;
-                    
+
+            .footer {
+                padding: 20px;
+                display: flex;
+                gap: 10px;
+                justify-content: flex-end;
+
+                button {
+                    width: 170px;
+                    height: 40px;
+                    border-radius: 5px;
+                    border: 1px solid;
+
                 }
-                .cancel-archive{
+
+                .cancel-archive {
                     background-color: #f1f1f1;
-                    border-color:#c1c1c1;
-                    &:hover{
+                    border-color: #c1c1c1;
+
+                    &:hover {
                         background-color: #dadada;
-                        cursor:pointer; 
+                        cursor: pointer;
                     }
                 }
-                .confirm-archive{
-                    background-color: #393fae;
-                    color:white;
-                    border-color:#393fae;
-                    &:hover{
-                        background-color: #2e338e;
-                        cursor:pointer; 
-                        border-color:#2e338e;
+
+                .confirm-archive {
+                    background-color: rgb(13, 183, 13);
+                    color: white;
+                    border-color: rgb(13, 183, 13);
+
+                    &:hover {
+                        background-color: rgb(3, 173, 3);
+                        cursor: pointer;
+                        border-color: rgb(3, 173, 3);
                     }
                 }
             }
         }
-        
+
     }
 }
 

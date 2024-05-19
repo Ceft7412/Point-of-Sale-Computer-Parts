@@ -19,7 +19,7 @@
 
             {{-- Employee name to be displayed right-side corner --}}
             <div class="item-wrapper">
-                
+
                 <div class="item text-name">
                     <span class="">
                         {{ $employee->name }}
@@ -146,7 +146,7 @@
                                     <div class="item">
                                         <input readonly type="text" name="order_total" class="value-total">
                                         <input readonly type="text" class="change-value">
-                                        
+
                                         <input type="hidden" name="order_change" id="change_value">
                                     </div>
                                 </div>
@@ -220,35 +220,41 @@
 
 
                                 </div>
-                                
+
                                 <div class="membership">
                                     <span class="c-mc" id="av-mem-card">Membership Card</span>
                                     <div class="membership-modal-wrapper">
 
                                         <div class="membership-modal">
-                                                <div class="membership-modal-flex">
-                                                 
-                                                    <div class="heading">
-                                                        <span class="txt-h">Apply Membership Card</span>
-                                                    </div>
-                                                    <div class="body">
-                                                        <label for="#">Enter membership card number:</label>
-                                                        <div class="fl-row-mem-card">
-                                                            <input type="number" name="membership_card_number" id="membership_card_number" class="input-id">
-                                                            <button type="button" id="check_membership_card_number">Check</button>
-                                                        </div>
-                                                        <span class="membership_card_number_success" id="membership_card_number_success"></span>
-                                                        <span class="membership_card_number_error" id="membership_card_number_error"></span>
-                                                    </div>
-                                                    <div class="footer">
-                                                        <button type="button" class="cancel-button-membership">Cancel</button>
-                                                        <button type="button" class="apply-button" id="apply_membership_card_number">Apply</button>
-                                                    </div>
+                                            <div class="membership-modal-flex">
+
+                                                <div class="heading">
+                                                    <span class="txt-h">Apply Membership Card</span>
                                                 </div>
+                                                <div class="body">
+                                                    <label for="#">Enter membership card number:</label>
+                                                    <div class="fl-row-mem-card">
+                                                        <input type="number" name="membership_card_number"
+                                                            id="membership_card_number" class="input-id">
+                                                        <button type="button"
+                                                            id="check_membership_card_number">Check</button>
+                                                    </div>
+                                                    <span class="membership_card_number_success"
+                                                        id="membership_card_number_success"></span>
+                                                    <span class="membership_card_number_error"
+                                                        id="membership_card_number_error"></span>
+                                                </div>
+                                                <div class="footer">
+                                                    <button type="button"
+                                                        class="cancel-button-membership">Cancel</button>
+                                                    <button type="button" class="apply-button"
+                                                        id="apply_membership_card_number">Apply</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
 
                             </div>
@@ -267,24 +273,29 @@
                                                 <div class="customer-modal-body">
                                                     <div class="item">
                                                         <label for="customer_name">Name:</label>
-                                                        <input type="text" name="customer_name" id="customer_name" class="input-customer">
+                                                        <input type="text" name="customer_name" id="customer_name"
+                                                            class="input-customer">
                                                     </div>
                                                     <div class="item">
                                                         <label for="customer_name">Email:</label>
-                                                        <input type="text" name="customer_email" id="customer_email" class="input-customer">
+                                                        <input type="text" name="customer_email" id="customer_email"
+                                                            class="input-customer">
                                                     </div>
                                                     <div class="item">
                                                         <label for="customer_contact">Contact:</label>
-                                                        <input type="text" name="customer_contact" id="customer_phone" class="input-customer">
+                                                        <input type="text" name="customer_contact" id="customer_phone"
+                                                            class="input-customer">
                                                     </div>
 
                                                 </div>
                                                 <div class="customer-modal-footer">
                                                     <div class="item">
-                                                        <button type="button" class="cancel-button-customer">Cancel</button>
-                                                        <button type="submit" class="apply-button-customer">Pay Now</button>
+                                                        <button type="button"
+                                                            class="cancel-button-customer">Cancel</button>
+                                                        <button type="submit" class="apply-button-customer">Pay
+                                                            Now</button>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +353,7 @@
                 <div class="item components">
                     <div class="products-text">
 
-                        <a href="{{route('membership')}}" class="big-text">Request Membership</a>
+                        <a href="{{ route('membership') }}" class="big-text">Request Membership</a>
 
                     </div>
 
@@ -367,13 +378,13 @@
                         @forelse ($categories as $category)
 
                             <div class="item-category category-group" data-category-id="{{ $category->id }}">
-                                <img src="{{ Storage::url('public/category_images/'.$category->category_image) }}"
+                                <img src="{{ asset('storage/category_images/' . $category->category_image) }}"
                                     alt="{{ $category->category_name }}">
                                 <span class="label">{{ $category->category_name }}</span>
                             </div>
 
 
-                            <div class="item-subcategory subcategory-group"  id="subcategory-order-{{ $category->id }}">
+                            <div class="item-subcategory subcategory-group" id="subcategory-order-{{ $category->id }}">
                                 <div class="back" id="back_category">
                                     <i class="bi bi-chevron-left"></i>
                                     <span class="text-back">Back</span>
@@ -382,7 +393,7 @@
                                     @if ($subcategory->category_id == $category->id)
                                         <div class="single-item" id="subcategory-order-{{ $subcategory->category_id }}"
                                             data-subcategory-id="{{ $subcategory->id }}">
-                                            <img src="{{ Storage::url('public/subcategory_images/'.$subcategory->subcategory_image) }}"
+                                            <img src="{{ asset('storage/subcategory_images/' . $subcategory->subcategory_image) }}"
                                                 alt="{{ $subcategory->subcategory_name }}">
                                             <span class="label">{{ $subcategory->subcategory_name }}</span>
                                         </div>
@@ -406,14 +417,16 @@
 
                 <div class="o-flex-body">
                     @foreach ($products as $product)
-                        <form action="/product/item/{{ $product->id }}" method="POST" data-subcategory-id="{{ $product->subcategory_id }}" data-category-id="{{$product->category_id}}"  class="product-item"
+                        <form action="/product/item/{{ $product->id }}" method="POST"
+                            data-subcategory-id="{{ $product->subcategory_id }}"
+                            data-category-id="{{ $product->category_id }}" class="product-item"
                             data-product-id="{{ $product->id }}">
                             @csrf
                             <div class="header-product">
                                 <span class="price-product" id="price_product">₱{{ $product->product_price }}</span>
                             </div>
                             <div class="body-product">
-                                <img src="{{ Storage::url('public/product_images/'.$product->product_image) }}"
+                                <img src="{{ asset('storage/product_images/' . $product->product_image) }}"
                                     alt="{{ $product->product_name }}" class="">
 
                             </div>

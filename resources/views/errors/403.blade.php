@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="error-wrapper">
+    <div class="error-wrapper-no">
 
 
         <div class="error-content">

@@ -1720,6 +1720,38 @@ a, a:visited, a:hover {
   display: block;
 }
 
+.error-wrapper-no {
+  padding: 20px;
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  border-left: 5px solid red;
+  background-color: #f8d7da;
+  color: red;
+}
+.error-wrapper-no .error-modal {
+  width: 100%;
+}
+.error-wrapper-no .error-modal .body {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.error-wrapper-no .error-modal .body .bi-x-lg {
+  color: black;
+  cursor: pointer;
+}
+.error-wrapper-no .error-modal .body .bi-x-lg:hover {
+  color: red;
+}
+.error-wrapper-no .error-modal .body .text span {
+  display: block;
+}
+
 .parent-wrapper .c-wrapper .c-heading-wrapper {
   padding: 20px 30px;
   display: flex;

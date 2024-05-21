@@ -69,7 +69,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $request->validate([
-            'category_name' => 'required|unique:categories',
+            'category_name' => ['required', 'unique:categories,category_name,' . $id],
         ]);
         $category->category_name = $request->category_name;
         $category->category_description = $request->category_description;
@@ -205,7 +205,6 @@ class CategoryController extends Controller
             $relativePath = str_replace('\\', '/', $relativePath);
             return asset($relativePath);
         }, $imagePaths);
-
         return $imageFiles;
     }
 

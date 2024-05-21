@@ -24,9 +24,7 @@ class AdminMembershipController extends Controller
             $activeMembers = Member::where('membership_status', 'Accepted')->where('is_active', 1)->paginate(5);
             return view("admin.membership")->with('activeMembers', $activeMembers);
         }
-
     }
-
     public function redirectArchiveMember()
     {
         $search = request()->query('search');
@@ -82,7 +80,7 @@ class AdminMembershipController extends Controller
         $request->validate([
             'membership_name' => 'required|string|max:255',
             'membership_email' => ['required', 'email', 'max:255', 'unique:members,membership_email,' . $id],
-            'membership_phone' => ['required', 'integer', 'unique:members,membership_phone,' . $id],
+            'membership_phone' => ['required', 'string', 'unique:members,membership_phone,' . $id],
         ]);
         $member = Member::findOrfail($id);
         $member->membership_name = $request->membership_name;

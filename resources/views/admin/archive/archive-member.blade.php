@@ -241,7 +241,7 @@
             </div>
         @endforeach
     @endif
-    {{-- *SUCCESS --}}
+    {{-- *SUCCESS MODAL --}}
     @if (session('success'))
         <div class="success-modal">
             <div class="success-modal">

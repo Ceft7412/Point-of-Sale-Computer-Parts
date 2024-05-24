@@ -46,7 +46,7 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
-            'verify_peer'       => false,
+            'verify_peer' => false,
         ],
 
         'ses' => [
@@ -105,7 +105,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'cedrick.caceres741@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'example@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Hello'),
     ],
 

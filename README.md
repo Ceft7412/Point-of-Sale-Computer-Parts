@@ -1,4 +1,4 @@
-## <div align="center">
+ <div align="center">
   <h2>Point of Sale System using Laravel Breeze</h2>
 </div>
 

@@ -87,13 +87,14 @@ Admin Password: admin
 
 ### Screenshots
 
+#### Login Page
 <div align="center">
   <img src="screenshots/login-page.png" alt="Login Page" width="600">
   <p>Login View</p>
 </div>
 
 
-## Admin Pages
+#### Admin Pages
 <div align="center">
   <img src="screenshots/admin-dashboard.png" alt="Admin Overview" width="600">
   <p>Overview View</p>

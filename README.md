@@ -156,6 +156,10 @@ Admin Password: admin
   <p>Cashier Pay View</p>
 </div>
 <div align="center">
+  <img src="screenshots/cashier-receipt.png" alt="Cashier Receipt" width="600">
+  <p>Cashier Receipt View</p>
+</div>
+<div align="center">
   <img src="screenshots/cashier-apply.png" alt="Cashier Apply" width="600">
   <p>Cashier Apply View</p>
 </div>

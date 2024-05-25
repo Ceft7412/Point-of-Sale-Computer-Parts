@@ -174,3 +174,5 @@ Admin Password: admin
 cedrick.caceres741@gmail.com
    
 
+
+Feel free to customize this template further to fit your specific project details and requirements.

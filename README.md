@@ -62,6 +62,10 @@ To get a local copy up and running follow these simple steps:
    php artisan migrate
    ```
 
+   ```sh
+   php artisan db:seed --class=AdminUserSeeder
+   ```
+
 8. Serve the application
 
    ```sh

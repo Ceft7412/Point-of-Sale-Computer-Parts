@@ -88,7 +88,7 @@ Admin Password: admin
 ### Screenshots
 
 <div align="center">
-  <img src="path/to/screenshot1.png" alt="Dashboard Screenshot" width="600">
+  <img src="screenshots/admin-dashboard.png" alt="Admin Overview" width="600">
   <p>Dashboard View</p>
 </div>
 

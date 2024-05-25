@@ -26,7 +26,71 @@ To get a local copy up and running follow these simple steps:
    or download the zip file and extract it to your desired directory.
    
 2. Navigate to the project directory
-   cd Point-of-Sale-Computer-Parts
 
-3. 
+   ```sh
+   cd Point-of-Sale-Computer-Parts
+   ```
+
+3. Install PHP dependencies
+
+   ```sh
+   composer install
+   ```
+
+4. Install NPM package
+
+   ```sh
+   npm install
+    npm run dev
+   ```
+
+5. Copy the example environment file(.env.example and create and set up your environment variables in the root folder(.env)
+
+   ```sh
+   cp .env.example .env
+   ```
+
+6. Generate an application key
+
+   ```sh
+   php artisan key:generate
+   ```
+
+7. Set up your database configuration in the .env file and run the migrations
+
+   ```sh
+   php artisan migrate
+   ```
+
+8. Serve the application
+
+   ```sh
+   php artisan serve
+   ```
+
+### Usage
+```
+php artisan serve
+```
+
+Then, open your browser and go to http://localhost:8000.
+
+### Login using Default Admin
+
+Admin Username: admin
+Admin Password: admin
+
+
+### Screenshots
+
+<div align="center">
+  <img src="path/to/screenshot1.png" alt="Dashboard Screenshot" width="600">
+  <p>Dashboard View</p>
+</div>
+
+
+### Contact
+
+cedrick.caceres741@gmail.com
+   
 

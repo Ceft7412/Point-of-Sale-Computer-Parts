@@ -131,6 +131,11 @@ Admin Password: admin
 </div>
 
 <div align="center">
+  <img src="screenshots/admin-membership.png" alt="Admin Membership" width="600">
+  <p>Membership View</p>
+</div>
+
+<div align="center">
   <img src="screenshots/admin-add.png" alt="Admin Add" width="600">
   <p>Add View</p>
 </div>
@@ -140,6 +145,24 @@ Admin Password: admin
   <p>Update View</p>
 </div>
 
+#### Employee's/Cashier's Page
+
+<div align="center">
+  <img src="screenshots/cashier-page.png" alt="Cashier" width="600">
+  <p>Cashier View</p>
+</div>
+<div align="center">
+  <img src="screenshots/cashier-pay.png" alt="Cashier Pay" width="600">
+  <p>Cashier Pay View</p>
+</div>
+<div align="center">
+  <img src="screenshots/cashier-apply.png" alt="Cashier Apply" width="600">
+  <p>Cashier Apply View</p>
+</div>
+<div align="center">
+  <img src="screenshots/cashier-request.png" alt="Cashier Request" width="600">
+  <p>Cashier Request View</p>
+</div>
 ### Contact
 
 cedrick.caceres741@gmail.com

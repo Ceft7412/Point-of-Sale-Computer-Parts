@@ -167,7 +167,9 @@ Admin Password: admin
   <img src="screenshots/cashier-request.png" alt="Cashier Request" width="600">
   <p>Cashier Request View</p>
 </div>
-### Contact
+
+
+## Contact
 
 cedrick.caceres741@gmail.com
    
